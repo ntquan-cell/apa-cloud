@@ -23,7 +23,7 @@ export default function ContactForm({ type }: { type: "lien-he" | "demo" }) {
       </div>
       {type === "demo" && (
         <div><label>Bạn là</label>
-          <select name="role"><option>Người dân</option><option>Doanh nghiệp</option><option>Cơ quan nhà nước</option><option>Khác</option></select></div>
+          <select name="role"><option>Người dân</option><option>Doanh nghiệp</option><option>Tổ chức</option><option>Khác</option></select></div>
       )}
       <div><label>Nội dung</label><textarea name="message" rows={4} /></div>
       <button className="btn pill" disabled={s === "busy"}>{s === "busy" ? "Đang gửi…" : type === "demo" ? "Đăng ký demo" : "Gửi liên hệ"}</button>
