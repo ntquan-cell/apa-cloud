@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="wrap fcols">
-        <div><b>{SITE.full}</b><p>Giúp người dân, doanh nghiệp và cơ quan nhà nước làm thủ tục nhanh, chuẩn, minh bạch.</p>
+        <div><b>{SITE.full}</b><p>Giúp người dân, doanh nghiệp và tổ chức làm thủ tục nhanh, chuẩn, minh bạch.</p>
           <p>☎ {SITE.phone}<br />✉ {SITE.email}</p></div>
         <div><b>Sản phẩm</b><Link href="/thu-tuc">Thủ tục</Link><Link href="/tro-ly">Trợ lý AI</Link><Link href="/nhac-nho">Nhắc hạn</Link><Link href="/bang-gia">Bảng giá</Link></div>
         <div><b>Công ty</b><Link href="/gioi-thieu">Giới thiệu</Link><Link href="/blog">Blog</Link><Link href="/lien-he">Liên hệ</Link><Link href="/dang-ky-demo">Đăng ký demo</Link></div>
