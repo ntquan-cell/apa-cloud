@@ -16,9 +16,9 @@ export default function Header() {
           <div className="dd"><span tabIndex={0}>Giải pháp ▾</span>
             <div className="dd-m">
               <Link href="/giai-phap#nguoi-dan">Cho người dân</Link><Link href="/giai-phap#doanh-nghiep">Cho doanh nghiệp</Link>
-              <Link href="/giai-phap#co-quan">Cho cơ quan nhà nước</Link><Link href="/giai-phap#nuoc-ngoai">Cho người Việt ở nước ngoài</Link>
+              <Link href="/giai-phap#co-quan">Cho tổ chức</Link><Link href="/giai-phap#nuoc-ngoai">Cho người Việt ở nước ngoài</Link>
             </div></div>
-          <Link href="/bang-gia">Bảng giá</Link><Link href="/blog">Blog</Link><Link href="/tai-app">Tải app</Link><Link href="/gioi-thieu">Giới thiệu</Link>
+          <Link href="/blog">Blog</Link><Link href="/tai-app">Tải app</Link><Link href="/gioi-thieu">Giới thiệu</Link>
         </nav>
         <SeniorToggle />
         <Link href="/dang-nhap">Đăng nhập</Link>
