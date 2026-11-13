@@ -1,4 +1,4 @@
-# APA – Trợ lý hành chính số (bản hoàn chỉnh)
+# APA – Trợ lý hành chính số 
 
 Website Next.js 15 + React 19 + TypeScript. Gồm: trang chủ, thư viện 36 thủ tục (6 nhóm), trợ lý AI,
 hồ sơ & tờ khai tự điền, nhắc hạn giấy tờ, tìm cơ quan, sản phẩm, giải pháp, bảng giá, blog,
@@ -47,5 +47,6 @@ Vào vercel.com → Add New Project → chọn repo → thêm biến môi trư�
 Settings → Domains → thêm tên miền và trỏ DNS theo hướng dẫn.
 
 ## Lưu ý
-Thông tin thủ tục mang tính tham khảo, cần đối chiếu với Cổng Dịch vụ công quốc gia trước khi công bố.
-Hai trang Chính sách bảo mật và Điều khoản là văn bản mẫu, nên nhờ luật sư rà soát.
+Chúng tôi luôn nỗ lực cập nhật thông tin thủ tục bám sát Cổng Dịch vụ công quốc gia.
+Nếu bạn gặp vướng mắc hoặc cần xác nhận thông tin cho trường hợp riêng của mình.
+Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng đồng hành và giải đáp!
