@@ -16,7 +16,5 @@ export default function Page() {
         <div><label>Khu vực (phường/xã, quận/huyện, tỉnh)</label><input value={area} onChange={(e) => setArea(e.target.value)} placeholder="Ví dụ: Cầu Giấy, Hà Nội" /></div>
         <a className="btn pill" href={url} target="_blank" rel="noreferrer">Mở Google Maps</a>
       </div>
-      <div className="note">Giờ làm việc thường là các ngày hành chính; một số nơi làm sáng thứ Bảy. Hãy gọi hoặc xem Cổng DVC để đặt lịch và xác nhận giờ trước khi đến.</div>
-    </div>
   );
 }
