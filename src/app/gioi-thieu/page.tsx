@@ -1,274 +1,4 @@
 
-Tiếp tục từ
-Đẩy HTML lên mạng (1)
-23:15:49.033 Failed to compile.
-23:15:49.034 Error:   x Unexpected token. Did you mean {'}'} or &rbrace;?
-23:15:49.034     ,-[/vercel/path0/src/app/co-quan/page.tsx:20:1]
-23:15:49.034  17 |         <a className="btn pill" href={url} target="_blank" rel="noreferrer">Mở Google Maps</a>
-23:15:49.034  18 |       </div>
-23:15:49.034  19 |   );
-23:15:49.034  20 | }
-23:15:49.034     : ^
-23:15:49.035     `----
-23:15:49.035   x Unexpected eof
-23:15:49.035     ,-[/vercel/path0/src/app/co-quan/page.tsx:20:3]
-23:15:49.035  18 |       </div>
-23:15:49.035  19 |   );
-23:15:49.035  20 | }
-23:15:49.035     `----
-23:15:49.039 Error:   x Unexpected token. Did you mean {'}'} or &rbrace;?
-23:15:49.040     ,-[/vercel/path0/src/app/dang-ky-demo/page.tsx:17:1]
-23:15:49.040  14 |         </ul>
-23:15:49.040  15 |       </div>
-23:15:49.040  16 |   );
-23:15:49.040  17 | }
-23:15:49.040     : ^
-23:15:49.040     `----
-23:15:49.040   x Unexpected eof
-23:15:49.040     ,-[/vercel/path0/src/app/dang-ky-demo/page.tsx:17:3]
-23:15:49.040  15 |       </div>
-23:15:49.040  16 |   );
-23:15:49.040  17 | }
-23:15:49.040     `----
-23:15:49.094 Error: [BUILD_UTILS_SPAWN_1] Command "npm run build" exited with 1
-…
-Tôi thấy lỗi rồi. Lần này không còn nằm ở route.ts mà nằm ở 2 tệp TSX khác nhau:
-
-src/app/co-quan/page.tsx – dòng 20.
-
-src/app/dang-ky-demo/page.tsx – dòng 17.
-
-Thông báo Unexpected eof thường có nghĩa là bạn đang thiếu dấu đóng trong cấu trúc JSX, chẳng hạn } hoặc ) hoặc thẻ HTML/JSX đóng chưa đủ.
-
-Cách xử lý an toàn
-Đừng xóa hoặc sửa tùy tiện các dòng cuối tệp.
-
-Bước 1: Mở tệp thứ nhất:
-
-Mở co-quan/page.tsx trên GitHub 
-
-Sao chép toàn bộ nội dung tệp và gửi vào đây.
-
-Bước 2: Mở tệp thứ hai:
-
-Mở dang-ky-demo/page.tsx trên GitHub 
-
-Sao chép toàn bộ nội dung và gửi tiếp.
-
-Tôi sẽ sửa lại chính xác cả hai tệp để bạn chỉ cần thay nội dung cũ bằng nội dung mới.
-
-Lưu ý: Hai lỗi này có thể do thiếu dấu đóng ở phía trên dòng cuối, không nhất thiết là lỗi tại dòng 20 và dòng 17. Chúng ta cần xem toàn bộ code mới sửa được chính xác.
-
-import ContactForm from "@/components/ContactForm";
-export const metadata = { title: "Đăng ký", description: "Đăng ký trải nghiệm demo APA – trợ lý hành chính số." };
-export default function Page() {
-  return (
-    <div className="wrap narrow" style={{ padding: "40px 20px" }}>
-      <h2>Đăng ký </h2>
-      <p>Để lại thông tin, đội ngũ APA sẽ liên hệ và trình diễn giải pháp phù hợp với nhu cầu của bạn.</p>
-      <div className="card" style={{ marginBottom: 16 }}>
-        <h3>Bạn sẽ được</h3>
-        <ul style={{ color: "#41506b" }}>
-          <li>Xem trực tiếp cách tra cứu thủ tục, chuẩn bị hồ sơ và hỏi đáp với trợ lý AI.</li>
-          <li>Trao đổi nhu cầu riêng của cá nhân, doanh nghiệp hoặc tổ chức của bạn đang gặp phải.</li>
-          <li>Nhận tư vấn xử lý hồ sơ với luật sư trực tuyến.</li>
-        </ul>
-      </div>
-  );
-}
-…
-Tôi tìm thấy lỗi rồi! Trong tệp dang-ky-demo/page.tsx, bạn đang thiếu 2 thẻ đóng </div> trước dấu );.
-
-Bạn hãy thay toàn bộ nội dung tệp bằng đoạn code đã sửa dưới đây.
-
-
-import ContactForm from "@/components/ContactForm";
-
-export const metadata = {
-  title: "Đăng ký",
-  description: "Đăng ký trải nghiệm demo APA – trợ lý hành chính số.",
-};
-
-export default function Page() {
-  return (
-    <div className="wrap narrow" style={{ padding: "40px 20px" }}>
-      <h2>Đăng ký</h2>
-      <p>
-        Để lại thông tin, đội ngũ APA sẽ liên hệ và trình diễn giải pháp phù hợp
-        với nhu cầu của bạn.
-      </p>
-
-      <div className="card" style={{ marginBottom: 16 }}>
-        <h3>Bạn sẽ được</h3>
-        <ul style={{ color: "#41506b" }}>
-          <li>
-            Xem trực tiếp cách tra cứu thủ tục, chuẩn bị hồ sơ và hỏi đáp với trợ lý AI.
-          </li>
-          <li>
-            Trao đổi nhu cầu riêng của cá nhân, doanh nghiệp hoặc tổ chức của bạn đang gặp phải.
-          </li>
-          <li>
-            Nhận tư vấn xử lý hồ sơ với luật sư trực tuyến.
-          </li>
-        </ul>
-      </div>
-
-      <ContactForm />
-    </div>
-  );
-}
-
-Tiếp theo
-Mở tệp src/app/dang-ky-demo/page.tsx trên GitHub.
-
-Nhấn Edit (biểu tượng cây bút).
-
-Xóa code cũ, dán code mới.
-
-Nhấn Commit changes.
-
-Tôi đã giữ lại nội dung cũ và bổ sung ContactForm vì tệp của bạn đã import thành phần này nhưng chưa hiển thị nó.
-
-Còn lỗi thứ hai ở src/app/co-quan/page.tsx. Bạn gửi toàn bộ nội dung tệp đó cho tôi, tôi sửa tiếp để cả website Build thành công nhé.
-
-"use client";
-import { useState } from "react";
-
-const kinds = ["Bộ phận Một cửa UBND xã/phường", "Công an xã/phường (cư trú, căn cước)", "Phòng Quản lý xuất nhập cảnh", "Chi cục Thuế", "Bảo hiểm xã hội", "Văn phòng đăng ký đất đai", "Trung tâm đăng kiểm"];
-
-export default function Page() {
-  const [kind, setKind] = useState(kinds[0]);
-  const [area, setArea] = useState("");
-  const url = https://www.google.com/maps/search/${encodeURIComponent(${kind} ${area}.trim())};
-  return (
-    <div className="wrap narrow" style={{ padding: "40px 20px" }}>
-      <h2>Tìm cơ quan gần nhất</h2>
-      <p>Chọn loại cơ quan và khu vực của bạn để xem địa điểm, đường đi và giờ làm việc trên bản đồ.</p>
-      <div className="card" style={{ display: "grid", gap: 12 }}>
-        <div><label>Loại cơ quan</label><select value={kind} onChange={(e) => setKind(e.target.value)}>{kinds.map((k) => <option key={k}>{k}</option>)}</select></div>
-        <div><label>Khu vực (phường/xã, quận/huyện, tỉnh)</label><input value={area} onChange={(e) => setArea(e.target.value)} placeholder="Ví dụ: Cầu Giấy, Hà Nội" /></div>
-        <a className="btn pill" href={url} target="_blank" rel="noreferrer">Mở Google Maps</a>
-      </div>
-  );
-}
-…
-Tôi đã tìm thấy lỗi thứ hai rồi! Tệp src/app/co-quan/page.tsx cũng bị thiếu thẻ đóng </div>.
-
-Bạn hãy thay toàn bộ nội dung tệp cũ bằng code dưới đây.
-
-
-"use client";
-
-import { useState } from "react";
-
-const kinds = [
-  "Bộ phận Một cửa UBND xã/phường",
-  "Công an xã/phường (cư trú, căn cước)",
-  "Phòng Quản lý xuất nhập cảnh",
-  "Chi cục Thuế",
-  "Bảo hiểm xã hội",
-  "Văn phòng đăng ký đất đai",
-  "Trung tâm đăng kiểm",
-];
-
-export default function Page() {
-  const [kind, setKind] = useState(kinds[0]);
-  const [area, setArea] = useState("");
-
-  const url = `https://www.google.com/maps/search/${encodeURIComponent(
-    `${kind} ${area}`.trim()
-  )}`;
-
-  return (
-    <div className="wrap narrow" style={{ padding: "40px 20px" }}>
-      <h2>Tìm cơ quan gần nhất</h2>
-
-      <p>
-        Chọn loại cơ quan và khu vực của bạn để xem địa điểm,
-        đường đi và giờ làm việc trên bản đồ.
-      </p>
-
-      <div className="card" style={{ display: "grid", gap: 12 }}>
-        <div>
-          <label>Loại cơ quan</label>
-          <select
-            value={kind}
-            onChange={(e) => setKind(e.target.value)}
-          >
-            {kinds.map((k) => (
-              <option key={k}>{k}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label>Khu vực (phường/xã, quận/huyện, tỉnh)</label>
-          <input
-            value={area}
-            onChange={(e) => setArea(e.target.value)}
-            placeholder="Ví dụ: Cầu Giấy, Hà Nội"
-          />
-        </div>
-
-        <a
-          className="btn pill"
-          href={url}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Mở Google Maps
-        </a>
-      </div>
-    </div>
-  );
-}
-
-Bây giờ bạn làm 3 việc:
-Lưu code mới vào GitHub bằng Commit changes.
-
-Vercel tự động Build lại.
-
-Chờ trạng thái Ready.
-
-Hai lỗi thiếu thẻ đóng trong hai trang đã được sửa trong đoạn code tôi gửi.
-
-Lưu ý: Nếu Build vẫn báo lỗi, gửi tiếp thông báo lỗi mới. Đừng sửa thêm những tệp khác khi chưa xác định nguyên nhân nhé.
-
-export const metadata = { title: "Giới thiệu" };
-export default function Page() {
-  return (
-    <div className="wrap narrow post" style={{ padding: "40px 20px" }}>
-      <h1>Về APA</h1>
-      <p>APA – Trợ lý hành chính số (Administrative Procedure Assistant) là giải pháp trợ lý ảo ứng dụng AI và tự động hóa, hỗ trợ người dân, doanh nghiệp và cơ quan nhà nước thực hiện thủ tục hành chính công nhanh chóng, chuẩn xác và minh bạch.</p>
-      <h2>Tầm nhìn</h2>
-      <p>Trở thành ứng dụng phổ biến giúp mọi công dân tự làm thủ tục dễ dàng, góp phần xây dựng chính phủ số.</p>
-      <h2>Giá trị mang lại</h2>
-      <ul><li>Người dân: hiểu quy trình, chuẩn bị hồ sơ đúng ngay từ đầu.</li><li>Doanh nghiệp: xử lý hồ sơ pháp lý, thuế, giấy phép chính xác và tiết kiệm thời gian.</li><li>Cơ quan nhà nước: giảm áp lực tư vấn và hồ sơ sai sót.</li></ul>
-      <h2>Về logo</h2>
-      <p>Khiên bảo vệ tượng trưng cho tính pháp lý và an toàn dữ liệu; chữ “A” vươn cao cùng dấu kiểm thể hiện chuẩn xác và hoàn thành trọn vẹn. Màu xanh navy và trắng bạc gợi sự tin cậy, minh bạch.</p>
-    </div>
-  );
-}
-viết lại code cho tôi phần giới thiệu này cho hay và ý nghĩa đỡ bị thô cứng và thêm dc animation nưã càng tốt nhé màu sắc cho wed chắc bạn biết rồi tôi muốn làm sao cho sinh đọng và ý nghĩa trang wed
-…
-Tôi đề xuất biến trang Giới thiệu APA thành một trang có cảm xúc và có bản sắc riêng, thay vì chỉ liệt kê APA là gì, tầm nhìn và giá trị.
-
-Định hướng thiết kế:
-
-Xanh navy: thể hiện sự tin cậy, chuyên nghiệp và pháp lý.
-
-Xanh dương sáng: tạo cảm giác công nghệ, hiện đại.
-
-Trắng: thoáng, dễ đọc.
-
-Animation: hiệu ứng xuất hiện nhẹ khi cuộn, các khối nội dung chuyển động mềm mại, điểm sáng công nghệ quanh biểu tượng APA.
-
-Thông điệp xuyên suốt: Công nghệ phục vụ con người, giúp thủ tục hành chính trở nên dễ hiểu và dễ thực hiện hơn.
-
-Dưới đây là code hoàn chỉnh. Bạn thay toàn bộ code cũ trong src/app/gioi-thieu/page.tsx (hoặc đúng tệp đang chứa đoạn code bạn gửi) bằng đoạn này.
-
-Code trang giới thiệu APA mới
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -597,9 +327,140 @@ export default function Page() {
         @media (max-width: 700px) {
           .apa-hero { padding: 58px 20px; }
           .apa-hero-inner { grid-template-columns: 1fr; text-align: center; }
-          .apa-
+          .apa-hero p { margin-left: auto; margin-right: auto; }
+          .apa-orbit { width: 200px; height: 200px; margin-top: 10px; }
+          .apa-core { width: 120px; height: 120px; }
+          .apa-core strong { font-size: 32px; }
+          .apa-grid { grid-template-columns: 1fr; }
+          .apa-section { padding: 55px 18px; }
+          .apa-intro { padding: 24px; }
+          .apa-vision { padding: 35px 22px; }
+        }
 
+        @media (prefers-reduced-motion: reduce) {
+          .apa-reveal { opacity: 1; transform: none; transition: none; }
+          .apa-orbit, .apa-core { animation: none; }
+          .apa-card { transition: none; }
+        }
+      `}</style>
 
+      <section className="apa-hero">
+        <div className="apa-hero-inner">
+          <div style={{
+            animation: visible ? "apa-enter .8s ease both" : "none"
+          }}>
+            <span className="apa-kicker">
+              ADMINISTRATIVE PROCEDURE ASSISTANT
+            </span>
+            <h1>
+              APA – Đồng hành cùng bạn
+              <br />
+              trên hành trình số hóa
+            </h1>
+            <p>
+              Chúng tôi tin rằng thủ tục hành chính không nên là rào cản.
+              APA ra đời với mong muốn đưa công nghệ đến gần hơn với mỗi
+              người dân, doanh nghiệp và tổ chức – để mọi quy trình trở nên
+              dễ hiểu, dễ tiếp cận và thuận tiện hơn.
+            </p>
+          </div>
 
+          <div className="apa-orbit">
+            <div className="apa-core">
+              <strong>APA</strong>
+              <span>TRỢ LÝ SỐ</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <section className="apa-section">
+        <div className="apa-heading apa-reveal">
+          <h2>APA là gì?</h2>
+          <p>
+            Một người bạn đồng hành số, giúp bạn hiểu đúng thông tin,
+            chuẩn bị tốt hơn và chủ động hơn khi thực hiện thủ tục hành chính.
+          </p>
+        </div>
 
+        <div className="apa-intro apa-reveal">
+          <p>
+            APA (Administrative Procedure Assistant) là nền tảng trợ lý
+            hành chính số ứng dụng trí tuệ nhân tạo và công nghệ tự động hóa,
+            hướng đến việc hỗ trợ người dân, doanh nghiệp và tổ chức tiếp cận
+            thông tin, tìm hiểu quy trình và chuẩn bị hồ sơ hành chính một
+            cách thuận tiện hơn. Thay vì phải mất nhiều thời gian tìm kiếm
+            thông tin ở nhiều nơi, người dùng có thể bắt đầu từ một điểm
+            truy cập tập trung, đặt câu hỏi bằng ngôn ngữ tự nhiên và nhận
+            hướng dẫn theo từng bước. APA hướng tới vai trò hỗ trợ, không
+            thay thế cơ quan có thẩm quyền hay các nguồn thông tin pháp lý
+            chính thức.
+          </p>
+        </div>
+      </section>
+
+      <section className="apa-section" style={{ paddingTop: 15 }}>
+        <div className="apa-heading apa-reveal">
+          <h2>Giá trị chúng tôi theo đuổi</h2>
+          <p>
+            Công nghệ chỉ thực sự có ý nghĩa khi tạo ra giá trị thiết thực
+            cho con người.
+          </p>
+        </div>
+
+        <div className="apa-grid">
+          {values.map((item, index) => (
+            <article
+              className={`apa-card apa-reveal apa-delay-${(index % 3) + 1}`}
+              key={item.title}
+            >
+              <div className="apa-icon">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="apa-section" style={{ paddingTop: 10 }}>
+        <div className="apa-vision apa-reveal">
+          <h2>Tầm nhìn của APA</h2>
+          <p>
+            Hướng tới một môi trường hành chính số thân thiện, nơi mỗi người
+            đều có thể tiếp cận thông tin và thực hiện thủ tục một cách chủ
+            động, bình đẳng và thuận tiện. APA mong muốn góp một phần nhỏ
+            vào hành trình xây dựng nền hành chính hiện đại, minh bạch và
+            lấy người dân làm trung tâm.
+          </p>
+        </div>
+      </section>
+
+      <section className="apa-section" style={{ paddingTop: 10 }}>
+        <div className="apa-heading apa-reveal">
+          <h2>APA đồng hành cùng ai?</h2>
+          <p>
+            Mỗi nhóm người dùng có nhu cầu khác nhau. APA hướng đến việc
+            hỗ trợ phù hợp với từng hành trình.
+          </p>
+        </div>
+
+        <div className="apa-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
+          {audiences.map((item) => (
+            <article className="apa-card apa-reveal" key={item.title}>
+              <div className="apa-icon">{item.icon}</div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="apa-section" style={{ paddingTop: 0 }}>
+        <div className="apa-quote apa-reveal">
+          “Đơn giản hóa thủ tục – Minh bạch thông tin – Đưa công nghệ
+          đến gần hơn với mọi người.”
+        </div>
+      </section>
+    </main>
+  );
+}
