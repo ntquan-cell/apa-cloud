@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
   if (!process.env.OPENAI_API_KEY) {
     const reply = hits.length
-      ? `Mình tìm thấy thủ tục phù hợp nhất:\n\n${brief(hits[0])}\n\n(Chưa cấu hình OPENAI_API_KEY nên đây là câu trả lời từ dữ liệu có sẵn.)`
+      ? `Mình tìm thấy thủ tục phù hợp nhất:\n\n${brief(hits[0])}\n\n.)`
       : "Mình chưa có thủ tục phù hợp trong dữ liệu. Bạn thử nêu rõ hơn, ví dụ: “làm căn cước”, “sang tên xe máy”, “đăng ký hộ kinh doanh”.";
     return NextResponse.json({ reply });
   }
@@ -23,13 +23,13 @@ export async function POST(req: Request) {
   try {
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const res = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+      model: process.env.OPENAI_MODEL ||,
       temperature: 0.2,
       messages: [
         {
           role: "system",
           content:
-            "Bạn là APA – trợ lý hành chính số cho người dân Việt Nam. Trả lời bằng tiếng Việt, ngắn gọn, dễ hiểu, theo từng bước. " +
+            "Bạn là APA – trợ lý hành chính số cho người dân Việt Nam. Trả lời ngắn gọn, dễ hiểu, theo từng bước. " +
             "Ưu tiên dùng DỮ LIỆU THAM KHẢO bên dưới; nếu thiếu thông tin thì nói rõ và khuyên kiểm tra Cổng dịch vụ công quốc gia hoặc cơ quan tiếp nhận. " +
             "Không bịa số tiền, thời hạn, điều luật. Trường hợp phức tạp (tranh chấp, đất đai) khuyên gặp luật sư.\n\nDỮ LIỆU THAM KHẢO:\n" +
             (context || "(không có)"),
