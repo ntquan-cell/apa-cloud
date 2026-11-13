@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 const values = [
   {
     icon: "⚖️",
@@ -286,6 +286,7 @@ export default function Page() {
         .apa-vision h2 {
           font-size: 30px;
           margin: 0 0 18px;
+          color: #ffffff;
         }
 
         .apa-vision p {
