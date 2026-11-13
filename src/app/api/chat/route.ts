@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       : "Mình chưa có thủ tục phù hợp trong dữ liệu. Bạn thử nêu rõ hơn, ví dụ: “làm căn cước”, “sang tên xe máy”, “đăng ký hộ kinh doanh”.";
     return NextResponse.json({ reply });
   }
-
+  
   try {
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const res = await client.chat.completions.create({
