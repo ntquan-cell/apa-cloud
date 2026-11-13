@@ -3,8 +3,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Bảng giá | APA - Trợ lý hành chính số",
-  description:
-    "Các gói dịch vụ APA dành cho cá nhân và doanh nghiệp.",
+  description: "Các gói dịch vụ APA dành cho cá nhân và doanh nghiệp.",
 };
 
 const plans = [
@@ -50,19 +49,18 @@ const plans = [
 export default function BangGiaPage() {
   return (
     <main className="pricing-page">
-      <section className="hero">
-        <div className="hero-background">
-          <div className="light light-one" />
-          <div className="light light-two" />
-          <div className="light light-three" />
-          <div className="hero-grid" />
+      <section className="pricing-hero">
+        <div className="hero-decoration">
+          <div className="hero-glow glow-one" />
+          <div className="hero-glow glow-two" />
+          <div className="hero-line" />
         </div>
 
-        <div className="container hero-content">
-          <span className="eyebrow">
-            <span className="eyebrow-dot" />
+        <div className="pricing-container hero-inner">
+          <div className="eyebrow">
+            <span className="live-dot" />
             APA DIGITAL ASSISTANT
-          </span>
+          </div>
 
           <h1>
             Chi phí hợp lý,
@@ -75,72 +73,70 @@ export default function BangGiaPage() {
             thủ tục hành chính hiệu quả với APA.
           </p>
 
-          <a href="#plans" className="hero-button">
+          <a href="#plans" className="hero-cta">
             Khám phá các gói dịch vụ
-            <span className="button-arrow">↓</span>
+            <span>↓</span>
           </a>
 
-          <div className="hero-bottom">
+          <div className="hero-benefits">
             <span>Đơn giản hóa thủ tục</span>
-            <span className="hero-separator" />
+            <i />
             <span>Tối ưu thời gian</span>
-            <span className="hero-separator" />
+            <i />
             <span>Đồng hành cùng bạn</span>
           </div>
         </div>
       </section>
 
-      <section className="plans-section" id="plans">
-        <div className="container">
+      <section className="pricing-main" id="plans">
+        <div className="pricing-container">
           <div className="section-heading">
             <span className="section-label">BẢNG GIÁ DỊCH VỤ</span>
             <h2>
               Một lựa chọn phù hợp,
               <br />
-              nhiều giá trị thiết thực
+              <span>nhiều giá trị thiết thực</span>
             </h2>
             <p>
-              APA cung cấp các gói dịch vụ dành cho cá nhân và
-              doanh nghiệp với mức phí minh bạch.
+              Các gói dịch vụ được thiết kế cho nhu cầu của cá nhân
+              và doanh nghiệp, với mức phí rõ ràng.
             </p>
           </div>
 
           <div className="plans-grid">
-            {plans.map((plan, index) => (
+            {plans.map((plan) => (
               <article
                 className={`plan-card ${plan.hot ? "featured" : ""}`}
                 key={plan.name}
-                style={{ "--card-index": index } as React.CSSProperties}
               >
                 {plan.hot && (
                   <div className="popular-tag">
-                    <span>✦</span> LỰA CHỌN DOANH NGHIỆP
+                    <span>✦</span> GÓI DOANH NGHIỆP
                   </div>
                 )}
 
                 <div className="plan-top">
                   <span className="plan-label">{plan.label}</span>
                   <h3>{plan.name}</h3>
-                  <p className="plan-description">
-                    {plan.description}
-                  </p>
+                  <p>{plan.description}</p>
                 </div>
 
-                <div className="price">
+                <div className="price-area">
                   <strong>{plan.price}</strong>
                   <span>{plan.period}</span>
                 </div>
 
                 <div className="plan-divider" />
 
-                <p className="feature-heading">
+                <div className="feature-title">
+                  <span className="feature-title-icon">✓</span>
                   TÍNH NĂNG BAO GỒM
-                </p>
+                </div>
 
                 <ul className="feature-list">
                   {plan.features.map((feature) => (
                     <li key={feature}>
-                      <span className="check">✓</span>
+                      <span className="check-icon">✓</span>
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -148,27 +144,30 @@ export default function BangGiaPage() {
 
                 <Link href={plan.href} className="plan-button">
                   {plan.cta}
-                  <span>→</span>
+                  <span className="button-arrow">→</span>
                 </Link>
 
-                <div className="card-decoration" />
+                <div className="card-orbit" />
               </article>
             ))}
           </div>
 
-          <p className="pricing-note">
-            Giá dịch vụ được tính theo tháng. Các dịch vụ tư vấn
-            chuyên sâu, bảo trì, hỗ trợ kỹ thuật và triển khai
-            theo quy mô riêng có thể được báo giá riêng.
-          </p>
+          <div className="pricing-note">
+            <span className="note-icon">i</span>
+            <p>
+              Giá dịch vụ được tính theo tháng. Các dịch vụ tư vấn
+              chuyên sâu, bảo trì, hỗ trợ kỹ thuật và triển khai
+              theo quy mô riêng có thể được báo giá riêng.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="closing-section">
-        <div className="closing-light" />
+      <section className="pricing-closing">
+        <div className="closing-decoration" />
 
-        <div className="container closing-content">
-          <div className="closing-text">
+        <div className="pricing-container closing-inner">
+          <div>
             <span className="closing-label">BẮT ĐẦU CÙNG APA</span>
             <h2>
               Sẵn sàng đơn giản hóa
@@ -181,7 +180,7 @@ export default function BangGiaPage() {
             </p>
           </div>
 
-          <div className="closing-actions">
+          <div className="closing-buttons">
             <Link href="/dang-ky" className="closing-primary">
               Đăng ký ngay <span>→</span>
             </Link>
@@ -194,207 +193,221 @@ export default function BangGiaPage() {
 
       <style>{`
         .pricing-page {
-          --navy: #102b50;
-          --blue: #1769b7;
-          --muted: #687b94;
-          color: var(--navy);
-          background: #f6f8fc;
+          --apa-navy: #102d50;
+          --apa-blue: #1769b7;
+          --apa-text: #263f5c;
+          --apa-muted: #647991;
+          position: relative;
+          isolation: isolate;
           overflow: hidden;
+          width: 100%;
+          color: var(--apa-text);
+          background: #f5f8fc;
           font-family: Arial, Helvetica, sans-serif;
           -webkit-font-smoothing: antialiased;
           text-rendering: optimizeLegibility;
         }
 
+        .pricing-page,
         .pricing-page * {
           box-sizing: border-box;
         }
 
-        .container {
+        .pricing-container {
           width: min(1120px, calc(100% - 40px));
           margin: 0 auto;
         }
 
         /* HERO */
 
-        .hero {
+        .pricing-hero {
           position: relative;
           isolation: isolate;
           overflow: hidden;
-          padding: 100px 0 55px;
-          color: white;
+          padding: 94px 0 48px;
+          color: #fff;
           background: linear-gradient(
             115deg,
-            #071a37 0%,
-            #0c2d5b 50%,
-            #124c88 100%
+            #081c38 0%,
+            #103c6e 55%,
+            #1769a9 100%
           );
         }
 
-        .hero-background {
+        .hero-decoration {
           position: absolute;
-          inset: 0;
           z-index: -1;
+          inset: 0;
           overflow: hidden;
           pointer-events: none;
         }
 
-        .hero-grid {
-          position: absolute;
-          inset: 0;
-          opacity: .12;
-          background-image:
-            linear-gradient(rgba(255,255,255,.13) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px);
-          background-size: 55px 55px;
-          mask-image: linear-gradient(to right, transparent, black);
-        }
-
-        .light {
+        .hero-glow {
           position: absolute;
           border-radius: 50%;
-          filter: blur(3px);
           pointer-events: none;
         }
 
-        .light-one {
+        .glow-one {
           width: 420px;
           height: 420px;
-          top: -220px;
-          right: 5%;
-          background: rgba(67, 161, 255, .28);
-          animation: floatOne 9s ease-in-out infinite alternate;
+          top: -240px;
+          right: 8%;
+          background: radial-gradient(
+            circle,
+            rgba(98, 181, 255, .33),
+            rgba(98, 181, 255, 0) 70%
+          );
+          animation: glowDrift 10s ease-in-out infinite alternate;
         }
 
-        .light-two {
-          width: 280px;
-          height: 280px;
-          bottom: -200px;
+        .glow-two {
+          width: 370px;
+          height: 370px;
+          bottom: -240px;
           right: 36%;
-          background: rgba(31, 120, 220, .24);
-          animation: floatTwo 11s ease-in-out infinite alternate;
+          background: radial-gradient(
+            circle,
+            rgba(39, 141, 231, .3),
+            rgba(39, 141, 231, 0) 70%
+          );
+          animation: glowDriftTwo 13s ease-in-out infinite alternate;
         }
 
-        .light-three {
-          width: 170px;
-          height: 170px;
-          top: 30%;
-          right: 15%;
-          background: rgba(125, 195, 255, .16);
-          animation: floatThree 7s ease-in-out infinite alternate;
+        .hero-line {
+          position: absolute;
+          width: 700px;
+          height: 700px;
+          right: -280px;
+          top: -410px;
+          border: 1px solid rgba(255,255,255,.12);
+          border-radius: 50%;
+          box-shadow:
+            0 0 0 45px rgba(255,255,255,.025),
+            0 0 0 90px rgba(255,255,255,.02);
+          animation: lineRotate 45s linear infinite;
         }
 
-        .hero-content {
+        .hero-inner {
           position: relative;
           z-index: 1;
         }
 
         .eyebrow {
-          display: inline-flex;
+          display: flex;
           align-items: center;
           gap: 10px;
-          margin-bottom: 23px;
-          color: #b1d5ff;
-          font-size: 12px;
+          margin-bottom: 22px;
+          color: #c5e1ff;
+          font-size: 11px;
           font-weight: 800;
-          letter-spacing: 2px;
+          letter-spacing: 2.3px;
         }
 
-        .eyebrow-dot {
-          width: 8px;
-          height: 8px;
+        .live-dot {
+          width: 9px;
+          height: 9px;
+          flex: 0 0 9px;
           border-radius: 50%;
-          background: #65b4ff;
-          box-shadow: 0 0 14px #65b4ff;
-          animation: pulse 2s ease-in-out infinite;
+          background: #65d8ce;
+          box-shadow: 0 0 12px rgba(101,216,206,.75);
+          animation: dotPulse 2s ease-in-out infinite;
         }
 
-        .hero h1 {
+        .pricing-hero h1 {
           margin: 0;
-          font-size: clamp(38px, 5.6vw, 65px);
+          color: #ffffff;
+          font-size: clamp(38px, 5.5vw, 62px);
           line-height: 1.2;
-          letter-spacing: -2px;
+          letter-spacing: -1.8px;
           font-weight: 800;
-          color: #fff;
         }
 
-        .hero h1 span {
-          color: #83c3ff;
-          background: linear-gradient(90deg, #83c3ff, #c4e3ff, #83c3ff);
+        .pricing-hero h1 span {
+          color: #a8d7ff;
+          background: linear-gradient(
+            90deg,
+            #8ecbff,
+            #ffffff,
+            #8ecbff
+          );
           background-size: 200% auto;
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
-          animation: textShimmer 6s linear infinite;
+          animation: textFlow 6s linear infinite;
         }
 
-        .hero-content > p {
+        .pricing-hero p {
           max-width: 620px;
-          margin: 23px 0 30px;
-          color: #d0e0f3;
-          font-size: 16px;
-          line-height: 1.85;
-          font-weight: 400;
+          margin: 21px 0 28px;
+          color: #e0edfa;
+          font-size: 15px;
+          line-height: 1.9;
         }
 
-        .hero-button {
+        .hero-cta {
           display: inline-flex;
           align-items: center;
           gap: 22px;
-          padding: 15px 22px;
-          border: 1px solid rgba(255,255,255,.6);
+          padding: 14px 21px;
           border-radius: 9px;
-          background: white;
-          color: #103b78;
+          color: #143e70;
+          background: #ffffff;
           text-decoration: none;
-          font-size: 14px;
-          font-weight: 750;
-          transition: transform .3s, box-shadow .3s;
+          font-size: 13px;
+          font-weight: 800;
+          box-shadow: 0 7px 20px rgba(0,0,0,.12);
+          transition: transform .25s ease, box-shadow .25s ease;
         }
 
-        .hero-button:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 30px #00132e55;
+        .hero-cta:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 13px 27px rgba(0,0,0,.2);
         }
 
-        .button-arrow {
-          display: inline-block;
-          animation: arrowMove 1.5s ease-in-out infinite;
+        .hero-cta span {
+          font-size: 18px;
+          animation: arrowBounce 1.6s ease-in-out infinite;
         }
 
-        .hero-bottom {
+        .hero-benefits {
           display: flex;
-          flex-wrap: wrap;
           align-items: center;
-          gap: 17px;
-          margin-top: 62px;
-          color: #b6cde8;
-          font-size: 12px;
+          flex-wrap: wrap;
+          gap: 16px;
+          margin-top: 54px;
+          color: #d1e4f8;
+          font-size: 11px;
           font-weight: 600;
         }
 
-        .hero-separator {
+        .hero-benefits i {
           width: 4px;
           height: 4px;
           border-radius: 50%;
-          background: #70baff;
+          background: #79c5ff;
         }
 
-        /* PRICING */
+        /* MAIN */
 
-        .plans-section {
-          padding: 88px 0 80px;
+        .pricing-main {
+          padding: 82px 0 78px;
+          background:
+            radial-gradient(ellipse at 50% 0%, #eaf3ff 0%, transparent 55%),
+            #f5f8fc;
         }
 
         .section-heading {
-          max-width: 690px;
-          margin: 0 auto 48px;
+          max-width: 700px;
+          margin: 0 auto 45px;
           text-align: center;
         }
 
         .section-label {
           display: inline-block;
-          margin-bottom: 17px;
-          color: #2878c5;
+          margin-bottom: 15px;
+          color: #1769b7;
           font-size: 11px;
           font-weight: 850;
           letter-spacing: 2px;
@@ -402,17 +415,21 @@ export default function BangGiaPage() {
 
         .section-heading h2 {
           margin: 0 0 15px;
-          color: #10294e;
-          font-size: clamp(29px, 4vw, 41px);
-          line-height: 1.3;
-          letter-spacing: -1px;
+          color: #102d50;
+          font-size: clamp(29px, 4vw, 40px);
+          line-height: 1.32;
           font-weight: 800;
+          letter-spacing: -.9px;
+        }
+
+        .section-heading h2 span {
+          color: #246eb3;
         }
 
         .section-heading p {
-          max-width: 580px;
+          max-width: 590px;
           margin: 0 auto;
-          color: #718198;
+          color: #5f748e;
           font-size: 14px;
           line-height: 1.85;
         }
@@ -420,333 +437,389 @@ export default function BangGiaPage() {
         .plans-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 27px;
+          align-items: stretch;
+          gap: 25px;
           max-width: 920px;
           margin: 0 auto;
-          align-items: stretch;
         }
 
         .plan-card {
           position: relative;
+          isolation: isolate;
           display: flex;
           flex-direction: column;
           min-width: 0;
-          padding: 35px;
+          padding: 34px;
           overflow: hidden;
-          border: 1px solid #e0e8f2;
+          border: 1px solid #dce6f1;
           border-radius: 19px;
-          background: #fff;
-          box-shadow: 0 10px 35px rgba(24,54,94,.055);
+          background: #ffffff;
+          box-shadow: 0 9px 30px rgba(20,52,88,.065);
           transition:
-            transform .35s cubic-bezier(.2,.8,.2,1),
-            box-shadow .35s,
-            border-color .35s;
+            transform .3s ease,
+            box-shadow .3s ease,
+            border-color .3s ease;
         }
 
         .plan-card:hover {
-          transform: translateY(-8px);
-          border-color: #9cc5ec;
-          box-shadow: 0 23px 50px rgba(24,54,94,.13);
+          transform: translateY(-7px);
+          border-color: #8cbce8;
+          box-shadow: 0 20px 42px rgba(20,52,88,.13);
         }
 
         .plan-card.featured {
-          border: 2px solid #2778d0;
-          box-shadow: 0 15px 45px rgba(39,120,208,.12);
+          border: 2px solid #2778c9;
+          box-shadow: 0 12px 38px rgba(39,120,201,.13);
         }
 
         .plan-card.featured:hover {
           border-color: #145ca9;
-          box-shadow: 0 24px 55px rgba(39,120,208,.2);
+          box-shadow: 0 23px 48px rgba(39,120,201,.2);
         }
 
         .popular-tag {
           position: absolute;
           top: 0;
-          right: 23px;
+          right: 22px;
           display: flex;
           align-items: center;
           gap: 7px;
           padding: 9px 13px;
           border-radius: 0 0 9px 9px;
-          color: white;
-          background: #2477d1;
+          color: #ffffff;
+          background: #1769b7;
           font-size: 9px;
           font-weight: 850;
           letter-spacing: .5px;
         }
 
         .popular-tag span {
-          color: #c7e6ff;
+          color: #d6edff;
         }
 
-        .plan-top {
+        .plan-top,
+        .price-area,
+        .plan-divider,
+        .feature-title,
+        .feature-list,
+        .plan-button {
           position: relative;
           z-index: 1;
         }
 
         .plan-label {
-          color: #4385c9;
-          font-size: 11px;
+          display: inline-block;
+          color: #226eaf;
+          font-size: 10px;
           font-weight: 850;
-          letter-spacing: 1px;
+          letter-spacing: 1.2px;
         }
 
         .plan-top h3 {
           margin: 13px 0 12px;
-          color: #10294e;
+          color: #102d50;
           font-size: 27px;
           line-height: 1.3;
           font-weight: 800;
-          letter-spacing: -.5px;
         }
 
-        .plan-description {
-          min-height: 75px;
+        .plan-top p {
+          min-height: 74px;
           margin: 0;
-          color: #718097;
-          font-size: 14px;
-          line-height: 1.8;
+          color: #526981;
+          font-size: 13px;
+          line-height: 1.85;
         }
 
-        .price {
+        .price-area {
           display: flex;
           align-items: baseline;
           flex-wrap: wrap;
           gap: 8px;
-          margin: 27px 0 23px;
+          margin: 26px 0 23px;
         }
 
-        .price strong {
-          color: #1457a0;
-          font-size: clamp(32px, 4vw, 41px);
-          line-height: 1.2;
+        .price-area strong {
+          color: #145da8;
+          font-size: clamp(33px, 4vw, 41px);
           font-weight: 850;
-          letter-spacing: -1.4px;
-          transition: color .3s;
+          line-height: 1.2;
+          letter-spacing: -1.2px;
+          transition: color .25s ease;
         }
 
-        .plan-card:hover .price strong {
-          color: #2685df;
+        .plan-card:hover .price-area strong {
+          color: #2686d5;
         }
 
-        .price span {
-          color: #8290a3;
+        .price-area > span {
+          color: #647991;
           font-size: 13px;
-          font-weight: 500;
         }
 
         .plan-divider {
           height: 1px;
-          margin-bottom: 23px;
-          background: #e8edf4;
+          margin-bottom: 22px;
+          background: #e3ebf4;
         }
 
-        .feature-heading {
-          margin: 0 0 15px;
-          color: #7d8ba0;
+        .feature-title {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          margin-bottom: 17px;
+          color: #526981;
           font-size: 10px;
           font-weight: 850;
-          letter-spacing: 1.3px;
+          letter-spacing: 1.1px;
+        }
+
+        .feature-title-icon {
+          display: grid;
+          place-items: center;
+          width: 23px;
+          height: 23px;
+          border-radius: 7px;
+          color: #1769b7;
+          background: #e8f3ff;
+          font-size: 12px;
         }
 
         .feature-list {
           display: grid;
-          gap: 16px;
-          padding: 0;
-          margin: 0 0 30px;
-          list-style: none;
+          gap: 15px;
           flex: 1;
+          padding: 0;
+          margin: 0 0 29px;
+          list-style: none;
         }
 
         .feature-list li {
           display: flex;
           align-items: flex-start;
           gap: 11px;
-          color: #40516b;
-          font-size: 13px;
-          line-height: 1.7;
+          color: #334d69;
+          font-size: 12px;
+          line-height: 1.75;
         }
 
-        .check {
-          display: inline-grid;
+        .check-icon {
+          display: grid;
           place-items: center;
-          flex-shrink: 0;
+          flex: 0 0 21px;
           width: 21px;
           height: 21px;
           margin-top: 1px;
           border-radius: 50%;
-          color: #1670c8;
-          background: #e9f3ff;
-          font-size: 12px;
+          color: #1769b7;
+          background: #eaf4ff;
+          font-size: 11px;
           font-weight: 900;
-          transition: transform .3s, background .3s;
+          transition: transform .35s ease;
         }
 
-        .plan-card:hover .check {
+        .plan-card:hover .check-icon {
           transform: rotate(360deg);
-          background: #d9ecff;
         }
 
         .plan-button {
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
           gap: 13px;
           width: 100%;
-          padding: 15px;
-          border: 1px solid #cbd9e9;
+          min-height: 48px;
+          padding: 12px 15px;
+          border: 1px solid #b9cfe5;
           border-radius: 9px;
-          color: #174f8d;
-          background: #fff;
+          color: #174f87;
+          background: #ffffff;
           text-decoration: none;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 800;
-          transition: .3s;
-        }
-
-        .plan-button span {
-          display: inline-block;
-          transition: transform .3s;
-        }
-
-        .plan-button:hover span {
-          transform: translateX(5px);
-        }
-
-        .featured .plan-button {
-          border-color: #1768b9;
-          background: #1768b9;
-          color: white;
+          transition:
+            color .25s ease,
+            background .25s ease,
+            border-color .25s ease;
         }
 
         .plan-button:hover {
-          border-color: #0d4f91;
-          background: #0d4f91;
-          color: white;
+          color: #ffffff;
+          background: #145da8;
+          border-color: #145da8;
         }
 
-        .card-decoration {
+        .featured .plan-button {
+          color: #ffffff;
+          background: #1769b7;
+          border-color: #1769b7;
+        }
+
+        .featured .plan-button:hover {
+          background: #104d8a;
+          border-color: #104d8a;
+        }
+
+        .button-arrow {
+          display: inline-block;
+          font-size: 16px;
+          transition: transform .25s ease;
+        }
+
+        .plan-button:hover .button-arrow {
+          transform: translateX(5px);
+        }
+
+        .card-orbit {
           position: absolute;
-          right: -65px;
-          bottom: 60px;
-          width: 150px;
-          height: 150px;
-          border: 1px solid rgba(55,135,211,.08);
+          z-index: 0;
+          right: -90px;
+          bottom: 65px;
+          width: 190px;
+          height: 190px;
+          border: 1px solid rgba(45,125,195,.08);
           border-radius: 50%;
           pointer-events: none;
-          transition: transform .5s;
+          transition: transform .5s ease;
         }
 
-        .card-decoration::after {
-          position: absolute;
+        .card-orbit::after {
           content: "";
-          inset: 17px;
-          border: 1px solid rgba(55,135,211,.08);
+          position: absolute;
+          inset: 20px;
+          border: 1px solid rgba(45,125,195,.08);
           border-radius: 50%;
         }
 
-        .plan-card:hover .card-decoration {
-          transform: scale(1.25) rotate(25deg);
+        .plan-card:hover .card-orbit {
+          transform: scale(1.25) rotate(20deg);
         }
 
         .pricing-note {
-          max-width: 780px;
-          margin: 28px auto 0;
-          color: #8290a3;
-          text-align: center;
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          max-width: 790px;
+          margin: 26px auto 0;
+          padding: 15px 18px;
+          border: 1px solid #dce8f4;
+          border-radius: 11px;
+          background: #ffffff;
+        }
+
+        .note-icon {
+          display: grid;
+          place-items: center;
+          flex: 0 0 22px;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          color: #1769b7;
+          background: #eaf3ff;
           font-size: 12px;
+          font-weight: 800;
+        }
+
+        .pricing-note p {
+          margin: 0;
+          color: #536b83;
+          font-size: 11px;
           line-height: 1.8;
         }
 
         /* CLOSING */
 
-        .closing-section {
+        .pricing-closing {
           position: relative;
           isolation: isolate;
           overflow: hidden;
-          padding: 68px 0;
-          color: white;
-          background: linear-gradient(110deg, #0a2348, #145ba4);
+          padding: 65px 0;
+          color: #ffffff;
+          background: linear-gradient(110deg, #0a2345, #155d9f);
         }
 
-        .closing-light {
+        .closing-decoration {
           position: absolute;
           z-index: -1;
-          top: -160px;
-          right: 15%;
-          width: 350px;
-          height: 350px;
+          top: -190px;
+          right: 10%;
+          width: 390px;
+          height: 390px;
           border-radius: 50%;
-          background: rgba(91,174,255,.2);
-          filter: blur(4px);
-          animation: floatOne 10s ease-in-out infinite alternate;
+          background: radial-gradient(
+            circle,
+            rgba(102,183,255,.28),
+            transparent 70%
+          );
+          animation: glowDrift 11s ease-in-out infinite alternate;
         }
 
-        .closing-content {
+        .closing-inner {
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          justify-content: space-between;
           gap: 35px;
         }
 
         .closing-label {
           display: inline-block;
-          margin-bottom: 16px;
-          color: #a8d1ff;
-          font-size: 11px;
+          margin-bottom: 15px;
+          color: #b7dcff;
+          font-size: 10px;
           font-weight: 850;
           letter-spacing: 1.8px;
         }
 
-        .closing-content h2 {
-          max-width: 620px;
+        .closing-inner h2 {
           margin: 0 0 13px;
-          font-size: clamp(26px, 4vw, 37px);
+          color: #ffffff;
+          font-size: clamp(26px, 4vw, 36px);
           line-height: 1.35;
-          letter-spacing: -.8px;
           font-weight: 800;
+          letter-spacing: -.7px;
         }
 
-        .closing-content p {
-          max-width: 600px;
+        .closing-inner p {
+          max-width: 580px;
           margin: 0;
-          color: #d0e0f4;
-          font-size: 14px;
+          color: #dceafa;
+          font-size: 13px;
           line-height: 1.8;
         }
 
-        .closing-actions {
+        .closing-buttons {
           display: flex;
           flex-wrap: wrap;
-          gap: 12px;
+          gap: 11px;
           flex-shrink: 0;
         }
 
-        .closing-actions a {
+        .closing-buttons a {
           display: inline-flex;
-          justify-content: center;
           align-items: center;
-          gap: 10px;
-          padding: 14px 19px;
+          justify-content: center;
+          gap: 9px;
+          min-height: 46px;
+          padding: 0 18px;
           border-radius: 8px;
           text-decoration: none;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 800;
-          transition: transform .3s, background .3s;
+          transition: transform .25s ease, background .25s ease;
         }
 
         .closing-primary {
-          color: #10427a;
-          background: white;
+          color: #12477c;
+          background: #ffffff;
         }
 
         .closing-secondary {
-          color: white;
-          border: 1px solid #ffffff70;
+          color: #ffffff;
+          border: 1px solid rgba(255,255,255,.55);
         }
 
-        .closing-actions a:hover {
-          transform: translateY(-4px);
+        .closing-buttons a:hover {
+          transform: translateY(-3px);
         }
 
         .closing-primary:hover {
@@ -754,37 +827,35 @@ export default function BangGiaPage() {
         }
 
         .closing-secondary:hover {
-          background: rgba(255,255,255,.12);
+          background: rgba(255,255,255,.13);
         }
 
-        /* CONTINUOUS MOTION */
+        /* CONTINUOUS ANIMATIONS */
 
-        @keyframes floatOne {
+        @keyframes glowDrift {
           from { transform: translate3d(-15px, 0, 0); }
-          to { transform: translate3d(25px, 35px, 0); }
+          to { transform: translate3d(30px, 30px, 0); }
         }
 
-        @keyframes floatTwo {
+        @keyframes glowDriftTwo {
           from { transform: translate3d(0, 15px, 0); }
-          to { transform: translate3d(-25px, -25px, 0); }
+          to { transform: translate3d(-25px, -20px, 0); }
         }
 
-        @keyframes floatThree {
-          from { transform: translate3d(0, -12px, 0) scale(.95); }
-          to { transform: translate3d(15px, 18px, 0) scale(1.08); }
+        @keyframes lineRotate {
+          to { transform: rotate(360deg); }
         }
 
-        @keyframes pulse {
-          0%, 100% { opacity: 1; box-shadow: 0 0 8px #65b4ff; }
-          50% { opacity: .55; box-shadow: 0 0 20px #65b4ff; }
+        @keyframes dotPulse {
+          0%, 100% { box-shadow: 0 0 7px rgba(101,216,206,.7); }
+          50% { box-shadow: 0 0 18px rgba(101,216,206,1); }
         }
 
-        @keyframes textShimmer {
-          from { background-position: 0% center; }
+        @keyframes textFlow {
           to { background-position: 200% center; }
         }
 
-        @keyframes arrowMove {
+        @keyframes arrowBounce {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(5px); }
         }
@@ -792,83 +863,88 @@ export default function BangGiaPage() {
         /* RESPONSIVE */
 
         @media (max-width: 800px) {
-          .extra-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-
-          .closing-content {
+          .closing-inner {
             align-items: flex-start;
             flex-direction: column;
           }
         }
 
         @media (max-width: 600px) {
-          .container {
-            width: min(100% - 32px, 1120px);
+          .pricing-container {
+            width: calc(100% - 32px);
           }
 
-          .hero {
-            padding: 75px 0 38px;
+          .pricing-hero {
+            padding: 69px 0 37px;
           }
 
-          .hero h1 {
-            font-size: clamp(34px, 9vw, 46px);
-            letter-spacing: -1.2px;
+          .pricing-hero h1 {
+            font-size: clamp(34px, 9vw, 45px);
+            letter-spacing: -1px;
           }
 
-          .hero-content > p {
-            font-size: 14px;
+          .pricing-hero p {
+            font-size: 13px;
           }
 
-          .hero-bottom {
-            gap: 10px;
-            margin-top: 42px;
-            font-size: 10px;
+          .hero-benefits {
+            gap: 9px;
+            margin-top: 38px;
+            font-size: 9px;
           }
 
-          .plans-section {
-            padding: 62px 0;
+          .pricing-main {
+            padding: 58px 0;
           }
 
           .section-heading {
-            margin-bottom: 34px;
+            margin-bottom: 30px;
           }
 
           .section-heading h2 {
-            font-size: 30px;
+            font-size: 29px;
+          }
+
+          .section-heading p {
+            font-size: 12px;
           }
 
           .plans-grid {
             grid-template-columns: 1fr;
-            gap: 25px;
+            gap: 20px;
           }
 
           .plan-card {
-            padding: 28px 23px;
+            padding: 27px 22px;
           }
 
-          .plan-description {
+          .plan-top p {
             min-height: 0;
           }
 
-          .price {
-            margin: 23px 0;
+          .price-area {
+            margin: 22px 0;
           }
 
-          .price strong {
-            font-size: 37px;
+          .price-area strong {
+            font-size: 36px;
           }
 
-          .closing-section {
-            padding: 50px 0;
+          .pricing-note {
+            padding: 13px;
           }
 
-          .closing-actions {
+          .pricing-closing {
+            padding: 48px 0;
+          }
+
+          .closing-buttons {
             width: 100%;
           }
 
-          .closing-actions a {
+          .closing-buttons a {
             flex: 1;
+            padding: 0 10px;
             text-align: center;
           }
         }
