@@ -170,13 +170,10 @@ export default function BangGiaPage() {
           <div>
             <span className="closing-label">BẮT ĐẦU CÙNG APA</span>
             <h2>
-              Sẵn sàng đơn giản hóa
-              <br />
-              thủ tục hành chính?
+              Sẵn sàng đơn giản hóa thủ tục hành chính?
             </h2>
             <p>
-              Lựa chọn gói dịch vụ phù hợp và trải nghiệm cách
-              làm thủ tục hành chính thuận tiện hơn.
+              Lựa chọn gói dịch vụ phù hợp và trải nghiệm cách làm thủ tục hành chính thuận tiện hơn.
             </p>
           </div>
 
