@@ -130,6 +130,7 @@ export default function Page() {
         .apa-hero h1 {
           font-size: clamp(34px, 5vw, 54px);
           line-height: 1.18;
+          color: #ffffff;
           margin: 0 0 22px;
           font-weight: 800;
         }
@@ -352,9 +353,7 @@ export default function Page() {
               ADMINISTRATIVE PROCEDURE ASSISTANT
             </span>
             <h1>
-              APA – Đồng hành cùng bạn
-              <br />
-              trên hành trình số hóa
+              APA – Đồng hành cùng bạn trên hành trình số hóa
             </h1>
             <p>
               Chúng tôi tin rằng thủ tục hành chính không nên là rào cản.
