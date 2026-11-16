@@ -136,11 +136,7 @@ export default function Page() {
           </div>
 
           <h1>
-            Một nền tảng.
-            <br />
-            <span>Nhiều giải pháp.</span>
-            <br />
-            Phục vụ mọi nhu cầu.
+            Một nền tảng, Nhiều giải pháp, Phục vụ mọi nhu cầu.
           </h1>
 
           <p className="hero-description">
@@ -328,825 +324,292 @@ export default function Page() {
       </section>
 
       <style jsx global>{`
-        .solution-page {
-          --navy: #10264b;
-          --blue: #2563eb;
-          color: #172b4d;
-          background: #fff;
-          overflow: hidden;
-          font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .solution-container {
-          width: min(1160px, calc(100% - 48px));
-          margin: 0 auto;
-        }
-
-        .solution-page a {
-          text-decoration: none;
-        }
-
-        .solution-hero {
-          min-height: 610px;
-          position: relative;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          background: linear-gradient(120deg, #0b1d3a 0%, #12366b 58%, #1760a8 100%);
-          color: white;
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 2;
-          padding-top: 75px;
-          padding-bottom: 75px;
-        }
-
-        .hero-label {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 9px 15px;
-          border: 1px solid rgba(255, 255, 255, 0.24);
-          border-radius: 30px;
-          background: rgba(255, 255, 255, 0.08);
-          color: #dbeafe;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 1.5px;
-        }
-
-        .label-dot,
-        .online-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #4ade80;
-          box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
-        }
-
-        .solution-hero h1 {
-          max-width: 700px;
-          margin: 30px 0 20px;
-          color: white;
-          font-size: clamp(42px, 6vw, 68px);
-          line-height: 1.12;
-          letter-spacing: -2px;
-          font-weight: 800;
-        }
-
-        .solution-hero h1 span {
-          color: #79b8ff;
-        }
-
-        .hero-description {
-          max-width: 610px;
-          color: #d4e4f8;
-          font-size: 17px;
-          line-height: 1.85;
-          margin: 0;
-        }
-
-        .hero-actions,
-        .cta-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 14px;
-          align-items: center;
-          margin-top: 30px;
-        }
-
-        .primary-button,
-        .secondary-button {
-          min-height: 48px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 14px;
-          padding: 0 22px;
-          border-radius: 9px;
-          font-size: 14px;
-          font-weight: 700;
-          transition: 0.25s ease;
-        }
-
-        .primary-button {
-          color: #12366b;
-          background: white;
-        }
-
-        .primary-button:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.16);
-        }
-
-        .primary-button span,
-        .solution-link span {
-          font-size: 20px;
-          transition: transform 0.25s ease;
-        }
-
-        .primary-button:hover span,
-        .solution-link:hover span {
-          transform: translateX(5px);
-        }
-
-        .secondary-button {
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.4);
-          background: rgba(255, 255, 255, 0.08);
-        }
-
-        .secondary-button:hover {
-          background: rgba(255, 255, 255, 0.18);
-        }
-
-        .hero-stats {
-          display: flex;
-          align-items: center;
-          gap: 28px;
-          margin-top: 55px;
-        }
-
-        .hero-stats div:not(.stat-divider) {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-        }
-
-        .hero-stats strong {
-          color: white;
-          font-size: 27px;
-        }
-
-        .hero-stats span {
-          color: #c4d7ef;
-          font-size: 12px;
-        }
-
-        .stat-divider {
-          width: 1px;
-          height: 38px;
-          background: rgba(255, 255, 255, 0.25);
-        }
-
-        .hero-glow {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(2px);
-          pointer-events: none;
-        }
-
-        .hero-glow-one {
-          width: 420px;
-          height: 420px;
-          right: 8%;
-          top: -180px;
-          background: rgba(59, 130, 246, 0.17);
-        }
-
-        .hero-glow-two {
-          width: 350px;
-          height: 350px;
-          right: -100px;
-          bottom: -180px;
-          background: rgba(34, 211, 238, 0.13);
-        }
-
-        .hero-decoration {
-          position: absolute;
-          right: 9%;
-          top: 50%;
-          width: 310px;
-          height: 310px;
-          transform: translateY(-50%);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 50%;
-          animation: slow-rotate 24s linear infinite;
-        }
-
-        .decoration-circle {
-          position: absolute;
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          border-radius: 50%;
-        }
-
-        .circle-one {
-          inset: 35px;
-        }
-
-        .circle-two {
-          inset: 75px;
-        }
-
-        .circle-three {
-          inset: 115px;
-          background: rgba(255, 255, 255, 0.07);
-        }
-
-        .decoration-card {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 255px;
-          padding: 18px;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          border: 1px solid rgba(255, 255, 255, 0.22);
-          border-radius: 15px;
-          background: rgba(255, 255, 255, 0.13);
-          backdrop-filter: blur(15px);
-          transform: translate(-50%, -50%) rotate(-7deg);
-          animation: card-float 5s ease-in-out infinite;
-        }
-
-        .decoration-card > span:first-child {
-          width: 42px;
-          height: 42px;
-          display: grid;
-          place-items: center;
-          border-radius: 12px;
-          background: white;
-          color: #2563eb;
-          font-size: 23px;
-        }
-
-        .decoration-card div {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-          flex: 1;
-        }
-
-        .decoration-card strong {
-          color: white;
-          font-size: 14px;
-        }
-
-        .decoration-card small {
-          color: #d4e4f8;
-          font-size: 11px;
-        }
-
-        .solution-intro {
-          padding-top: 105px;
-          padding-bottom: 65px;
-          text-align: center;
-        }
-
-        .section-eyebrow {
-          color: #2563eb;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 2px;
-        }
-
-        .solution-intro h2,
-        .process-inner > h2,
-        .cta-content h2 {
-          margin: 18px 0;
-          color: #10264b;
-          font-size: clamp(31px, 4vw, 43px);
-          line-height: 1.25;
-          letter-spacing: -1px;
-        }
-
-        .solution-intro h2 span,
-        .process-inner > h2 span,
-        .cta-content h2 span {
-          color: #2563eb;
-        }
-
-        .solution-intro > p {
-          max-width: 700px;
-          margin: 0 auto;
-          color: #64748b;
-          font-size: 16px;
-          line-height: 1.8;
-        }
-
-        .solution-list {
-          display: flex;
-          flex-direction: column;
-          gap: 35px;
-          padding-bottom: 100px;
-        }
-
-        .solution-card {
-          display: grid;
-          grid-template-columns: 0.88fr 1.12fr;
-          gap: 55px;
-          align-items: center;
-          padding: 38px;
-          border: 1px solid #e7edf5;
-          border-radius: 22px;
-          background: white;
-          box-shadow: 0 12px 35px rgba(15, 35, 70, 0.045);
-          transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .solution-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 45px rgba(15, 35, 70, 0.09);
-        }
-
-        .solution-card.reverse .solution-visual {
-          order: 2;
-        }
-
-        .solution-card.reverse .solution-information {
-          order: 1;
-        }
-
-        .solution-visual {
-          min-height: 340px;
-          position: relative;
-          overflow: hidden;
-          display: grid;
-          place-items: center;
-          border-radius: 18px;
-          background: var(--solution-bg);
-        }
-
-        .visual-number {
-          position: absolute;
-          top: 22px;
-          left: 25px;
-          color: var(--solution-color);
-          font-size: 15px;
-          font-weight: 800;
-          letter-spacing: 2px;
-        }
-
-        .visual-icon {
-          position: relative;
-          z-index: 2;
-          width: 155px;
-          height: 155px;
-          display: grid;
-          place-items: center;
-          border: 1px solid rgba(255, 255, 255, 0.9);
-          border-radius: 42px;
-          background: rgba(255, 255, 255, 0.78);
-          box-shadow: 0 20px 45px rgba(30, 64, 120, 0.1);
-          font-size: 76px;
-          animation: icon-float 5s ease-in-out infinite;
-        }
-
-        .visual-caption {
-          position: absolute;
-          bottom: 24px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          color: var(--solution-color);
-          font-size: 10px;
-          font-weight: 800;
-          letter-spacing: 1.5px;
-        }
-
-        .visual-caption-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: var(--solution-color);
-        }
-
-        .visual-decoration {
-          position: absolute;
-          border: 1px solid var(--solution-color);
-          border-radius: 50%;
-          opacity: 0.12;
-        }
-
-        .decoration-a {
-          width: 240px;
-          height: 240px;
-        }
-
-        .decoration-b {
-          width: 310px;
-          height: 310px;
-        }
-
-        .solution-information {
-          padding: 10px 0;
-        }
-
-        .solution-index {
-          color: var(--solution-color);
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 2px;
-        }
-
-        .solution-information h3 {
-          margin: 13px 0 8px;
-          color: #10264b;
-          font-size: clamp(24px, 3vw, 30px);
-          line-height: 1.3;
-          letter-spacing: -0.6px;
-        }
-
-        .solution-information h4 {
-          margin: 0 0 17px;
-          color: var(--solution-color);
-          font-size: 15px;
-          font-weight: 700;
-        }
-
-        .solution-description {
-          margin: 0 0 22px;
-          color: #64748b;
-          font-size: 14px;
-          line-height: 1.85;
-        }
-
-        .feature-list {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          margin: 0;
-          padding: 0;
-          list-style: none;
-        }
-
-        .feature-list li {
-          display: flex;
-          align-items: flex-start;
-          gap: 11px;
-          color: #334155;
-          font-size: 13px;
-          line-height: 1.65;
-        }
-
-        .check-icon {
-          flex: 0 0 20px;
-          width: 20px;
-          height: 20px;
-          display: grid;
-          place-items: center;
-          border-radius: 50%;
-          background: var(--solution-bg);
-          color: var(--solution-color);
-          font-size: 12px;
-          font-weight: 800;
-        }
-
-        .solution-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 12px;
-          margin-top: 25px;
-          color: var(--solution-color);
-          font-size: 14px;
-          font-weight: 800;
-        }
-
-        .solution-process {
-          padding: 95px 0 105px;
-          background: #f5f8fc;
-          text-align: center;
-        }
-
-        .process-inner > h2 {
-          margin-bottom: 55px;
-        }
-
-        .process-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 18px;
-          text-align: left;
-        }
-
-        .process-item {
-          position: relative;
-          min-height: 220px;
-          padding: 25px 22px;
-          border: 1px solid #e5ebf4;
-          border-radius: 16px;
-          background: white;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .process-item:hover {
-          transform: translateY(-7px);
-          box-shadow: 0 15px 30px rgba(15, 35, 70, 0.08);
-        }
-
-        .process-number {
-          color: #93a8c5;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 1px;
-        }
-
-        .process-icon {
-          margin: 22px 0 13px;
-          font-size: 30px;
-        }
-
-        .process-item h3 {
-          margin: 0 0 9px;
-          color: #10264b;
-          font-size: 17px;
-        }
-
-        .process-item p {
-          margin: 0;
-          color: #64748b;
-          font-size: 13px;
-          line-height: 1.7;
-        }
-
-        .solution-cta {
-          position: relative;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          min-height: 340px;
-          margin-top: 90px;
-          margin-bottom: 90px;
-          padding: 55px 65px;
-          border-radius: 24px;
-          background: linear-gradient(115deg, #10264b, #174b91);
-          color: white;
-        }
-
-        .cta-content {
-          position: relative;
-          z-index: 2;
-          max-width: 620px;
-        }
-
-        .cta-content .section-eyebrow {
-          color: #93c5fd;
-        }
-
-        .cta-content h2 {
-          color: white;
-        }
-
-        .cta-content h2 span {
-          color: #93c5fd;
-        }
-
-        .cta-content > p {
-          max-width: 520px;
-          color: #d4e4f8;
-          font-size: 14px;
-          line-height: 1.8;
-        }
-
-        .cta-text-link {
-          color: white;
-          font-size: 14px;
-          font-weight: 700;
-        }
-
-        .cta-symbol {
-          position: absolute;
-          right: 8%;
-          color: rgba(255, 255, 255, 0.08);
-          font-size: clamp(100px, 17vw, 190px);
-          font-weight: 900;
-          letter-spacing: -12px;
-          user-select: none;
-        }
-
-        .cta-symbol span {
-          color: rgba(147, 197, 253, 0.35);
-        }
-
-        .reveal {
-          opacity: 0;
-          transform: translateY(28px);
-          transition: opacity 0.75s ease, transform 0.75s ease;
-        }
-
-        .reveal.is-visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .solution-card.reveal {
-          transition-delay: calc(var(--card-index) * 80ms);
-        }
-
-        @keyframes icon-float {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        @keyframes card-float {
-          0%, 100% {
-            margin-top: 0;
-          }
-          50% {
-            margin-top: -15px;
-          }
-        }
-
-        @keyframes slow-rotate {
-          from {
-            rotate: 0deg;
-          }
-          to {
-            rotate: 360deg;
-          }
-        }
-
-        @media (max-width: 900px) {
-          .hero-decoration {
-            right: -130px;
-            opacity: 0.45;
-          }
-
-          .solution-card {
-            gap: 30px;
-            padding: 25px;
-          }
-
-          .solution-visual {
-            min-height: 300px;
-          }
-
-          .process-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (max-width: 650px) {
-          .solution-container {
-            width: min(100% - 32px, 520px);
-          }
-
-          .solution-hero {
-            min-height: auto;
-          }
-
-          .hero-content {
-            padding-top: 75px;
-            padding-bottom: 65px;
-          }
-
-          .solution-hero h1 {
-            font-size: 43px;
-            letter-spacing: -1.5px;
-          }
-
-          .hero-description {
-            font-size: 15px;
-          }
-
-          .hero-decoration {
-            right: -220px;
-            opacity: 0.2;
-          }
-
-          .hero-stats {
-            gap: 14px;
-            margin-top: 40px;
-          }
-
-          .hero-stats strong {
-            font-size: 22px;
-          }
-
-          .hero-stats span {
-            font-size: 10px;
-          }
-
-          .stat-divider {
-            height: 30px;
-          }
-
-          .solution-intro {
-            padding-top: 75px;
-            padding-bottom: 45px;
-          }
-
-          .solution-intro h2,
-          .process-inner > h2,
-          .cta-content h2 {
-            font-size: 32px;
-          }
-
-          .solution-intro > p {
-            font-size: 14px;
-          }
-
-          .solution-list {
-            gap: 22px;
-            padding-bottom: 70px;
-          }
-
-          .solution-card {
-            grid-template-columns: 1fr;
-            gap: 22px;
-            padding: 17px;
-            border-radius: 17px;
-          }
-
-          .solution-card.reverse .solution-visual,
-          .solution-card.reverse .solution-information {
-            order: initial;
-          }
-
-          .solution-visual {
-            min-height: 235px;
-          }
-
-          .visual-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 32px;
-            font-size: 60px;
-          }
-
-          .solution-information {
-            padding: 5px 3px 12px;
-          }
-
-          .solution-information h3 {
-            font-size: 25px;
-          }
-
-          .solution-description {
-            font-size: 13px;
-          }
-
-          .feature-list li {
-            font-size: 13px;
-          }
-
-          .solution-process {
-            padding: 70px 0;
-          }
-
-          .process-inner > h2 {
-            margin-bottom: 35px;
-          }
-
-          .process-grid {
-            gap: 12px;
-          }
-
-          .process-item {
-            min-height: 205px;
-            padding: 18px 15px;
-          }
-
-          .process-item h3 {
-            font-size: 15px;
-          }
-
-          .process-item p {
-            font-size: 12px;
-          }
-
-          .solution-cta {
-            min-height: 0;
-            margin-top: 60px;
-            margin-bottom: 60px;
-            padding: 35px 24px;
-            border-radius: 18px;
-          }
-
-          .cta-symbol {
-            right: -15px;
-            bottom: -10px;
-            font-size: 110px;
-          }
-
-          .cta-content > p {
-            font-size: 13px;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .solution-page *,
-          .solution-page *::before,
-          .solution-page *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            scroll-behavior: auto !important;
-            transition-duration: 0.01ms !important;
-          }
-
-          .reveal {
-            opacity: 1;
-            transform: none;
-          }
-        }
+.solution-page {
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.solution-page * {
+  font-family: inherit;
+}
+
+/* Tiêu đề Hero */
+.solution-page .solution-hero h1 {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-size: clamp(38px, 4.8vw, 60px);
+  line-height: 1.18;
+  letter-spacing: -1.5px;
+  font-weight: 800;
+}
+
+/* Nội dung giới thiệu Hero */
+.solution-page .hero-description {
+  font-size: 16px;
+  line-height: 1.85;
+  font-weight: 400;
+}
+
+/* Nhãn nhỏ trên Hero */
+.solution-page .hero-label {
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 750;
+  letter-spacing: 1.3px;
+}
+
+.solution-page .hero-stats strong {
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.solution-page .hero-stats span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Các tiêu đề lớn giữa trang */
+.solution-page .solution-intro h2,
+.solution-page .process-inner > h2,
+.solution-page .cta-content h2 {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-size: clamp(30px, 3.5vw, 40px);
+  line-height: 1.3;
+  letter-spacing: -1px;
+  font-weight: 800;
+}
+
+.solution-page .solution-intro > p {
+  font-size: 15px;
+  line-height: 1.85;
+  font-weight: 400;
+}
+
+/* Nhãn section */
+.solution-page .section-eyebrow {
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+/* Số thứ tự trên thẻ giải pháp */
+.solution-page .visual-number,
+.solution-page .solution-index {
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.solution-page .visual-caption {
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+/* Tiêu đề từng nhóm giải pháp */
+.solution-page .solution-information h3 {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-size: clamp(23px, 2.3vw, 28px);
+  line-height: 1.35;
+  letter-spacing: -.5px;
+  font-weight: 800;
+}
+
+.solution-page .solution-information h4 {
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+/* Mô tả giải pháp */
+.solution-page .solution-description {
+  font-size: 14.5px;
+  line-height: 1.85;
+  font-weight: 400;
+}
+
+/* Danh sách tính năng */
+.solution-page .feature-list {
+  gap: 11px;
+}
+
+.solution-page .feature-list li {
+  font-size: 14px;
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+/* Nút và đường dẫn */
+.solution-page .primary-button,
+.solution-page .secondary-button {
+  font-size: 13.5px;
+  line-height: 1.4;
+  font-weight: 750;
+}
+
+.solution-page .solution-link,
+.solution-page .cta-text-link {
+  font-size: 13.5px;
+  line-height: 1.5;
+  font-weight: 750;
+}
+
+/* Các bước đồng hành */
+.solution-page .process-number {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.solution-page .process-icon {
+  font-size: 28px;
+}
+
+.solution-page .process-item h3 {
+  font-size: 16px;
+  line-height: 1.45;
+  font-weight: 800;
+}
+
+.solution-page .process-item p {
+  font-size: 13px;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+.solution-page .cta-content > p {
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.solution-page .cta-content h2 {
+  font-size: clamp(29px, 3.5vw, 40px);
+}
+
+.solution-page .cta-text-link {
+  font-size: 13px;
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+  .solution-page .solution-hero h1 {
+    font-size: clamp(36px, 5.4vw, 48px);
+    line-height: 1.2;
+  }
+
+  .solution-page .solution-information h3 {
+    font-size: 24px;
+  }
+
+  .solution-page .solution-description {
+    font-size: 14px;
+  }
+
+  .solution-page .feature-list li {
+    font-size: 13.5px;
+  }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 650px) {
+  .solution-page {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .solution-page .solution-hero h1 {
+    font-size: clamp(32px, 8.5vw, 37px);
+    line-height: 1.22;
+    letter-spacing: -.9px;
+  }
+
+  .solution-page .hero-label {
+    font-size: 10px;
+  }
+
+  .solution-page .hero-description {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .solution-page .hero-stats strong {
+    font-size: 21px;
+  }
+
+  .solution-page .hero-stats span {
+    font-size: 10.5px;
+    line-height: 1.5;
+  }
+
+  .solution-page .solution-intro h2,
+  .solution-page .process-inner > h2,
+  .solution-page .cta-content h2 {
+    font-size: 29px;
+    line-height: 1.3;
+    letter-spacing: -.6px;
+  }
+
+  .solution-page .solution-intro > p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .solution-page .solution-information h3 {
+    font-size: 23px;
+    line-height: 1.35;
+  }
+
+  .solution-page .solution-information h4 {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .solution-page .solution-description {
+    font-size: 13.5px;
+    line-height: 1.85;
+  }
+
+  .solution-page .feature-list li {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .solution-page .process-item h3 {
+    font-size: 14px;
+  }
+
+  .solution-page .process-item p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .solution-page .primary-button,
+  .solution-page .secondary-button {
+    font-size: 13px;
+  }
+
+  .solution-page .cta-content > p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .solution-page .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.4px;
+  }
+}
       `}</style>
     </main>
   );
