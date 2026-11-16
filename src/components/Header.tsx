@@ -25,19 +25,7 @@ export default function Header() {
             </div>
           </details>
 
-          <details className="apa-menu">
-            <summary>
-              Giải pháp <span className="apa-chevron">⌄</span>
-            </summary>
-            <div className="apa-dropdown">
-              <Link href="/giai-phap#nguoi-dan">Cho người dân</Link>
-              <Link href="/giai-phap#doanh-nghiep">Cho doanh nghiệp</Link>
-              <Link href="/giai-phap#co-quan">Cho cơ quan nhà nước</Link>
-              <Link href="/giai-phap#nuoc-ngoai">
-                Cho người Việt ở nước ngoài
-              </Link>
-            </div>
-          </details>
+         <Link href="/giai-phap">Giải pháp</Link>
 
           <Link href="/bang-gia">Bảng giá</Link>
           <Link href="/blog">Blog</Link>
@@ -130,8 +118,8 @@ export default function Header() {
           gap: 6px;
           padding: 11px 0;
           color: #263f5f;
-          font-size: 13px;
-          font-weight: 650;
+          font-size: 15px;
+          font-weight: 700;
           line-height: 1.4;
           text-decoration: none;
           white-space: nowrap;
@@ -308,7 +296,7 @@ export default function Header() {
 
           .apa-nav > a,
           .apa-menu > summary {
-            font-size: 12px;
+            font-size: 14px;
           }
         }
 
@@ -343,7 +331,7 @@ export default function Header() {
 
           .apa-nav > a,
           .apa-menu > summary {
-            padding: 8px 0;
+            padding: 13px 0;
             font-size: 11.5px;
           }
 
