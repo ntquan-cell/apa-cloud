@@ -9,7 +9,7 @@ export const additionalPosts = [
       "Căn cước là giấy tờ quan trọng trong nhiều giao dịch và thủ tục hành chính. Tuy nhiên, không phải ai cũng biết nên bắt đầu chuẩn bị từ đâu khi làm mới, cấp đổi hoặc cấp lại.",
       "Trước tiên, hãy xác định đúng nhu cầu của mình: làm lần đầu, cấp đổi do thay đổi thông tin, giấy tờ hư hỏng hay cấp lại do bị mất. Mỗi trường hợp có thể có yêu cầu khác nhau.",
       "Bạn nên kiểm tra trước địa điểm tiếp nhận, thời gian làm việc và hướng dẫn hồ sơ của cơ quan có thẩm quyền. Nếu có thể đặt lịch trực tuyến, hãy tìm hiểu cách đặt lịch trước khi đến.",
-      "Đừng tự suy đoán rằng mọi trường hợp đều cần một bộ giấy tờ giống nhau. Thông tin cá nhân, tình trạng dữ liệu và trường hợp cụ thể có thể ảnh hưởng đến quy trình.",
+      "Đừng tự suy đoán rằng mọi trường hợp đều cần một bộ giấy tờ giống nhau. Thông tin cá nhân và tình trạng dữ liệu có thể ảnh hưởng đến quy trình.",
       "Gợi ý từ APA: Hãy chuẩn bị thông tin cá nhân chính xác, kiểm tra dữ liệu trước khi xác nhận và lưu lại giấy hẹn hoặc thông tin tiếp nhận nếu được cấp.",
       "Bài viết mang tính hướng dẫn tham khảo. Thành phần hồ sơ và cách thực hiện cần được đối chiếu với hướng dẫn hiện hành của cơ quan tiếp nhận."
     ]
@@ -20,9 +20,9 @@ export const additionalPosts = [
     title: "Đăng ký tạm trú: Bắt đầu từ đâu và cần lưu ý gì?",
     excerpt: "Hướng dẫn cách xác định nhu cầu, chuẩn bị thông tin và theo dõi yêu cầu đăng ký tạm trú.",
     body: [
-      "Khi chuyển đến sinh sống tại một địa điểm khác nơi thường trú, nhiều người băn khoăn không biết mình cần khai báo hay đăng ký thông tin cư trú như thế nào.",
+      "Khi chuyển đến sinh sống tại một địa điểm khác nơi thường trú, nhiều người băn khoăn không biết mình cần thực hiện thủ tục cư trú nào.",
       "Bước đầu tiên là xác định tình trạng cư trú hiện tại, thời gian sinh sống tại địa điểm mới và thông tin về nơi ở. Những yếu tố này giúp bạn xác định đúng thủ tục cần thực hiện.",
-      "Trước khi gửi hồ sơ, hãy kiểm tra thông tin địa chỉ, giấy tờ hoặc dữ liệu chứng minh chỗ ở hợp pháp theo hướng dẫn của cơ quan tiếp nhận. Không nên sử dụng biểu mẫu không rõ nguồn gốc.",
+      "Trước khi gửi hồ sơ, hãy kiểm tra thông tin địa chỉ, giấy tờ hoặc dữ liệu chứng minh chỗ ở hợp pháp theo hướng dẫn của cơ quan tiếp nhận.",
       "Nếu thực hiện trực tuyến, hãy lưu thông tin mã hồ sơ, thời điểm gửi và thông báo từ hệ thống để tiện theo dõi.",
       "APA khuyến nghị người thực hiện tra cứu hướng dẫn cư trú chính thức trước khi nộp. Yêu cầu cụ thể có thể khác nhau tùy trường hợp."
     ]
@@ -58,7 +58,7 @@ export const additionalPosts = [
     slug: "hoi-dap-dang-ky-ho-kinh-doanh",
     date: "13/11/2026",
     title: "Hỏi đáp: Muốn đăng ký hộ kinh doanh thì bắt đầu thế nào?",
-    excerpt: "Một người dùng hỏi APA về hồ sơ đăng ký hộ kinh doanh và những bước cần tìm hiểu trước khi nộp.",
+    excerpt: "Một tình huống hỏi đáp minh họa về hồ sơ đăng ký hộ kinh doanh và những bước cần tìm hiểu trước khi nộp.",
     body: [
       "TÌNH HUỐNG HỎI ĐÁP",
       "Người dùng hỏi: Tôi muốn mở một cửa hàng nhỏ để kinh doanh tại địa phương. Tôi chưa từng đăng ký kinh doanh nên không biết phải bắt đầu từ đâu.",
@@ -67,7 +67,7 @@ export const additionalPosts = [
       "APA trả lời: Hãy chuẩn bị thông tin người đăng ký, tên dự kiến, địa chỉ kinh doanh, ngành nghề và các thông tin khác theo biểu mẫu hiện hành. Thành phần hồ sơ cụ thể cần đối chiếu với hướng dẫn của cơ quan đăng ký có thẩm quyền.",
       "Người dùng hỏi: Có thể nộp trực tuyến không?",
       "APA trả lời: Hình thức tiếp nhận có thể khác nhau theo địa phương và quy trình đang áp dụng. Hãy kiểm tra trên cổng dịch vụ công hoặc cơ quan tiếp nhận tại nơi đăng ký.",
-      "Lưu ý: Đây là tình huống minh họa để hướng dẫn tra cứu, không phải hồ sơ đã được cơ quan nhà nước thẩm định."
+      "Lưu ý: Đây là tình huống minh họa do APA biên soạn, không phải câu hỏi thực tế đã được người dùng gửi hoặc hồ sơ đã được cơ quan nhà nước thẩm định."
     ]
   },
   {
@@ -94,14 +94,14 @@ export const additionalPosts = [
       "Bạn nên kiểm tra thông tin qua kênh tra cứu chính thức của cơ quan bảo hiểm xã hội hoặc ứng dụng được cơ quan có thẩm quyền hỗ trợ.",
       "Hãy đối chiếu họ tên, thông tin định danh và thời hạn sử dụng được hiển thị. Nếu dữ liệu không đúng hoặc không tìm thấy thông tin, nên liên hệ đơn vị quản lý hoặc cơ quan bảo hiểm xã hội để được hướng dẫn.",
       "Không nên chỉ dựa vào ảnh chụp thẻ cũ hoặc thông tin đã lưu từ lâu, bởi tình trạng tham gia có thể thay đổi.",
-      "APA lưu ý: Bài viết chỉ hướng dẫn cách kiểm tra thông tin. Quyền lợi cụ thể cần căn cứ vào dữ liệu tham gia và quy định áp dụng tại thời điểm sử dụng."
+      "Bài viết chỉ hướng dẫn cách kiểm tra thông tin. Quyền lợi cụ thể cần căn cứ vào dữ liệu tham gia và quy định áp dụng tại thời điểm sử dụng."
     ]
   },
   {
     slug: "hoi-dap-ho-so-truc-tuyen-bi-yeu-cau-bo-sung",
     date: "10/11/2026",
     title: "Hỏi đáp: Hồ sơ trực tuyến bị yêu cầu bổ sung, tôi phải làm gì?",
-    excerpt: "APA giải thích cách đọc thông báo bổ sung, kiểm tra tài liệu và gửi lại hồ sơ đúng yêu cầu.",
+    excerpt: "Cách đọc thông báo bổ sung, kiểm tra tài liệu và gửi lại hồ sơ đúng yêu cầu.",
     body: [
       "TÌNH HUỐNG HỎI ĐÁP",
       "Người dùng hỏi: Tôi đã nộp hồ sơ trực tuyến nhưng hệ thống báo cần bổ sung giấy tờ. Như vậy có phải hồ sơ của tôi bị từ chối không?",
@@ -112,7 +112,7 @@ export const additionalPosts = [
       "APA trả lời: Không nên tự tạo hồ sơ mới khi chưa kiểm tra hướng dẫn. Hãy sử dụng chức năng bổ sung hoặc chỉnh sửa của hồ sơ hiện tại nếu hệ thống có hướng dẫn như vậy.",
       "Người dùng hỏi: Nếu không hiểu yêu cầu thì sao?",
       "APA trả lời: Hãy liên hệ bộ phận tiếp nhận, cung cấp mã hồ sơ và hỏi rõ nội dung cần hoàn thiện. Không gửi giấy tờ cá nhân qua những kênh không xác thực.",
-      "Đây là tình huống minh họa. Hãy làm theo nội dung thông báo chính thức của cơ quan tiếp nhận."
+      "Lưu ý: Đây là tình huống minh họa. Hãy làm theo nội dung thông báo chính thức của cơ quan tiếp nhận."
     ]
   },
   {
@@ -171,7 +171,7 @@ export const additionalPosts = [
     slug: "huong-dan-su-dung-cong-dich-vu-cong",
     date: "05/11/2026",
     title: "Lần đầu sử dụng Cổng Dịch vụ công: Nên bắt đầu thế nào?",
-    excerpt: "Hướng dẫn cách xác định đúng thủ tục, chuẩn bị thông tin và lưu lại mã hồ sơ khi thao tác trực tuyến.",
+    excerpt: "Cách xác định đúng thủ tục, chuẩn bị thông tin và lưu lại mã hồ sơ khi thao tác trực tuyến.",
     body: [
       "Dịch vụ công trực tuyến giúp người dân tìm hiểu và thực hiện một số thủ tục mà không nhất thiết phải bắt đầu bằng việc đến trực tiếp cơ quan tiếp nhận.",
       "Khi truy cập, hãy xác định đúng cổng thông tin chính thức. Cẩn trọng với các đường dẫn quảng cáo hoặc trang yêu cầu cung cấp thông tin không cần thiết.",
@@ -193,7 +193,8 @@ export const additionalPosts = [
       "APA trả lời: Bạn có thể mô tả mình đang ở đâu, muốn thay đổi thông tin gì, thủ tục dành cho cá nhân hay tổ chức và đã có giấy tờ nào. Không cần gửi số căn cước hoặc thông tin nhạy cảm khi chưa cần thiết.",
       "Người dùng hỏi: Nếu có nhiều thủ tục gần giống nhau thì sao?",
       "APA trả lời: Hãy so sánh đối tượng thực hiện, mục đích, cơ quan giải quyết và kết quả của từng thủ tục. Nếu vẫn chưa rõ, hãy hỏi cơ quan tiếp nhận để xác nhận.",
-      "Mục tiêu của APA là giúp người dùng bắt đầu từ vấn đề thực tế, thay vì phải biết trước thuật ngữ hành chính."
+      "Mục tiêu của APA là giúp người dùng bắt đầu từ vấn đề thực tế, thay vì phải biết trước thuật ngữ hành chính.",
+      "Lưu ý: Đây là tình huống minh họa do APA biên soạn."
     ]
   },
   {
@@ -209,7 +210,8 @@ export const additionalPosts = [
       "APA trả lời: Hãy đọc lý do, căn cứ hoặc hướng dẫn xử lý được nêu trong thông báo. Ghi lại mã hồ sơ và những nội dung chưa đáp ứng.",
       "Người dùng hỏi: Nếu tôi không đồng ý với lý do đó thì sao?",
       "APA trả lời: Bạn nên liên hệ cơ quan ban hành thông báo để đề nghị giải thích rõ hoặc tìm hiểu kênh phản ánh, kiến nghị phù hợp. Lưu lại các tài liệu liên quan và không tự ý sửa thông tin để né yêu cầu.",
-      "APA không thay thế quyết định của cơ quan có thẩm quyền. Hướng xử lý cần dựa trên nội dung thông báo cụ thể và quy định áp dụng."
+      "APA không thay thế quyết định của cơ quan có thẩm quyền. Hướng xử lý cần dựa trên nội dung thông báo cụ thể và quy định áp dụng.",
+      "Lưu ý: Đây là tình huống minh họa do APA biên soạn."
     ]
   }
 ];
