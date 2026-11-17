@@ -1,0 +1,207 @@
+
+export type BlogPost = {
+  slug: string;
+  date: string;
+  title: string;
+  excerpt: string;
+  body: string[];
+};
+
+export const additionalPosts: BlogPost[] = [
+  {
+    slug: "lam-can-cuoc-can-chuan-bi-gi",
+    date: "17/11/2026",
+    title: "Làm căn cước: Cần chuẩn bị gì trước khi thực hiện?",
+    excerpt: "Những điểm cần kiểm tra trước khi đi làm căn cước.",
+    body: [
+      "Căn cước là giấy tờ quan trọng trong nhiều giao dịch và thủ tục hành chính. Trước khi thực hiện, bạn nên xác định mình làm lần đầu, cấp đổi hay cấp lại.",
+      "Hãy kiểm tra thông tin cá nhân, địa điểm tiếp nhận và hướng dẫn hồ sơ của cơ quan có thẩm quyền.",
+      "Nếu được cấp giấy hẹn hoặc mã tiếp nhận, hãy lưu lại để theo dõi kết quả.",
+      "APA khuyến nghị đối chiếu yêu cầu cụ thể với cơ quan tiếp nhận trước khi thực hiện."
+    ]
+  },
+  {
+    slug: "dang-ky-tam-tru-bat-dau-tu-dau",
+    date: "16/11/2026",
+    title: "Đăng ký tạm trú: Bắt đầu từ đâu và cần lưu ý gì?",
+    excerpt: "Hướng dẫn xác định nhu cầu và chuẩn bị thông tin đăng ký tạm trú.",
+    body: [
+      "Khi chuyển đến sinh sống tại địa điểm khác nơi thường trú, bạn cần tìm hiểu đúng thủ tục cư trú phù hợp.",
+      "Trước tiên, hãy xác định nơi ở, thời gian sinh sống và tình trạng cư trú hiện tại.",
+      "Kiểm tra thông tin về chỗ ở và tài liệu cần thiết theo hướng dẫn chính thức.",
+      "Nếu thực hiện trực tuyến, hãy lưu mã hồ sơ và thông báo tiếp nhận."
+    ]
+  },
+  {
+    slug: "sang-ten-xe-may-can-luu-y-gi",
+    date: "15/11/2026",
+    title: "Sang tên xe máy: Những việc nên kiểm tra trước khi làm",
+    excerpt: "Các thông tin cần đối chiếu khi mua bán và chuyển quyền sở hữu xe máy.",
+    body: [
+      "Khi mua bán xe máy, việc thực hiện thủ tục sang tên giúp cập nhật thông tin chủ sở hữu phương tiện.",
+      "Hai bên nên kiểm tra thông tin phương tiện, giấy tờ quyền sở hữu và chứng từ giao dịch.",
+      "Không nên chỉ dựa vào thỏa thuận miệng hoặc giấy tờ không rõ nguồn gốc.",
+      "Nơi tiếp nhận, lệ phí và quy trình cần được tra cứu theo trường hợp thực tế."
+    ]
+  },
+  {
+    slug: "ho-chieu-lan-dau-can-luu-y",
+    date: "14/11/2026",
+    title: "Làm hộ chiếu lần đầu: 6 điều không nên bỏ qua",
+    excerpt: "Những điều cần kiểm tra về thông tin cá nhân, ảnh và cách nộp hồ sơ.",
+    body: [
+      "Khi làm hộ chiếu lần đầu, người thực hiện nên xác định đúng trường hợp của mình và quy trình tương ứng.",
+      "Thông tin khai báo cần thống nhất với dữ liệu cá nhân và giấy tờ được yêu cầu.",
+      "Nếu khai trực tuyến, hãy kiểm tra kỹ thông tin liên hệ và lựa chọn nhận kết quả.",
+      "Chỉ sử dụng cổng thông tin chính thức để khai báo và theo dõi hồ sơ."
+    ]
+  },
+  {
+    slug: "hoi-dap-dang-ky-ho-kinh-doanh",
+    date: "13/11/2026",
+    title: "Hỏi đáp: Muốn đăng ký hộ kinh doanh thì bắt đầu thế nào?",
+    excerpt: "Một tình huống hỏi đáp minh họa về việc đăng ký hộ kinh doanh.",
+    body: [
+      "TÌNH HUỐNG HỎI ĐÁP",
+      "Người dùng hỏi: Tôi muốn mở một cửa hàng nhỏ nhưng chưa biết bắt đầu từ đâu.",
+      "APA trả lời: Bạn nên xác định địa điểm, ngành nghề dự kiến, mô hình kinh doanh và thông tin người đăng ký trước khi tra cứu thủ tục.",
+      "Người dùng hỏi: Tôi cần chuẩn bị những thông tin nào?",
+      "APA trả lời: Hãy kiểm tra biểu mẫu hiện hành để biết thông tin người đăng ký, tên dự kiến, địa chỉ và ngành nghề cần khai báo.",
+      "Người dùng hỏi: Có thể nộp trực tuyến không?",
+      "APA trả lời: Hình thức tiếp nhận tùy thuộc quy trình áp dụng. Hãy kiểm tra trên cổng dịch vụ công hoặc cơ quan đăng ký có thẩm quyền.",
+      "Lưu ý: Đây là tình huống minh họa do APA biên soạn, không phải hội thoại thực tế."
+    ]
+  },
+  {
+    slug: "ho-so-dat-dai-nen-kiem-tra-gi",
+    date: "12/11/2026",
+    title: "Hồ sơ đất đai: Những thông tin nên kiểm tra trước khi nộp",
+    excerpt: "Cách xác định đúng thủ tục và đối chiếu thông tin giấy tờ đất đai.",
+    body: [
+      "Thủ tục đất đai có nhiều loại như đăng ký biến động, cấp giấy chứng nhận hoặc đính chính thông tin.",
+      "Điều quan trọng đầu tiên là xác định chính xác mục đích cần giải quyết.",
+      "Hãy đối chiếu thông tin người sử dụng đất, thửa đất, địa chỉ và tài liệu hiện có.",
+      "Không sử dụng một bộ hồ sơ chung cho tất cả thủ tục đất đai. Hãy kiểm tra yêu cầu của cơ quan có thẩm quyền."
+    ]
+  },
+  {
+    slug: "tra-cuu-the-bhyt-con-gia-tri-khong",
+    date: "11/11/2026",
+    title: "Cách kiểm tra thẻ BHYT còn giá trị sử dụng hay không",
+    excerpt: "Hướng dẫn kiểm tra thông tin tham gia bảo hiểm y tế.",
+    body: [
+      "Trước khi đi khám chữa bệnh, người tham gia nên kiểm tra giá trị sử dụng của thẻ bảo hiểm y tế.",
+      "Bạn có thể sử dụng kênh tra cứu chính thức của cơ quan bảo hiểm xã hội.",
+      "Hãy đối chiếu họ tên, thông tin định danh và thời hạn sử dụng.",
+      "Nếu dữ liệu không chính xác, hãy liên hệ cơ quan bảo hiểm xã hội để được hướng dẫn."
+    ]
+  },
+  {
+    slug: "hoi-dap-ho-so-truc-tuyen-bi-yeu-cau-bo-sung",
+    date: "10/11/2026",
+    title: "Hỏi đáp: Hồ sơ trực tuyến bị yêu cầu bổ sung, tôi phải làm gì?",
+    excerpt: "Cách đọc thông báo bổ sung và xử lý hồ sơ trực tuyến.",
+    body: [
+      "TÌNH HUỐNG HỎI ĐÁP",
+      "Người dùng hỏi: Hồ sơ của tôi bị yêu cầu bổ sung. Có phải đã bị từ chối không?",
+      "APA trả lời: Chưa thể kết luận hồ sơ bị từ chối. Cơ quan tiếp nhận có thể đang yêu cầu làm rõ hoặc bổ sung thông tin.",
+      "Người dùng hỏi: Tôi nên làm gì trước tiên?",
+      "APA trả lời: Hãy đọc kỹ thông báo, xác định tài liệu còn thiếu và kiểm tra định dạng tệp đính kèm.",
+      "Người dùng hỏi: Tôi có cần tạo hồ sơ mới không?",
+      "APA trả lời: Không nên tạo hồ sơ mới trước khi kiểm tra hướng dẫn bổ sung trên hồ sơ hiện tại.",
+      "Lưu ý: Hãy ưu tiên thông báo chính thức của cơ quan tiếp nhận."
+    ]
+  },
+  {
+    slug: "theo-doi-ho-so-da-nop-truc-tuyen",
+    date: "09/11/2026",
+    title: "Đã nộp hồ sơ trực tuyến: Theo dõi kết quả ở đâu?",
+    excerpt: "Cách lưu mã hồ sơ, kiểm tra trạng thái và liên hệ khi cần hỗ trợ.",
+    body: [
+      "Sau khi gửi hồ sơ trực tuyến, bạn nên lưu mã hồ sơ, thời điểm gửi và thông tin cơ quan tiếp nhận.",
+      "Khi tra cứu trạng thái, hãy đọc cả nội dung thông báo thay vì chỉ nhìn nhãn trạng thái.",
+      "Nếu trạng thái không thay đổi trong thời gian dài, hãy sử dụng kênh liên hệ chính thức của cơ quan tiếp nhận.",
+      "Không nên gửi lại hồ sơ nhiều lần khi chưa xác định tình trạng hồ sơ cũ."
+    ]
+  },
+  {
+    slug: "uy-quyen-nop-ho-so-can-luu-y",
+    date: "08/11/2026",
+    title: "Ủy quyền nộp hồ sơ hành chính: Cần lưu ý những gì?",
+    excerpt: "Các điểm nên kiểm tra khi nhờ người khác thực hiện thủ tục thay.",
+    body: [
+      "Trong một số tình huống, người thực hiện không thể trực tiếp đến cơ quan tiếp nhận và muốn nhờ người khác làm thay.",
+      "Không phải thủ tục nào cũng có cùng yêu cầu về đại diện hoặc ủy quyền.",
+      "Hãy kiểm tra hình thức văn bản, phạm vi công việc được ủy quyền và giấy tờ của các bên.",
+      "APA khuyến nghị xác nhận trước với cơ quan tiếp nhận, đặc biệt đối với thủ tục liên quan đến tài sản hoặc nhân thân."
+    ]
+  },
+  {
+    slug: "tra-cuu-le-phi-va-thoi-han-thu-tuc",
+    date: "07/11/2026",
+    title: "Tra cứu lệ phí và thời hạn giải quyết thủ tục ở đâu?",
+    excerpt: "Cách tìm thông tin về chi phí và thời gian giải quyết từ nguồn chính thức.",
+    body: [
+      "Lệ phí và thời hạn là hai thông tin quan trọng cần tìm hiểu trước khi nộp hồ sơ.",
+      "Bạn nên ưu tiên trang thông tin hoặc cổng dịch vụ công chính thức của cơ quan có thẩm quyền.",
+      "Khi xem thời hạn, hãy phân biệt thời gian giải quyết theo quy định với thời gian thực tế có thể phát sinh.",
+      "Nếu mức phí giữa các nguồn không thống nhất, hãy liên hệ cơ quan tiếp nhận để xác nhận."
+    ]
+  },
+  {
+    slug: "doanh-nghiep-cap-nhat-thong-tin-can-kiem-tra",
+    date: "06/11/2026",
+    title: "Doanh nghiệp cần kiểm tra gì khi thay đổi thông tin đăng ký?",
+    excerpt: "Những nội dung nên rà soát khi doanh nghiệp thay đổi thông tin hoạt động.",
+    body: [
+      "Trong quá trình hoạt động, doanh nghiệp có thể phát sinh thay đổi về địa chỉ, người đại diện hoặc ngành nghề.",
+      "Hãy xác định chính xác nội dung thay đổi và đối chiếu thông tin đã đăng ký.",
+      "Chuẩn bị tài liệu chứng minh tương ứng theo yêu cầu của thủ tục cụ thể.",
+      "Sau khi nộp, doanh nghiệp nên lưu thông báo tiếp nhận và kết quả để cập nhật hệ thống nội bộ."
+    ]
+  },
+  {
+    slug: "huong-dan-su-dung-cong-dich-vu-cong",
+    date: "05/11/2026",
+    title: "Lần đầu sử dụng Cổng Dịch vụ công: Nên bắt đầu thế nào?",
+    excerpt: "Hướng dẫn tìm thủ tục, đọc yêu cầu và lưu mã hồ sơ khi thao tác trực tuyến.",
+    body: [
+      "Cổng Dịch vụ công giúp người dân tìm hiểu và thực hiện nhiều thủ tục trực tuyến.",
+      "Hãy xác định đúng địa chỉ cổng thông tin chính thức trước khi đăng nhập.",
+      "Tìm thủ tục bằng tên gọi hoặc lĩnh vực, đọc kỹ đối tượng áp dụng và thành phần hồ sơ.",
+      "Trước khi gửi, kiểm tra dữ liệu đã khai và lưu mã hồ sơ sau khi hoàn tất."
+    ]
+  },
+  {
+    slug: "hoi-dap-khong-biet-ten-thu-tuc",
+    date: "04/11/2026",
+    title: "Hỏi đáp: Tôi không biết tên thủ tục mình cần tìm",
+    excerpt: "Cách mô tả vấn đề bằng ngôn ngữ thông thường để tìm đúng thủ tục.",
+    body: [
+      "TÌNH HUỐNG HỎI ĐÁP",
+      "Người dùng hỏi: Tôi muốn thay đổi thông tin cư trú nhưng không biết tên thủ tục.",
+      "APA trả lời: Bạn không cần nhớ tên thủ tục ngay từ đầu. Hãy mô tả việc cần làm, tình trạng hiện tại và kết quả mong muốn.",
+      "Người dùng hỏi: Tôi cần cung cấp những thông tin nào?",
+      "APA trả lời: Bạn có thể mô tả nơi ở, thông tin muốn thay đổi và giấy tờ hiện có. Không cần gửi dữ liệu nhạy cảm.",
+      "Người dùng hỏi: Nếu có nhiều thủ tục gần giống nhau?",
+      "APA trả lời: Hãy so sánh đối tượng, mục đích và cơ quan giải quyết, sau đó xác nhận với cơ quan tiếp nhận nếu cần.",
+      "Lưu ý: Đây là tình huống minh họa do APA biên soạn."
+    ]
+  },
+  {
+    slug: "hoi-dap-ho-so-bi-tu-choi",
+    date: "03/11/2026",
+    title: "Hỏi đáp: Hồ sơ bị từ chối, có nên nộp lại ngay?",
+    excerpt: "Cách đọc thông báo và xác định bước tiếp theo khi hồ sơ không được tiếp nhận.",
+    body: [
+      "TÌNH HUỐNG HỎI ĐÁP",
+      "Người dùng hỏi: Tôi nhận được thông báo hồ sơ không được tiếp nhận. Có nên nộp lại ngay không?",
+      "APA trả lời: Trước tiên, cần phân biệt hồ sơ bị từ chối tiếp nhận, hồ sơ cần bổ sung và hồ sơ đã tiếp nhận nhưng chưa đủ điều kiện giải quyết.",
+      "Người dùng hỏi: Tôi cần xem phần nào trong thông báo?",
+      "APA trả lời: Hãy đọc lý do, hướng dẫn xử lý và ghi lại mã hồ sơ.",
+      "Người dùng hỏi: Nếu không đồng ý thì sao?",
+      "APA trả lời: Bạn có thể liên hệ cơ quan ban hành thông báo để đề nghị giải thích hoặc tìm hiểu kênh phản ánh, kiến nghị phù hợp.",
+      "Lưu ý: Đây là tình huống minh họa do APA biên soạn."
+    ]
+  }
+];
