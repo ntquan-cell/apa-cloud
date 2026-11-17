@@ -58,8 +58,8 @@ const items = [
     title: "Cơ quan gần nhất",
     subtitle: "KẾT NỐI DỊCH VỤ CÔNG",
     description:
-      "Hỗ trợ tìm kiếm cơ quan hành chính, xác định địa điểm tiếp nhận và tìm hiểu thông tin liên hệ trước khi đến làm thủ tục.",
-    features: ["Tìm địa điểm", "Thông tin liên hệ", "Hỗ trợ tìm nơi nộp"],
+      "Tìm cơ quan hành chính theo vị trí hiện tại hoặc địa chỉ bạn nhập. Xem kết quả trên bản đồ và lựa chọn điểm tiếp nhận phù hợp.",
+    features: ["Định vị vị trí hiện tại", "Tìm theo xã/phường, tỉnh", "Xem bản đồ & chỉ đường"],
     href: "/co-quan",
     color: "green",
   },
