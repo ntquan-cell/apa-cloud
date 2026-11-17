@@ -1,8 +1,12 @@
 
-"use client";
-
-import { useEffect, useRef } from "react";
 import Link from "next/link";
+import type { CSSProperties } from "react";
+
+export const metadata = {
+  title: "Giải pháp | APA - Trợ lý hành chính số",
+  description:
+    "Các giải pháp hành chính số của APA dành cho người dân, doanh nghiệp, tổ chức và người Việt ở nước ngoài.",
+};
 
 const solutions = [
   {
@@ -87,47 +91,40 @@ const solutions = [
   },
 ];
 
-export default function Page() {
-  const sectionRef = useRef<HTMLElement>(null);
+const processSteps = [
+  {
+    number: "01",
+    icon: "🔎",
+    title: "Tìm hiểu",
+    description: "Tiếp cận thông tin và xác định thủ tục cần thực hiện.",
+  },
+  {
+    number: "02",
+    icon: "📋",
+    title: "Chuẩn bị",
+    description: "Tham khảo hướng dẫn và chuẩn bị giấy tờ cần thiết.",
+  },
+  {
+    number: "03",
+    icon: "🤝",
+    title: "Kết nối",
+    description: "Định hướng liên hệ cơ quan hoặc đơn vị phù hợp.",
+  },
+  {
+    number: "04",
+    icon: "✨",
+    title: "Chủ động",
+    description: "Theo dõi công việc và quản lý thông tin thuận tiện hơn.",
+  },
+];
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const elements = section.querySelectorAll(".reveal");
-
-    if (!("IntersectionObserver" in window)) {
-      elements.forEach((element) => {
-        element.classList.add("is-visible");
-      });
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
-      }
-    );
-
-    elements.forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
-  }, []);
-
+export default function GiaiPhapPage() {
   return (
-    <main className="solution-page" ref={sectionRef}>
+    <main className="solution-page">
       <section className="solution-hero">
-        <div className="hero-glow hero-glow-one" />
-        <div className="hero-glow hero-glow-two" />
+        <div className="solution-hero-glow glow-one" />
+        <div className="solution-hero-glow glow-two" />
+        <div className="solution-hero-ring" />
 
         <div className="solution-container hero-content">
           <div className="hero-label">
@@ -136,7 +133,8 @@ export default function Page() {
           </div>
 
           <h1>
-            Một nền tảng, Nhiều giải pháp, Phục vụ mọi nhu cầu.
+            Một nền tảng, nhiều giải pháp,
+            <span> phục vụ mọi nhu cầu.</span>
           </h1>
 
           <p className="hero-description">
@@ -155,29 +153,32 @@ export default function Page() {
           </div>
 
           <div className="hero-stats">
-            <div>
+            <div className="stat-item">
               <strong>04</strong>
               <span>Nhóm đối tượng</span>
             </div>
             <div className="stat-divider" />
-            <div>
+            <div className="stat-item">
               <strong>01</strong>
               <span>Nền tảng kết nối</span>
             </div>
             <div className="stat-divider" />
-            <div>
+            <div className="stat-item">
               <strong>24/7</strong>
               <span>Chủ động tra cứu</span>
             </div>
           </div>
         </div>
 
-        <div className="hero-decoration" aria-hidden="true">
-          <div className="decoration-circle circle-one" />
-          <div className="decoration-circle circle-two" />
-          <div className="decoration-circle circle-three" />
-          <div className="decoration-card">
-            <span>✦</span>
+        <div className="hero-assistant" aria-hidden="true">
+          <div className="assistant-orbit orbit-one" />
+          <div className="assistant-orbit orbit-two" />
+          <div className="assistant-core">
+            <span>APA</span>
+            <small>ASSISTANT</small>
+          </div>
+          <div className="assistant-card">
+            <span className="assistant-star">✦</span>
             <div>
               <strong>APA Assistant</strong>
               <small>Hỗ trợ hành chính số</small>
@@ -187,7 +188,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="solution-intro solution-container reveal">
+      <section className="solution-intro solution-container">
         <span className="section-eyebrow">GIẢI PHÁP CỦA APA</span>
         <h2>
           Hành chính dễ hiểu hơn,
@@ -204,16 +205,13 @@ export default function Page() {
       <section className="solution-list solution-container">
         {solutions.map((solution, index) => (
           <article
-            className={`solution-card reveal ${
-              index % 2 === 1 ? "reverse" : ""
-            }`}
+            className={`solution-card ${index % 2 === 1 ? "reverse" : ""}`}
             key={solution.id}
             style={
               {
                 "--solution-color": solution.color,
                 "--solution-bg": solution.background,
-                "--card-index": index,
-              } as React.CSSProperties
+              } as CSSProperties
             }
           >
             <div className="solution-visual">
@@ -234,13 +232,11 @@ export default function Page() {
 
               <h3>{solution.title}</h3>
               <h4>{solution.subtitle}</h4>
-              <p className="solution-description">
-                {solution.description}
-              </p>
+              <p className="solution-description">{solution.description}</p>
 
-              <ul className="feature-list">
-                {solution.features.map((feature, featureIndex) => (
-                  <li key={featureIndex}>
+              <ul className="solution-feature-list">
+                {solution.features.map((feature) => (
+                  <li key={feature}>
                     <span className="check-icon">✓</span>
                     <span>{feature}</span>
                   </li>
@@ -257,47 +253,30 @@ export default function Page() {
       </section>
 
       <section className="solution-process">
-        <div className="solution-container process-inner reveal">
-          <span className="section-eyebrow">CÁCH APA ĐỒNG HÀNH</span>
-          <h2>
-            Đơn giản hóa từ
-            <br />
-            <span>những bước đầu tiên.</span>
-          </h2>
+        <div className="solution-container process-inner">
+          <div className="process-heading">
+            <span className="section-eyebrow">CÁCH APA ĐỒNG HÀNH</span>
+            <h2>
+              Đơn giản hóa từ
+              <br />
+              <span>những bước đầu tiên.</span>
+            </h2>
+          </div>
 
           <div className="process-grid">
-            <div className="process-item">
-              <div className="process-number">01</div>
-              <div className="process-icon">🔎</div>
-              <h3>Tìm hiểu</h3>
-              <p>Tiếp cận thông tin và xác định thủ tục cần thực hiện.</p>
-            </div>
-
-            <div className="process-item">
-              <div className="process-number">02</div>
-              <div className="process-icon">📋</div>
-              <h3>Chuẩn bị</h3>
-              <p>Tham khảo hướng dẫn và chuẩn bị giấy tờ cần thiết.</p>
-            </div>
-
-            <div className="process-item">
-              <div className="process-number">03</div>
-              <div className="process-icon">🤝</div>
-              <h3>Kết nối</h3>
-              <p>Định hướng liên hệ cơ quan hoặc đơn vị phù hợp.</p>
-            </div>
-
-            <div className="process-item">
-              <div className="process-number">04</div>
-              <div className="process-icon">✨</div>
-              <h3>Chủ động</h3>
-              <p>Theo dõi công việc và quản lý thông tin thuận tiện hơn.</p>
-            </div>
+            {processSteps.map((step) => (
+              <article className="process-item" key={step.number}>
+                <div className="process-number">{step.number}</div>
+                <div className="process-icon">{step.icon}</div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="solution-cta solution-container reveal">
+      <section className="solution-cta solution-container">
         <div className="cta-content">
           <span className="section-eyebrow">BẮT ĐẦU CÙNG APA</span>
           <h2>
@@ -323,293 +302,952 @@ export default function Page() {
         </div>
       </section>
 
-      <style jsx global>{`
-.solution-page {
-  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.7;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+      <style>{`
+        .solution-page {
+          --solution-navy: #0b2850;
+          --solution-blue: #1768e8;
+          --solution-muted: #5b7089;
+          width: 100%;
+          overflow: hidden;
+          color: #203b5d;
+          background: #f5f8fd;
+          font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+          font-size: 15px;
+          line-height: 1.7;
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+        }
 
-.solution-page * {
-  font-family: inherit;
-}
+        .solution-page,
+        .solution-page * {
+          box-sizing: border-box;
+        }
 
-/* Tiêu đề Hero */
-.solution-page .solution-hero h1 {
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
-  font-size: clamp(38px, 4.8vw, 60px);
-  line-height: 1.18;
-  letter-spacing: -1.5px;
-  font-weight: 800;
-}
+        .solution-container {
+          width: min(1160px, calc(100% - 48px));
+          margin-right: auto;
+          margin-left: auto;
+        }
 
-/* Nội dung giới thiệu Hero */
-.solution-page .hero-description {
-  font-size: 16px;
-  line-height: 1.85;
-  font-weight: 400;
-}
+        .solution-page a {
+          text-decoration: none;
+        }
 
-/* Nhãn nhỏ trên Hero */
-.solution-page .hero-label {
-  font-size: 11px;
-  line-height: 1.5;
-  font-weight: 750;
-  letter-spacing: 1.3px;
-}
+        /* HERO */
 
-.solution-page .hero-stats strong {
-  font-size: 26px;
-  line-height: 1.25;
-  font-weight: 800;
-}
+        .solution-hero {
+          position: relative;
+          isolation: isolate;
+          display: flex;
+          align-items: center;
+          min-height: 540px;
+          padding: 76px 0 68px;
+          overflow: hidden;
+          color: #fff;
+          background:
+            radial-gradient(ellipse at 78% 30%, rgba(46, 130, 226, .32), transparent 38%),
+            linear-gradient(120deg, #081d3b 0%, #103b70 58%, #1766a5 100%);
+        }
 
-.solution-page .hero-stats span {
-  font-size: 12px;
-  line-height: 1.5;
-}
+        .solution-hero-glow {
+          position: absolute;
+          z-index: -1;
+          border-radius: 50%;
+          pointer-events: none;
+        }
 
-/* Các tiêu đề lớn giữa trang */
-.solution-page .solution-intro h2,
-.solution-page .process-inner > h2,
-.solution-page .cta-content h2 {
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
-  font-size: clamp(30px, 3.5vw, 40px);
-  line-height: 1.3;
-  letter-spacing: -1px;
-  font-weight: 800;
-}
+        .glow-one {
+          top: -240px;
+          right: 7%;
+          width: 480px;
+          height: 480px;
+          background: radial-gradient(circle, rgba(102, 187, 255, .24), transparent 70%);
+        }
 
-.solution-page .solution-intro > p {
-  font-size: 15px;
-  line-height: 1.85;
-  font-weight: 400;
-}
+        .glow-two {
+          right: 35%;
+          bottom: -300px;
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, rgba(41, 132, 230, .2), transparent 70%);
+        }
 
-/* Nhãn section */
-.solution-page .section-eyebrow {
-  font-size: 11px;
-  line-height: 1.5;
-  font-weight: 800;
-  letter-spacing: 1.6px;
-}
+        .solution-hero-ring {
+          position: absolute;
+          z-index: -1;
+          top: -390px;
+          right: -160px;
+          width: 720px;
+          height: 720px;
+          border: 1px solid rgba(255,255,255,.12);
+          border-radius: 50%;
+          box-shadow:
+            0 0 0 45px rgba(255,255,255,.025),
+            0 0 0 90px rgba(255,255,255,.018);
+          pointer-events: none;
+        }
 
-/* Số thứ tự trên thẻ giải pháp */
-.solution-page .visual-number,
-.solution-page .solution-index {
-  font-size: 11px;
-  line-height: 1.5;
-  font-weight: 800;
-  letter-spacing: 1.3px;
-}
+        .hero-content {
+          position: relative;
+          z-index: 2;
+          max-width: 1160px;
+        }
 
-.solution-page .visual-caption {
-  font-size: 10px;
-  line-height: 1.5;
-  font-weight: 800;
-  letter-spacing: 1.2px;
-}
+        .hero-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 23px;
+          color: #c7e2ff;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 1.8px;
+        }
 
-/* Tiêu đề từng nhóm giải pháp */
-.solution-page .solution-information h3 {
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
-  font-size: clamp(23px, 2.3vw, 28px);
-  line-height: 1.35;
-  letter-spacing: -.5px;
-  font-weight: 800;
-}
+        .label-dot {
+          width: 9px;
+          height: 9px;
+          flex: 0 0 9px;
+          border-radius: 50%;
+          background: #65d8ce;
+          box-shadow: 0 0 13px rgba(101,216,206,.7);
+        }
 
-.solution-page .solution-information h4 {
-  font-size: 15px;
-  line-height: 1.55;
-  font-weight: 700;
-}
+        .solution-hero h1 {
+          max-width: 850px;
+          margin: 0;
+          color: #fff;
+          font-size: clamp(39px, 5.2vw, 64px);
+          line-height: 1.17;
+          font-weight: 850;
+          letter-spacing: -1.8px;
+        }
 
-/* Mô tả giải pháp */
-.solution-page .solution-description {
-  font-size: 14.5px;
-  line-height: 1.85;
-  font-weight: 400;
-}
+        .solution-hero h1 span {
+          color: #a9d7ff;
+        }
 
-/* Danh sách tính năng */
-.solution-page .feature-list {
-  gap: 11px;
-}
+        .hero-description {
+          max-width: 690px;
+          margin: 23px 0 27px;
+          color: #d8e8fa;
+          font-size: 16px;
+          line-height: 1.85;
+        }
 
-.solution-page .feature-list li {
-  font-size: 14px;
-  line-height: 1.75;
-  font-weight: 400;
-}
+        .hero-actions,
+        .cta-actions {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 13px;
+        }
 
-/* Nút và đường dẫn */
-.solution-page .primary-button,
-.solution-page .secondary-button {
-  font-size: 13.5px;
-  line-height: 1.4;
-  font-weight: 750;
-}
+        .primary-button,
+        .secondary-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 13px;
+          min-height: 47px;
+          padding: 0 20px;
+          border-radius: 9px;
+          font-size: 13px;
+          font-weight: 800;
+          transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+        }
 
-.solution-page .solution-link,
-.solution-page .cta-text-link {
-  font-size: 13.5px;
-  line-height: 1.5;
-  font-weight: 750;
-}
+        .primary-button {
+          color: #12477d !important;
+          background: #fff;
+          box-shadow: 0 8px 22px rgba(0,0,0,.12);
+        }
 
-/* Các bước đồng hành */
-.solution-page .process-number {
-  font-size: 11px;
-  font-weight: 800;
-}
+        .primary-button:hover {
+          color: #12477d !important;
+          background: #e6f3ff;
+          transform: translateY(-3px);
+        }
 
-.solution-page .process-icon {
-  font-size: 28px;
-}
+        .primary-button span {
+          font-size: 17px;
+        }
 
-.solution-page .process-item h3 {
-  font-size: 16px;
-  line-height: 1.45;
-  font-weight: 800;
-}
+        .secondary-button {
+          color: #fff !important;
+          border: 1px solid rgba(255,255,255,.5);
+          background: rgba(255,255,255,.06);
+        }
 
-.solution-page .process-item p {
-  font-size: 13px;
-  line-height: 1.8;
-  font-weight: 400;
-}
+        .secondary-button:hover {
+          color: #fff !important;
+          background: rgba(255,255,255,.15);
+          transform: translateY(-3px);
+        }
 
-.solution-page .cta-content > p {
-  font-size: 14px;
-  line-height: 1.85;
-}
+        .hero-stats {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 26px;
+          margin-top: 48px;
+        }
 
-.solution-page .cta-content h2 {
-  font-size: clamp(29px, 3.5vw, 40px);
-}
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
 
-.solution-page .cta-text-link {
-  font-size: 13px;
-}
+        .stat-item strong {
+          color: #fff;
+          font-size: 27px;
+          line-height: 1.2;
+          font-weight: 850;
+        }
 
-/* =========================================
-   TABLET
-   ========================================= */
+        .stat-item span {
+          color: #c7dcef;
+          font-size: 11px;
+        }
 
-@media (max-width: 900px) {
-  .solution-page .solution-hero h1 {
-    font-size: clamp(36px, 5.4vw, 48px);
-    line-height: 1.2;
-  }
+        .stat-divider {
+          width: 1px;
+          height: 37px;
+          background: rgba(255,255,255,.25);
+        }
 
-  .solution-page .solution-information h3 {
-    font-size: 24px;
-  }
+        /* HERO ASSISTANT VISUAL */
 
-  .solution-page .solution-description {
-    font-size: 14px;
-  }
+        .hero-assistant {
+          position: absolute;
+          top: 50%;
+          right: max(5%, calc((100vw - 1160px) / 2));
+          width: 330px;
+          height: 330px;
+          transform: translateY(-43%);
+          pointer-events: none;
+        }
 
-  .solution-page .feature-list li {
-    font-size: 13.5px;
-  }
-}
+        .assistant-orbit {
+          position: absolute;
+          inset: 20px;
+          border: 1px solid rgba(180,220,255,.22);
+          border-radius: 50%;
+        }
 
-/* =========================================
-   MOBILE
-   ========================================= */
+        .orbit-two {
+          inset: 55px;
+          border-style: dashed;
+          border-color: rgba(180,220,255,.3);
+        }
 
-@media (max-width: 650px) {
-  .solution-page {
-    font-size: 14px;
-    line-height: 1.7;
-  }
+        .assistant-core {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          width: 150px;
+          height: 150px;
+          border: 1px solid rgba(181,226,255,.8);
+          border-radius: 50%;
+          color: #fff;
+          background: radial-gradient(circle at 35% 25%, #2872b5, #092449 75%);
+          box-shadow: 0 0 0 13px rgba(71,165,255,.08), 0 0 55px rgba(63,164,255,.28);
+          transform: translate(-50%, -50%);
+        }
 
-  .solution-page .solution-hero h1 {
-    font-size: clamp(32px, 8.5vw, 37px);
-    line-height: 1.22;
-    letter-spacing: -.9px;
-  }
+        .assistant-core span {
+          font-size: 36px;
+          font-weight: 900;
+          letter-spacing: 2px;
+        }
 
-  .solution-page .hero-label {
-    font-size: 10px;
-  }
+        .assistant-core small {
+          color: #c8e5ff;
+          font-size: 9px;
+          letter-spacing: 2px;
+        }
 
-  .solution-page .hero-description {
-    font-size: 14px;
-    line-height: 1.8;
-  }
+        .assistant-card {
+          position: absolute;
+          right: -5px;
+          bottom: 28px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 13px 15px;
+          border: 1px solid rgba(255,255,255,.5);
+          border-radius: 12px;
+          color: #183a61;
+          background: #fff;
+          box-shadow: 0 14px 35px rgba(0,0,0,.2);
+        }
 
-  .solution-page .hero-stats strong {
-    font-size: 21px;
-  }
+        .assistant-star {
+          color: #1768e8;
+          font-size: 23px;
+        }
 
-  .solution-page .hero-stats span {
-    font-size: 10.5px;
-    line-height: 1.5;
-  }
+        .assistant-card strong,
+        .assistant-card small {
+          display: block;
+        }
 
-  .solution-page .solution-intro h2,
-  .solution-page .process-inner > h2,
-  .solution-page .cta-content h2 {
-    font-size: 29px;
-    line-height: 1.3;
-    letter-spacing: -.6px;
-  }
+        .assistant-card strong {
+          font-size: 12px;
+        }
 
-  .solution-page .solution-intro > p {
-    font-size: 14px;
-    line-height: 1.8;
-  }
+        .assistant-card small {
+          color: #71839a;
+          font-size: 10px;
+        }
 
-  .solution-page .solution-information h3 {
-    font-size: 23px;
-    line-height: 1.35;
-  }
+        .online-dot {
+          width: 8px;
+          height: 8px;
+          margin-left: 8px;
+          border-radius: 50%;
+          background: #16b887;
+        }
 
-  .solution-page .solution-information h4 {
-    font-size: 14px;
-    line-height: 1.6;
-  }
+        /* INTRO */
 
-  .solution-page .solution-description {
-    font-size: 13.5px;
-    line-height: 1.85;
-  }
+        .solution-intro {
+          padding-top: 86px;
+          padding-bottom: 45px;
+          text-align: center;
+        }
 
-  .solution-page .feature-list li {
-    font-size: 13px;
-    line-height: 1.75;
-  }
+        .section-eyebrow {
+          display: inline-block;
+          margin-bottom: 15px;
+          color: #1768c5;
+          font-size: 10px;
+          font-weight: 850;
+          letter-spacing: 1.8px;
+        }
 
-  .solution-page .process-item h3 {
-    font-size: 14px;
-  }
+        .solution-intro h2,
+        .process-heading h2,
+        .cta-content h2 {
+          margin: 0 0 17px;
+          color: #102d50;
+          font-size: clamp(30px, 3.5vw, 41px);
+          line-height: 1.3;
+          font-weight: 850;
+          letter-spacing: -1px;
+        }
 
-  .solution-page .process-item p {
-    font-size: 12px;
-    line-height: 1.7;
-  }
+        .solution-intro h2 span,
+        .process-heading h2 span,
+        .cta-content h2 span {
+          color: #2674bd;
+        }
 
-  .solution-page .primary-button,
-  .solution-page .secondary-button {
-    font-size: 13px;
-  }
+        .solution-intro > p {
+          max-width: 760px;
+          margin: 0 auto;
+          color: #5b7089;
+          font-size: 14px;
+          line-height: 1.9;
+        }
 
-  .solution-page .cta-content > p {
-    font-size: 13px;
-    line-height: 1.8;
-  }
+        /* SOLUTION CARDS */
 
-  .solution-page .section-eyebrow {
-    font-size: 10px;
-    letter-spacing: 1.4px;
-  }
-}
+        .solution-list {
+          display: grid;
+          gap: 28px;
+          padding-top: 20px;
+          padding-bottom: 85px;
+        }
+
+        .solution-card {
+          display: grid;
+          grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+          min-width: 0;
+          overflow: hidden;
+          border: 1px solid #e0e9f3;
+          border-radius: 20px;
+          background: #fff;
+          box-shadow: 0 9px 30px rgba(17,48,84,.055);
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .solution-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 17px 38px rgba(17,48,84,.1);
+        }
+
+        .solution-card.reverse {
+          grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+        }
+
+        .solution-card.reverse .solution-visual {
+          order: 2;
+        }
+
+        .solution-card.reverse .solution-information {
+          order: 1;
+        }
+
+        .solution-visual {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 390px;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 50% 48%, #fff 0%, var(--solution-bg) 65%);
+        }
+
+        .visual-number {
+          position: absolute;
+          top: 24px;
+          left: 28px;
+          color: var(--solution-color);
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: 2px;
+        }
+
+        .visual-icon {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          place-items: center;
+          width: 155px;
+          height: 155px;
+          border: 1px solid rgba(255,255,255,.9);
+          border-radius: 38px;
+          background: rgba(255,255,255,.78);
+          box-shadow: 0 18px 45px rgba(24,65,110,.1);
+          font-size: 76px;
+          transform: rotate(-5deg);
+        }
+
+        .visual-caption {
+          position: absolute;
+          bottom: 27px;
+          left: 28px;
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          color: var(--solution-color);
+          font-size: 10px;
+          font-weight: 850;
+          letter-spacing: 1.3px;
+        }
+
+        .visual-caption-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: var(--solution-color);
+        }
+
+        .visual-decoration {
+          position: absolute;
+          border: 1px solid color-mix(in srgb, var(--solution-color) 17%, transparent);
+          border-radius: 50%;
+        }
+
+        .decoration-a {
+          width: 260px;
+          height: 260px;
+        }
+
+        .decoration-b {
+          width: 330px;
+          height: 330px;
+        }
+
+        .solution-information {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          min-width: 0;
+          padding: 38px 42px;
+        }
+
+        .solution-index {
+          display: inline-block;
+          margin-bottom: 13px;
+          color: var(--solution-color);
+          font-size: 10px;
+          font-weight: 850;
+          letter-spacing: 1.5px;
+        }
+
+        .solution-information h3 {
+          margin: 0 0 8px;
+          color: #102d50;
+          font-size: clamp(22px, 2.3vw, 28px);
+          line-height: 1.35;
+          font-weight: 850;
+          letter-spacing: -.5px;
+        }
+
+        .solution-information h4 {
+          margin: 0 0 14px;
+          color: var(--solution-color);
+          font-size: 14px;
+          line-height: 1.6;
+          font-weight: 750;
+        }
+
+        .solution-description {
+          margin: 0 0 19px;
+          color: #5a6f87;
+          font-size: 13px;
+          line-height: 1.85;
+        }
+
+        .solution-feature-list {
+          display: grid;
+          gap: 10px;
+          width: 100%;
+          padding: 0;
+          margin: 0 0 23px;
+          list-style: none;
+        }
+
+        .solution-feature-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          color: #354f6d;
+          font-size: 12px;
+          line-height: 1.7;
+        }
+
+        .check-icon {
+          display: grid;
+          place-items: center;
+          flex: 0 0 20px;
+          width: 20px;
+          height: 20px;
+          margin-top: 1px;
+          border-radius: 50%;
+          color: var(--solution-color);
+          background: var(--solution-bg);
+          font-size: 11px;
+          font-weight: 900;
+        }
+
+        .solution-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          margin-top: auto;
+          color: var(--solution-color) !important;
+          font-size: 13px;
+          font-weight: 850;
+        }
+
+        .solution-link span {
+          font-size: 18px;
+          transition: transform .2s ease;
+        }
+
+        .solution-link:hover span {
+          transform: translateX(5px);
+        }
+
+        /* PROCESS */
+
+        .solution-process {
+          padding: 76px 0 82px;
+          background:
+            radial-gradient(ellipse at 50% 0%, #e5f1ff, transparent 65%),
+            #edf4fc;
+        }
+
+        .process-heading {
+          margin-bottom: 38px;
+          text-align: center;
+        }
+
+        .process-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 17px;
+        }
+
+        .process-item {
+          position: relative;
+          min-width: 0;
+          padding: 25px 19px 26px;
+          border: 1px solid #dce7f3;
+          border-radius: 15px;
+          background: #fff;
+          box-shadow: 0 7px 22px rgba(20,55,95,.045);
+          text-align: center;
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .process-item:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 14px 30px rgba(20,55,95,.09);
+        }
+
+        .process-number {
+          color: #8ba6c4;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 1.5px;
+        }
+
+        .process-icon {
+          display: grid;
+          place-items: center;
+          width: 62px;
+          height: 62px;
+          margin: 16px auto;
+          border-radius: 18px;
+          background: #edf5ff;
+          font-size: 28px;
+        }
+
+        .process-item h3 {
+          margin: 0 0 8px;
+          color: #163b67;
+          font-size: 16px;
+          font-weight: 850;
+        }
+
+        .process-item p {
+          margin: 0;
+          color: #647991;
+          font-size: 12px;
+          line-height: 1.75;
+        }
+
+        /* CTA */
+
+        .solution-cta {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 35px;
+          min-height: 300px;
+          margin-top: 76px;
+          margin-bottom: 80px;
+          padding: 48px 55px;
+          overflow: hidden;
+          border-radius: 22px;
+          color: #fff;
+          background: linear-gradient(115deg, #0a2345, #155b9b);
+          box-shadow: 0 16px 38px rgba(15,53,96,.13);
+        }
+
+        .solution-cta::before {
+          position: absolute;
+          top: -170px;
+          right: 10%;
+          width: 390px;
+          height: 390px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(106,190,255,.24), transparent 70%);
+          content: "";
+          pointer-events: none;
+        }
+
+        .cta-content {
+          position: relative;
+          z-index: 1;
+          max-width: 680px;
+        }
+
+        .cta-content .section-eyebrow {
+          color: #b9dcff;
+        }
+
+        .cta-content h2 {
+          color: #fff;
+        }
+
+        .cta-content h2 span {
+          color: #a8d7ff;
+        }
+
+        .cta-content > p {
+          max-width: 590px;
+          margin: 0 0 23px;
+          color: #d6e7f8;
+          font-size: 13px;
+          line-height: 1.85;
+        }
+
+        .cta-text-link {
+          color: #fff !important;
+          font-size: 13px;
+          font-weight: 750;
+        }
+
+        .cta-text-link:hover {
+          color: #a8d7ff !important;
+        }
+
+        .cta-symbol {
+          position: relative;
+          z-index: 1;
+          flex: 0 0 auto;
+          color: rgba(255,255,255,.13);
+          font-size: clamp(55px, 8vw, 105px);
+          font-weight: 950;
+          letter-spacing: -7px;
+        }
+
+        .cta-symbol span {
+          color: rgba(147,211,255,.6);
+        }
+
+        /* TABLET */
+
+        @media (max-width: 950px) {
+          .hero-assistant {
+            right: 2%;
+            width: 260px;
+            height: 260px;
+            opacity: .55;
+          }
+
+          .assistant-core {
+            width: 120px;
+            height: 120px;
+          }
+
+          .assistant-card {
+            right: 0;
+            bottom: 5px;
+          }
+
+          .solution-information {
+            padding: 30px 27px;
+          }
+
+          .solution-visual {
+            min-height: 360px;
+          }
+
+          .process-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 700px) {
+          .solution-container {
+            width: calc(100% - 34px);
+          }
+
+          .solution-hero {
+            min-height: auto;
+            padding: 65px 0 43px;
+          }
+
+          .hero-content {
+            width: calc(100% - 34px);
+          }
+
+          .solution-hero h1 {
+            max-width: 100%;
+            font-size: clamp(34px, 8.5vw, 43px);
+            line-height: 1.2;
+            letter-spacing: -1px;
+          }
+
+          .hero-description {
+            max-width: 100%;
+            font-size: 14px;
+            line-height: 1.8;
+          }
+
+          .hero-assistant {
+            display: none;
+          }
+
+          .hero-stats {
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 36px;
+          }
+
+          .stat-item strong {
+            font-size: 23px;
+          }
+
+          .stat-item span {
+            font-size: 10px;
+          }
+
+          .stat-divider {
+            height: 31px;
+          }
+
+          .solution-intro {
+            padding-top: 58px;
+            padding-bottom: 30px;
+          }
+
+          .solution-intro h2,
+          .process-heading h2,
+          .cta-content h2 {
+            font-size: 29px;
+            line-height: 1.32;
+          }
+
+          .solution-intro > p {
+            font-size: 13px;
+          }
+
+          .solution-list {
+            gap: 19px;
+            padding-top: 12px;
+            padding-bottom: 58px;
+          }
+
+          .solution-card,
+          .solution-card.reverse {
+            grid-template-columns: 1fr;
+          }
+
+          .solution-card.reverse .solution-visual,
+          .solution-card.reverse .solution-information {
+            order: initial;
+          }
+
+          .solution-visual {
+            min-height: 230px;
+          }
+
+          .visual-icon {
+            width: 110px;
+            height: 110px;
+            border-radius: 29px;
+            font-size: 55px;
+          }
+
+          .visual-number {
+            top: 17px;
+            left: 19px;
+          }
+
+          .visual-caption {
+            bottom: 17px;
+            left: 19px;
+          }
+
+          .solution-information {
+            padding: 25px 22px 27px;
+          }
+
+          .solution-information h3 {
+            font-size: 23px;
+          }
+
+          .solution-description {
+            font-size: 13px;
+          }
+
+          .solution-feature-list li {
+            font-size: 12px;
+          }
+
+          .solution-process {
+            padding: 55px 0;
+          }
+
+          .process-heading {
+            margin-bottom: 27px;
+          }
+
+          .process-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 11px;
+          }
+
+          .process-item {
+            padding: 19px 12px;
+          }
+
+          .process-icon {
+            width: 52px;
+            height: 52px;
+            margin: 12px auto;
+            font-size: 24px;
+          }
+
+          .process-item h3 {
+            font-size: 14px;
+          }
+
+          .process-item p {
+            font-size: 11px;
+          }
+
+          .solution-cta {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 20px;
+            min-height: auto;
+            margin-top: 48px;
+            margin-bottom: 55px;
+            padding: 33px 23px;
+          }
+
+          .cta-symbol {
+            align-self: flex-end;
+            font-size: 54px;
+          }
+
+          .cta-content > p {
+            font-size: 12px;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .hero-stats {
+            gap: 7px;
+          }
+
+          .stat-item strong {
+            font-size: 20px;
+          }
+
+          .stat-item span {
+            font-size: 9px;
+          }
+
+          .process-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .hero-actions {
+            align-items: stretch;
+            flex-direction: column;
+          }
+
+          .hero-actions a {
+            width: 100%;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .solution-page *,
+          .solution-page *::before,
+          .solution-page *::after {
+            scroll-behavior: auto !important;
+            animation: none !important;
+            transition: none !important;
+          }
+        }
       `}</style>
     </main>
   );
