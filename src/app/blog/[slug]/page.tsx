@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -6,201 +7,1070 @@ import { additionalPosts } from "@/lib/blog-posts";
 
 const allPosts = [...additionalPosts, ...originalPosts];
 
-export const additionalPosts = [
-  {
-    slug: "lam-can-cuoc-can-chuan-bi-gi",
-    date: "17/11/2026",
-    title: "Làm căn cước: Cần chuẩn bị gì trước khi thực hiện?",
-    excerpt: "Những điểm cần kiểm tra trước khi đi làm căn cước.",
-    body: [
-      "Căn cước là giấy tờ quan trọng trong nhiều giao dịch và thủ tục hành chính. Trước khi thực hiện, bạn nên xác định mình làm lần đầu, cấp đổi hay cấp lại.",
-      "Hãy kiểm tra thông tin cá nhân, địa điểm tiếp nhận và hướng dẫn hồ sơ của cơ quan có thẩm quyền.",
-      "Nếu được cấp giấy hẹn hoặc mã tiếp nhận, hãy lưu lại để theo dõi kết quả.",
-      "APA khuyến nghị đối chiếu yêu cầu cụ thể với cơ quan tiếp nhận trước khi thực hiện."
-    ]
-  },
-  {
-    slug: "dang-ky-tam-tru-bat-dau-tu-dau",
-    date: "16/11/2026",
-    title: "Đăng ký tạm trú: Bắt đầu từ đâu và cần lưu ý gì?",
-    excerpt: "Hướng dẫn xác định nhu cầu và chuẩn bị thông tin đăng ký tạm trú.",
-    body: [
-      "Khi chuyển đến sinh sống tại địa điểm khác nơi thường trú, bạn cần tìm hiểu đúng thủ tục cư trú phù hợp.",
-      "Trước tiên, hãy xác định nơi ở, thời gian sinh sống và tình trạng cư trú hiện tại.",
-      "Kiểm tra thông tin về chỗ ở và tài liệu cần thiết theo hướng dẫn chính thức.",
-      "Nếu thực hiện trực tuyến, hãy lưu mã hồ sơ và thông báo tiếp nhận."
-    ]
-  },
-  {
-    slug: "sang-ten-xe-may-can-luu-y-gi",
-    date: "15/11/2026",
-    title: "Sang tên xe máy: Những việc nên kiểm tra trước khi làm",
-    excerpt: "Các thông tin cần đối chiếu khi mua bán và chuyển quyền sở hữu xe máy.",
-    body: [
-      "Khi mua bán xe máy, việc thực hiện thủ tục sang tên giúp cập nhật thông tin chủ sở hữu phương tiện.",
-      "Hai bên nên kiểm tra thông tin phương tiện, giấy tờ quyền sở hữu và chứng từ giao dịch.",
-      "Không nên chỉ dựa vào thỏa thuận miệng hoặc giấy tờ không rõ nguồn gốc.",
-      "Nơi tiếp nhận, lệ phí và quy trình cần được tra cứu theo trường hợp thực tế."
-    ]
-  },
-  {
-    slug: "ho-chieu-lan-dau-can-luu-y",
-    date: "14/11/2026",
-    title: "Làm hộ chiếu lần đầu: 6 điều không nên bỏ qua",
-    excerpt: "Những điều cần kiểm tra về thông tin cá nhân, ảnh và cách nộp hồ sơ.",
-    body: [
-      "Khi làm hộ chiếu lần đầu, người thực hiện nên xác định đúng trường hợp của mình và quy trình tương ứng.",
-      "Thông tin khai báo cần thống nhất với dữ liệu cá nhân và giấy tờ được yêu cầu.",
-      "Nếu khai trực tuyến, hãy kiểm tra kỹ thông tin liên hệ và lựa chọn nhận kết quả.",
-      "Chỉ sử dụng cổng thông tin chính thức để khai báo và theo dõi hồ sơ."
-    ]
-  },
-  {
-    slug: "hoi-dap-dang-ky-ho-kinh-doanh",
-    date: "13/11/2026",
-    title: "Hỏi đáp: Muốn đăng ký hộ kinh doanh thì bắt đầu thế nào?",
-    excerpt: "Một tình huống hỏi đáp minh họa về việc đăng ký hộ kinh doanh.",
-    body: [
-      "TÌNH HUỐNG HỎI ĐÁP",
-      "Người dùng hỏi: Tôi muốn mở một cửa hàng nhỏ nhưng chưa biết bắt đầu từ đâu.",
-      "APA trả lời: Bạn nên xác định địa điểm, ngành nghề dự kiến, mô hình kinh doanh và thông tin người đăng ký trước khi tra cứu thủ tục.",
-      "Người dùng hỏi: Tôi cần chuẩn bị những thông tin nào?",
-      "APA trả lời: Hãy kiểm tra biểu mẫu hiện hành để biết thông tin người đăng ký, tên dự kiến, địa chỉ và ngành nghề cần khai báo.",
-      "Người dùng hỏi: Có thể nộp trực tuyến không?",
-      "APA trả lời: Hình thức tiếp nhận tùy thuộc quy trình áp dụng. Hãy kiểm tra trên cổng dịch vụ công hoặc cơ quan đăng ký có thẩm quyền.",
-      "Lưu ý: Đây là tình huống minh họa do APA biên soạn, không phải hội thoại thực tế."
-    ]
-  },
-  {
-    slug: "ho-so-dat-dai-nen-kiem-tra-gi",
-    date: "12/11/2026",
-    title: "Hồ sơ đất đai: Những thông tin nên kiểm tra trước khi nộp",
-    excerpt: "Cách xác định đúng thủ tục và đối chiếu thông tin giấy tờ đất đai.",
-    body: [
-      "Thủ tục đất đai có nhiều loại như đăng ký biến động, cấp giấy chứng nhận hoặc đính chính thông tin.",
-      "Điều quan trọng đầu tiên là xác định chính xác mục đích cần giải quyết.",
-      "Hãy đối chiếu thông tin người sử dụng đất, thửa đất, địa chỉ và tài liệu hiện có.",
-      "Không sử dụng một bộ hồ sơ chung cho tất cả thủ tục đất đai. Hãy kiểm tra yêu cầu của cơ quan có thẩm quyền."
-    ]
-  },
-  {
-    slug: "tra-cuu-the-bhyt-con-gia-tri-khong",
-    date: "11/11/2026",
-    title: "Cách kiểm tra thẻ BHYT còn giá trị sử dụng hay không",
-    excerpt: "Hướng dẫn kiểm tra thông tin tham gia bảo hiểm y tế.",
-    body: [
-      "Trước khi đi khám chữa bệnh, người tham gia nên kiểm tra giá trị sử dụng của thẻ bảo hiểm y tế.",
-      "Bạn có thể sử dụng kênh tra cứu chính thức của cơ quan bảo hiểm xã hội.",
-      "Hãy đối chiếu họ tên, thông tin định danh và thời hạn sử dụng.",
-      "Nếu dữ liệu không chính xác, hãy liên hệ cơ quan bảo hiểm xã hội để được hướng dẫn."
-    ]
-  },
-  {
-    slug: "hoi-dap-ho-so-truc-tuyen-bi-yeu-cau-bo-sung",
-    date: "10/11/2026",
-    title: "Hỏi đáp: Hồ sơ trực tuyến bị yêu cầu bổ sung, tôi phải làm gì?",
-    excerpt: "Cách đọc thông báo bổ sung và xử lý hồ sơ trực tuyến.",
-    body: [
-      "TÌNH HUỐNG HỎI ĐÁP",
-      "Người dùng hỏi: Hồ sơ của tôi bị yêu cầu bổ sung. Có phải đã bị từ chối không?",
-      "APA trả lời: Chưa thể kết luận hồ sơ bị từ chối. Cơ quan tiếp nhận có thể đang yêu cầu làm rõ hoặc bổ sung thông tin.",
-      "Người dùng hỏi: Tôi nên làm gì trước tiên?",
-      "APA trả lời: Hãy đọc kỹ thông báo, xác định tài liệu còn thiếu và kiểm tra định dạng tệp đính kèm.",
-      "Người dùng hỏi: Tôi có cần tạo hồ sơ mới không?",
-      "APA trả lời: Không nên tạo hồ sơ mới trước khi kiểm tra hướng dẫn bổ sung trên hồ sơ hiện tại.",
-      "Lưu ý: Hãy ưu tiên thông báo chính thức của cơ quan tiếp nhận."
-    ]
-  },
-  {
-    slug: "theo-doi-ho-so-da-nop-truc-tuyen",
-    date: "09/11/2026",
-    title: "Đã nộp hồ sơ trực tuyến: Theo dõi kết quả ở đâu?",
-    excerpt: "Cách lưu mã hồ sơ, kiểm tra trạng thái và liên hệ khi cần hỗ trợ.",
-    body: [
-      "Sau khi gửi hồ sơ trực tuyến, bạn nên lưu mã hồ sơ, thời điểm gửi và thông tin cơ quan tiếp nhận.",
-      "Khi tra cứu trạng thái, hãy đọc cả nội dung thông báo thay vì chỉ nhìn nhãn trạng thái.",
-      "Nếu trạng thái không thay đổi trong thời gian dài, hãy sử dụng kênh liên hệ chính thức của cơ quan tiếp nhận.",
-      "Không nên gửi lại hồ sơ nhiều lần khi chưa xác định tình trạng hồ sơ cũ."
-    ]
-  },
-  {
-    slug: "uy-quyen-nop-ho-so-can-luu-y",
-    date: "08/11/2026",
-    title: "Ủy quyền nộp hồ sơ hành chính: Cần lưu ý những gì?",
-    excerpt: "Các điểm nên kiểm tra khi nhờ người khác thực hiện thủ tục thay.",
-    body: [
-      "Trong một số tình huống, người thực hiện không thể trực tiếp đến cơ quan tiếp nhận và muốn nhờ người khác làm thay.",
-      "Không phải thủ tục nào cũng có cùng yêu cầu về đại diện hoặc ủy quyền.",
-      "Hãy kiểm tra hình thức văn bản, phạm vi công việc được ủy quyền và giấy tờ của các bên.",
-      "APA khuyến nghị xác nhận trước với cơ quan tiếp nhận, đặc biệt đối với thủ tục liên quan đến tài sản hoặc nhân thân."
-    ]
-  },
-  {
-    slug: "tra-cuu-le-phi-va-thoi-han-thu-tuc",
-    date: "07/11/2026",
-    title: "Tra cứu lệ phí và thời hạn giải quyết thủ tục ở đâu?",
-    excerpt: "Cách tìm thông tin về chi phí và thời gian giải quyết từ nguồn chính thức.",
-    body: [
-      "Lệ phí và thời hạn là hai thông tin quan trọng cần tìm hiểu trước khi nộp hồ sơ.",
-      "Bạn nên ưu tiên trang thông tin hoặc cổng dịch vụ công chính thức của cơ quan có thẩm quyền.",
-      "Khi xem thời hạn, hãy phân biệt thời gian giải quyết theo quy định với thời gian thực tế có thể phát sinh.",
-      "Nếu mức phí giữa các nguồn không thống nhất, hãy liên hệ cơ quan tiếp nhận để xác nhận."
-    ]
-  },
-  {
-    slug: "doanh-nghiep-cap-nhat-thong-tin-can-kiem-tra",
-    date: "06/11/2026",
-    title: "Doanh nghiệp cần kiểm tra gì khi thay đổi thông tin đăng ký?",
-    excerpt: "Những nội dung nên rà soát khi doanh nghiệp thay đổi thông tin hoạt động.",
-    body: [
-      "Trong quá trình hoạt động, doanh nghiệp có thể phát sinh thay đổi về địa chỉ, người đại diện hoặc ngành nghề.",
-      "Hãy xác định chính xác nội dung thay đổi và đối chiếu thông tin đã đăng ký.",
-      "Chuẩn bị tài liệu chứng minh tương ứng theo yêu cầu của thủ tục cụ thể.",
-      "Sau khi nộp, doanh nghiệp nên lưu thông báo tiếp nhận và kết quả để cập nhật hệ thống nội bộ."
-    ]
-  },
-  {
-    slug: "huong-dan-su-dung-cong-dich-vu-cong",
-    date: "05/11/2026",
-    title: "Lần đầu sử dụng Cổng Dịch vụ công: Nên bắt đầu thế nào?",
-    excerpt: "Hướng dẫn tìm thủ tục, đọc yêu cầu và lưu mã hồ sơ khi thao tác trực tuyến.",
-    body: [
-      "Cổng Dịch vụ công giúp người dân tìm hiểu và thực hiện nhiều thủ tục trực tuyến.",
-      "Hãy xác định đúng địa chỉ cổng thông tin chính thức trước khi đăng nhập.",
-      "Tìm thủ tục bằng tên gọi hoặc lĩnh vực, đọc kỹ đối tượng áp dụng và thành phần hồ sơ.",
-      "Trước khi gửi, kiểm tra dữ liệu đã khai và lưu mã hồ sơ sau khi hoàn tất."
-    ]
-  },
-  {
-    slug: "hoi-dap-khong-biet-ten-thu-tuc",
-    date: "04/11/2026",
-    title: "Hỏi đáp: Tôi không biết tên thủ tục mình cần tìm",
-    excerpt: "Cách mô tả vấn đề bằng ngôn ngữ thông thường để tìm đúng thủ tục.",
-    body: [
-      "TÌNH HUỐNG HỎI ĐÁP",
-      "Người dùng hỏi: Tôi muốn thay đổi thông tin cư trú nhưng không biết tên thủ tục.",
-      "APA trả lời: Bạn không cần nhớ tên thủ tục ngay từ đầu. Hãy mô tả việc cần làm, tình trạng hiện tại và kết quả mong muốn.",
-      "Người dùng hỏi: Tôi cần cung cấp những thông tin nào?",
-      "APA trả lời: Bạn có thể mô tả nơi ở, thông tin muốn thay đổi và giấy tờ hiện có. Không cần gửi dữ liệu nhạy cảm.",
-      "Người dùng hỏi: Nếu có nhiều thủ tục gần giống nhau?",
-      "APA trả lời: Hãy so sánh đối tượng, mục đích và cơ quan giải quyết, sau đó xác nhận với cơ quan tiếp nhận nếu cần.",
-      "Lưu ý: Đây là tình huống minh họa do APA biên soạn."
-    ]
-  },
-  {
-    slug: "hoi-dap-ho-so-bi-tu-choi",
-    date: "03/11/2026",
-    title: "Hỏi đáp: Hồ sơ bị từ chối, có nên nộp lại ngay?",
-    excerpt: "Cách đọc thông báo và xác định bước tiếp theo khi hồ sơ không được tiếp nhận.",
-    body: [
-      "TÌNH HUỐNG HỎI ĐÁP",
-      "Người dùng hỏi: Tôi nhận được thông báo hồ sơ không được tiếp nhận. Có nên nộp lại ngay không?",
-      "APA trả lời: Trước tiên, cần phân biệt hồ sơ bị từ chối tiếp nhận, hồ sơ cần bổ sung và hồ sơ đã tiếp nhận nhưng chưa đủ điều kiện giải quyết.",
-      "Người dùng hỏi: Tôi cần xem phần nào trong thông báo?",
-      "APA trả lời: Hãy đọc lý do, hướng dẫn xử lý và ghi lại mã hồ sơ.",
-      "Người dùng hỏi: Nếu không đồng ý thì sao?",
-      "APA trả lời: Bạn có thể liên hệ cơ quan ban hành thông báo để đề nghị giải thích hoặc tìm hiểu kênh phản ánh, kiến nghị phù hợp.",
-      "Lưu ý: Đây là tình huống minh họa do APA biên soạn."
-    ]
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+type BlogPost = (typeof allPosts)[number];
+
+function getReadTime(body: string[] = []) {
+  const words = body.join(" ").trim().split(/\s+/).length;
+  return Math.max(3, Math.ceil(words / 180));
+}
+
+function getCategory(slug: string) {
+  if (slug.includes("hoi-dap") || slug.includes("ho-so-bi-tu-choi")) {
+    return "Hỏi đáp hành chính";
   }
-];
+
+  if (slug.includes("tam-tru") || slug.includes("cu-tru")) {
+    return "Cư trú";
+  }
+
+  if (slug.includes("xe-may") || slug.includes("sang-ten")) {
+    return "Phương tiện";
+  }
+
+  if (slug.includes("bhyt") || slug.includes("bao-hiem")) {
+    return "Bảo hiểm";
+  }
+
+  if (slug.includes("doanh-nghiep") || slug.includes("ho-kinh-doanh")) {
+    return "Doanh nghiệp";
+  }
+
+  return "Thủ tục hành chính";
+}
+
+export function generateStaticParams() {
+  return allPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = allPosts.find((item) => item.slug === slug);
+
+  if (!post) {
+    return {
+      title: "Không tìm thấy bài viết | APA",
+    };
+  }
+
+  return {
+    title: `${post.title} | APA`,
+    description: post.excerpt,
+    openGraph: {
+      title: `${post.title} | APA`,
+      description: post.excerpt,
+      type: "article",
+    },
+  };
+}
+
+export default async function BlogDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = allPosts.find((item) => item.slug === slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const article = post as BlogPost;
+  const body = (article.body || []) as string[];
+
+  const relatedPosts = allPosts
+    .filter((item) => item.slug !== article.slug)
+    .sort((a, b) => {
+      const sameCategory =
+        Number(getCategory(b.slug) === getCategory(article.slug)) -
+        Number(getCategory(a.slug) === getCategory(article.slug));
+
+      return sameCategory;
+    })
+    .slice(0, 3);
+
+  const isQuestionArticle = body.includes("TÌNH HUỐNG HỎI ĐÁP");
+
+  return (
+    <main className="apa-article">
+      <div className="article-topline">
+        <div className="article-container">
+          <Link href="/blog" className="back-link">
+            <span>←</span> Tất cả bài viết
+          </Link>
+          <span className="topline-label">APA KNOWLEDGE CENTER</span>
+        </div>
+      </div>
+
+      <header className="article-hero">
+        <div className="article-container">
+          <div className="article-breadcrumb">
+            <Link href="/">Trang chủ</Link>
+            <span>/</span>
+            <Link href="/blog">Blog</Link>
+            <span>/</span>
+            <span>{getCategory(article.slug)}</span>
+          </div>
+
+          <div className="article-heading">
+            <span className="article-category">
+              {getCategory(article.slug)}
+            </span>
+
+            <h1>{article.title}</h1>
+
+            <p className="article-excerpt">{article.excerpt}</p>
+
+            <div className="article-meta">
+              <div className="author-mark">A</div>
+              <div className="author-info">
+                <strong>Ban biên tập APA</strong>
+                <span>Trợ lý hành chính số</span>
+              </div>
+              <span className="meta-divider" />
+              <span>{article.date}</span>
+              <span className="meta-divider" />
+              <span>{getReadTime(body)} phút đọc</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="article-cover">
+        <div className="article-container">
+          <div className="cover-art">
+            <div className="cover-grid" />
+            <div className="cover-circle circle-one" />
+            <div className="cover-circle circle-two" />
+
+            <div className="cover-copy">
+              <span>APA · KNOWLEDGE SERIES</span>
+              <strong>HIỂU ĐÚNG</strong>
+              <strong>THỦ TỤC</strong>
+              <i />
+              <small>Kiến thức hành chính dành cho mọi người</small>
+            </div>
+
+            <div className="cover-index">APA / 2026</div>
+            <div className="cover-star">✦</div>
+          </div>
+        </div>
+      </div>
+
+      <section className="article-content-section">
+        <div className="article-container article-layout">
+          <aside className="article-sidebar">
+            <div className="sidebar-sticky">
+              <span className="sidebar-label">TRONG BÀI VIẾT</span>
+              <div className="sidebar-line" />
+              <a href="#article-content">Nội dung chính</a>
+              <a href="#article-note">Lưu ý khi thực hiện</a>
+              <a href="#related-posts">Bài viết liên quan</a>
+
+              <div className="sidebar-card">
+                <span className="sidebar-card-icon">A</span>
+                <strong>APA</strong>
+                <p>
+                  Đồng hành cùng bạn trong quá trình tìm hiểu thủ tục
+                  hành chính.
+                </p>
+                <Link href="/">Khám phá APA ↗</Link>
+              </div>
+            </div>
+          </aside>
+
+          <article className="article-body" id="article-content">
+            <div className="article-intro">
+              <span className="intro-mark">“</span>
+              <p>{article.excerpt}</p>
+            </div>
+
+            <div className="body-content">
+              {body.map((paragraph, index) => {
+                if (paragraph === "TÌNH HUỐNG HỎI ĐÁP") {
+                  return (
+                    <div className="qa-heading" key={index}>
+                      <span>CASE STUDY</span>
+                      <h2>Tình huống hỏi đáp</h2>
+                    </div>
+                  );
+                }
+
+                if (paragraph.startsWith("Người dùng hỏi:")) {
+                  return (
+                    <div className="qa-question" key={index}>
+                      <span className="qa-avatar">?</span>
+                      <p>
+                        <strong>Người dùng hỏi</strong>
+                        {paragraph.replace("Người dùng hỏi:", "").trim()}
+                      </p>
+                    </div>
+                  );
+                }
+
+                if (paragraph.startsWith("APA trả lời:")) {
+                  return (
+                    <div className="qa-answer" key={index}>
+                      <span className="qa-avatar">A</span>
+                      <p>
+                        <strong>APA trả lời</strong>
+                        {paragraph.replace("APA trả lời:", "").trim()}
+                      </p>
+                    </div>
+                  );
+                }
+
+                if (paragraph.startsWith("Lưu ý:")) {
+                  return (
+                    <div className="article-note" id="article-note" key={index}>
+                      <span className="note-icon">!</span>
+                      <div>
+                        <strong>Lưu ý quan trọng</strong>
+                        <p>{paragraph.replace("Lưu ý:", "").trim()}</p>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <p className="article-paragraph" key={index}>
+                    {paragraph}
+                  </p>
+                );
+              })}
+            </div>
+
+            <div className="article-disclaimer">
+              <span>i</span>
+              <p>
+                Nội dung bài viết nhằm mục đích cung cấp thông tin tham khảo.
+                Thành phần hồ sơ, trình tự, thời hạn và lệ phí có thể thay đổi
+                theo quy định và trường hợp cụ thể. Hãy đối chiếu với cơ quan
+                có thẩm quyền trước khi thực hiện.
+              </p>
+            </div>
+
+            <div className="article-share">
+              <span>APA · TRỢ LÝ HÀNH CHÍNH SỐ</span>
+              <Link href="/blog">Khám phá thêm bài viết ↗</Link>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="related-section" id="related-posts">
+        <div className="article-container">
+          <div className="related-heading">
+            <div>
+              <span className="section-eyebrow">ĐỌC TIẾP CÙNG APA</span>
+              <h2>Bài viết liên quan</h2>
+            </div>
+            <Link href="/blog">Xem tất cả bài viết ↗</Link>
+          </div>
+
+          <div className="related-grid">
+            {relatedPosts.map((item, index) => (
+              <Link
+                href={`/blog/${item.slug}`}
+                className="related-card"
+                key={item.slug}
+              >
+                <div className={`related-art related-art-${index + 1}`}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>APA</strong>
+                  <small>KNOWLEDGE</small>
+                </div>
+                <div className="related-card-content">
+                  <span>{getCategory(item.slug)}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.excerpt}</p>
+                  <div className="related-date">
+                    {item.date}
+                    <b>↗</b>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="article-bottom">
+        <div className="article-container bottom-inner">
+          <div>
+            <span>APA · TRỢ LÝ HÀNH CHÍNH SỐ</span>
+            <h2>Chủ động hơn trong mọi thủ tục.</h2>
+            <p>
+              Cùng APA tìm hiểu thông tin và chuẩn bị tốt hơn cho
+              những công việc hành chính hằng ngày.
+            </p>
+          </div>
+          <Link href="/" className="bottom-cta">
+            Khám phá APA <span>↗</span>
+          </Link>
+        </div>
+      </section>
+
+      <style jsx>{`
+        .apa-article {
+          --navy: #102b50;
+          --blue: #1765b5;
+          --muted: #6b7d91;
+          color: #243b55;
+          background: #fff;
+        }
+
+        .article-container {
+          width: min(1080px, calc(100% - 48px));
+          margin: 0 auto;
+        }
+
+        .article-topline {
+          border-bottom: 1px solid #e9eef4;
+          background: #fff;
+        }
+
+        .article-topline .article-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          min-height: 53px;
+        }
+
+        .back-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          color: #48647f;
+          font-size: 12px;
+          font-weight: 750;
+          text-decoration: none;
+        }
+
+        .back-link span {
+          font-size: 18px;
+          transition: transform .2s;
+        }
+
+        .back-link:hover { color: var(--blue); }
+        .back-link:hover span { transform: translateX(-4px); }
+
+        .topline-label {
+          color: #9aa8b8;
+          font-size: 9px;
+          font-weight: 850;
+          letter-spacing: 2px;
+        }
+
+        .article-hero {
+          padding: 35px 0 50px;
+          background:
+            radial-gradient(circle at 85% 15%, rgba(67,143,211,.1), transparent 28%),
+            #f5f8fc;
+        }
+
+        .article-breadcrumb {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          color: #9aa8b8;
+          font-size: 11px;
+        }
+
+        .article-breadcrumb a {
+          color: #6f8298;
+          text-decoration: none;
+        }
+
+        .article-breadcrumb a:hover { color: var(--blue); }
+
+        .article-heading {
+          max-width: 850px;
+          margin: 48px auto 0;
+          text-align: center;
+        }
+
+        .article-category {
+          display: inline-flex;
+          padding: 7px 12px;
+          border-radius: 4px;
+          background: #e5f1fb;
+          color: #1765b5;
+          font-size: 10px;
+          font-weight: 850;
+          letter-spacing: .5px;
+        }
+
+        .article-heading h1 {
+          margin: 22px 0 17px;
+          color: #102b50;
+          font-size: clamp(32px, 4.6vw, 51px);
+          font-weight: 850;
+          line-height: 1.2;
+          letter-spacing: -1.7px;
+        }
+
+        .article-excerpt {
+          max-width: 690px;
+          margin: 0 auto;
+          color: #65788e;
+          font-size: 16px;
+          line-height: 1.85;
+        }
+
+        .article-meta {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 13px;
+          margin-top: 29px;
+          color: #8190a2;
+          font-size: 11px;
+        }
+
+        .author-mark {
+          display: grid;
+          place-items: center;
+          width: 35px;
+          height: 35px;
+          border-radius: 9px;
+          background: #155b9d;
+          color: #fff;
+          font-size: 18px;
+          font-weight: 900;
+        }
+
+        .author-info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 3px;
+          text-align: left;
+        }
+
+        .author-info strong {
+          color: #27415e;
+          font-size: 11px;
+        }
+
+        .author-info span {
+          color: #91a0b0;
+          font-size: 10px;
+        }
+
+        .meta-divider {
+          width: 1px;
+          height: 19px;
+          background: #d6e0ea;
+        }
+
+        .article-cover {
+          position: relative;
+          z-index: 1;
+          margin-top: -1px;
+          background: #f5f8fc;
+        }
+
+        .cover-art {
+          position: relative;
+          display: grid;
+          place-items: center;
+          min-height: 300px;
+          overflow: hidden;
+          border-radius: 12px;
+          background: linear-gradient(120deg, #0c2341, #15558f);
+          box-shadow: 0 20px 45px rgba(15,48,83,.15);
+        }
+
+        .cover-grid {
+          position: absolute;
+          inset: 0;
+          opacity: .18;
+          background-image:
+            linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,.2) 1px, transparent 1px);
+          background-size: 38px 38px;
+        }
+
+        .cover-circle {
+          position: absolute;
+          width: 450px;
+          height: 450px;
+          border: 1px solid rgba(170,216,255,.22);
+          border-radius: 50%;
+        }
+
+        .circle-one { left: -140px; top: -250px; }
+        .circle-two { right: -130px; bottom: -300px; width: 570px; height: 570px; }
+
+        .cover-copy {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 30px;
+          color: #fff;
+          text-align: center;
+        }
+
+        .cover-copy > span {
+          margin-bottom: 17px;
+          color: #a8d4fa;
+          font-size: 10px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+
+        .cover-copy strong {
+          font-size: clamp(35px, 6vw, 57px);
+          line-height: 1.05;
+          letter-spacing: 2px;
+        }
+
+        .cover-copy i {
+          width: 48px;
+          height: 3px;
+          margin: 20px 0 12px;
+          background: #80caff;
+        }
+
+        .cover-copy small {
+          color: #c6ddf2;
+          font-size: 12px;
+          letter-spacing: .5px;
+        }
+
+        .cover-index {
+          position: absolute;
+          right: 24px;
+          bottom: 20px;
+          color: rgba(255,255,255,.55);
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 2px;
+        }
+
+        .cover-star {
+          position: absolute;
+          top: 35px;
+          right: 55px;
+          color: #8acbff;
+          font-size: 35px;
+        }
+
+        .article-content-section {
+          padding: 75px 0 90px;
+        }
+
+        .article-layout {
+          display: grid;
+          grid-template-columns: 195px minmax(0, 720px);
+          justify-content: space-between;
+          gap: 65px;
+        }
+
+        .sidebar-sticky {
+          position: sticky;
+          top: 25px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .sidebar-label {
+          color: #8a9aab;
+          font-size: 9px;
+          font-weight: 850;
+          letter-spacing: 1.5px;
+        }
+
+        .sidebar-line {
+          width: 100%;
+          height: 1px;
+          margin: 13px 0;
+          background: #e7edf3;
+        }
+
+        .sidebar-sticky > a {
+          padding: 9px 0;
+          color: #6c7e92;
+          font-size: 11px;
+          line-height: 1.5;
+          text-decoration: none;
+          transition: color .2s;
+        }
+
+        .sidebar-sticky > a:hover { color: var(--blue); }
+
+        .sidebar-card {
+          width: 100%;
+          box-sizing: border-box;
+          margin-top: 35px;
+          padding: 18px;
+          border: 1px solid #e4edf5;
+          border-radius: 8px;
+          background: #f7fafd;
+        }
+
+        .sidebar-card-icon {
+          display: grid;
+          place-items: center;
+          width: 32px;
+          height: 32px;
+          margin-bottom: 12px;
+          border-radius: 8px;
+          background: #155b9d;
+          color: #fff;
+          font-weight: 900;
+        }
+
+        .sidebar-card strong {
+          color: #17395e;
+          font-size: 13px;
+        }
+
+        .sidebar-card p {
+          color: #7b8b9d;
+          font-size: 10px;
+          line-height: 1.7;
+        }
+
+        .sidebar-card a {
+          color: #1765b5;
+          font-size: 10px;
+          font-weight: 850;
+          text-decoration: none;
+        }
+
+        .article-body {
+          min-width: 0;
+        }
+
+        .article-intro {
+          position: relative;
+          margin-bottom: 32px;
+          padding: 24px 28px 24px 35px;
+          border-left: 3px solid #3284c4;
+          border-radius: 0 8px 8px 0;
+          background: #f3f8fd;
+        }
+
+        .intro-mark {
+          position: absolute;
+          top: 7px;
+          left: 13px;
+          color: #8bbde5;
+          font-family: Georgia, serif;
+          font-size: 37px;
+        }
+
+        .article-intro p {
+          margin: 0;
+          color: #365875;
+          font-size: 16px;
+          font-weight: 650;
+          line-height: 1.85;
+        }
+
+        .body-content {
+          color: #40546a;
+        }
+
+        .article-paragraph {
+          margin: 0 0 23px;
+          font-size: 15px;
+          line-height: 2;
+          text-align: left;
+        }
+
+        .qa-heading {
+          margin: 36px 0 20px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #e7edf3;
+        }
+
+        .qa-heading span {
+          color: #2677b9;
+          font-size: 9px;
+          font-weight: 900;
+          letter-spacing: 2px;
+        }
+
+        .qa-heading h2 {
+          margin: 8px 0 0;
+          color: #153657;
+          font-size: 23px;
+        }
+
+        .qa-question,
+        .qa-answer {
+          display: flex;
+          align-items: flex-start;
+          gap: 13px;
+          margin: 17px 0;
+          padding: 17px;
+          border: 1px solid #e7edf3;
+          border-radius: 8px;
+          background: #fff;
+        }
+
+        .qa-answer {
+          border-color: #d9e9f7;
+          background: #f3f8fd;
+        }
+
+        .qa-avatar {
+          display: grid;
+          flex-shrink: 0;
+          place-items: center;
+          width: 29px;
+          height: 29px;
+          border-radius: 8px;
+          background: #e9f2fa;
+          color: #1765b5;
+          font-size: 14px;
+          font-weight: 900;
+        }
+
+        .qa-answer .qa-avatar {
+          background: #155b9d;
+          color: #fff;
+        }
+
+        .qa-question p,
+        .qa-answer p {
+          margin: 0;
+          color: #53677c;
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        .qa-question p strong,
+        .qa-answer p strong {
+          display: block;
+          margin-bottom: 5px;
+          color: #17395e;
+          font-size: 12px;
+        }
+
+        .article-note {
+          display: flex;
+          align-items: flex-start;
+          gap: 13px;
+          margin: 30px 0;
+          padding: 19px;
+          border: 1px solid #f0dfb9;
+          border-radius: 8px;
+          background: #fffaf0;
+        }
+
+        .note-icon {
+          display: grid;
+          flex-shrink: 0;
+          place-items: center;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background: #f7e8c5;
+          color: #966a17;
+          font-weight: 900;
+        }
+
+        .article-note strong {
+          color: #7b5b21;
+          font-size: 12px;
+        }
+
+        .article-note p {
+          margin: 6px 0 0;
+          color: #806c49;
+          font-size: 12px;
+          line-height: 1.8;
+        }
+
+        .article-disclaimer {
+          display: flex;
+          gap: 12px;
+          margin-top: 35px;
+          padding: 17px;
+          border-radius: 7px;
+          background: #f3f6f9;
+        }
+
+        .article-disclaimer > span {
+          display: grid;
+          flex-shrink: 0;
+          place-items: center;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #dce9f4;
+          color: #286a9f;
+          font-size: 11px;
+          font-weight: 900;
+        }
+
+        .article-disclaimer p {
+          margin: 0;
+          color: #77889a;
+          font-size: 11px;
+          line-height: 1.8;
+        }
+
+        .article-share {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 15px;
+          margin-top: 35px;
+          padding-top: 20px;
+          border-top: 1px solid #e8eef4;
+        }
+
+        .article-share span {
+          color: #9aa8b8;
+          font-size: 9px;
+          font-weight: 850;
+          letter-spacing: 1.5px;
+        }
+
+        .article-share a {
+          color: #1765b5;
+          font-size: 11px;
+          font-weight: 850;
+          text-decoration: none;
+        }
+
+        .related-section {
+          padding: 70px 0 80px;
+          background: #f5f8fc;
+        }
+
+        .related-heading {
+          display: flex;
+          align-items: end;
+          justify-content: space-between;
+          gap: 20px;
+          margin-bottom: 28px;
+        }
+
+        .section-eyebrow {
+          color: #2677b9;
+          font-size: 9px;
+          font-weight: 900;
+          letter-spacing: 2px;
+        }
+
+        .related-heading h2 {
+          margin: 9px 0 0;
+          color: #102b50;
+          font-size: 30px;
+          letter-spacing: -.8px;
+        }
+
+        .related-heading > a {
+          color: #1765b5;
+          font-size: 11px;
+          font-weight: 850;
+          text-decoration: none;
+        }
+
+        .related-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px;
+        }
+
+        .related-card {
+          overflow: hidden;
+          border: 1px solid #e4ebf2;
+          border-radius: 8px;
+          background: #fff;
+          color: inherit;
+          text-decoration: none;
+          transition: transform .2s, box-shadow .2s;
+        }
+
+        .related-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 28px rgba(16,43,80,.09);
+        }
+
+        .related-art {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          height: 125px;
+          background: linear-gradient(135deg, #dcecf9, #bcd8ef);
+          color: #225c91;
+        }
+
+        .related-art-2 { background: linear-gradient(135deg, #e4eee9, #c8e0d4); }
+        .related-art-3 { background: linear-gradient(135deg, #e9e6f5, #d2cbea); }
+
+        .related-art > span {
+          position: absolute;
+          top: 10px;
+          left: 13px;
+          color: rgba(16,43,80,.35);
+          font-size: 20px;
+          font-weight: 900;
+        }
+
+        .related-art strong { font-size: 30px; letter-spacing: 3px; }
+        .related-art small { font-size: 8px; font-weight: 850; letter-spacing: 2px; }
+
+        .related-card-content { padding: 17px; }
+
+        .related-card-content > span {
+          color: #2677b9;
+          font-size: 9px;
+          font-weight: 850;
+        }
+
+        .related-card h3 {
+          margin: 9px 0;
+          color: #17395e;
+          font-size: 15px;
+          line-height: 1.5;
+        }
+
+        .related-card p {
+          display: -webkit-box;
+          overflow: hidden;
+          margin: 0;
+          color: #7b8b9d;
+          font-size: 11px;
+          line-height: 1.7;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        .related-date {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 15px;
+          padding-top: 12px;
+          border-top: 1px solid #edf1f5;
+          color: #9aa8b8;
+          font-size: 10px;
+        }
+
+        .related-date b {
+          color: #1765b5;
+          font-size: 17px;
+        }
+
+        .article-bottom {
+          padding: 45px 0;
+          background: #102b50;
+          color: #fff;
+        }
+
+        .bottom-inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 25px;
+        }
+
+        .bottom-inner > div > span {
+          color: #91c8f3;
+          font-size: 9px;
+          font-weight: 850;
+          letter-spacing: 2px;
+        }
+
+        .bottom-inner h2 {
+          margin: 9px 0;
+          font-size: 28px;
+          letter-spacing: -.6px;
+        }
+
+        .bottom-inner p {
+          margin: 0;
+          color: #c1d3e5;
+          font-size: 12px;
+          line-height: 1.7;
+        }
+
+        .bottom-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 22px;
+          flex-shrink: 0;
+          padding: 14px 18px;
+          border-radius: 5px;
+          background: #fff;
+          color: #123b69;
+          font-size: 12px;
+          font-weight: 850;
+          text-decoration: none;
+          transition: transform .2s;
+        }
+
+        .bottom-cta:hover { transform: translateY(-3px); }
+        .bottom-cta span { font-size: 18px; }
+
+        @media (max-width: 760px) {
+          .article-container { width: calc(100% - 34px); }
+          .article-hero { padding: 25px 0 35px; }
+          .article-heading { margin-top: 35px; }
+          .article-heading h1 { font-size: 34px; letter-spacing: -1px; }
+          .article-excerpt { font-size: 13px; }
+          .article-meta { gap: 9px; font-size: 10px; }
+          .cover-art { min-height: 230px; }
+          .article-content-section { padding: 45px 0 55px; }
+          .article-layout { display: block; }
+          .article-sidebar { display: none; }
+          .article-paragraph { font-size: 14px; line-height: 1.9; }
+          .article-intro { padding: 20px 17px 20px 30px; }
+          .article-intro p { font-size: 14px; }
+          .related-section { padding: 50px 0; }
+          .related-grid { grid-template-columns: 1fr; gap: 13px; }
+          .related-card { display: grid; grid-template-columns: 105px minmax(0, 1fr); }
+          .related-art { height: 100%; min-height: 150px; }
+          .related-art strong { font-size: 23px; }
+          .related-art small { font-size: 7px; }
+          .related-card-content { padding: 13px; }
+          .related-card h3 { font-size: 13px; }
+          .related-card p { font-size: 10px; }
+          .related-heading h2 { font-size: 25px; }
+          .related-heading > a { font-size: 10px; }
+          .bottom-inner { align-items: flex-start; flex-direction: column; }
+          .bottom-inner h2 { font-size: 23px; }
+        }
+
+        @media (max-width: 420px) {
+          .topline-label { font-size: 8px; letter-spacing: 1px; }
+          .article-heading h1 { font-size: 29px; }
+          .article-meta { gap: 7px; }
+          .meta-divider { height: 14px; }
+          .cover-copy strong { font-size: 36px; }
+          .cover-copy small { font-size: 10px; }
+          .qa-question, .qa-answer { padding: 13px; }
+          .related-heading { align-items: flex-start; flex-direction: column; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .apa-article *,
+          .apa-article *::before,
+          .apa-article *::after {
+            transition-duration: .01ms !important;
+            animation-duration: .01ms !important;
+          }
+        }
+      `}</style>
+    </main>
+  );
+}
