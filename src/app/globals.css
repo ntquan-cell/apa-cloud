@@ -887,37 +887,108 @@ table.t {
   line-height: 1.65;
 }
 
-/* ===================== FLOATING CONTACT ===================== */
+/* ===================== FLOATING AI CHAT ===================== */
 
-.float {
+.float-ai {
   position: fixed;
-  right: 19px;
-  bottom: 22px;
+  right: 20px;
+  bottom: 20px;
   z-index: 45;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 11px;
+  width: min(510px, calc(100vw - 32px));
+  padding: 10px 11px;
+  background: rgba(255, 255, 255, .97);
+  border: 1px solid #d7e5f5;
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(9, 36, 74, .2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-.float a {
+.float-ai-avatar {
   display: grid;
-  width: 52px;
-  height: 52px;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
   color: #fff;
-  background: linear-gradient(145deg, #3289f5, #145ac5);
-  border: 2px solid rgba(255,255,255,.9);
-  border-radius: 50%;
-  box-shadow: 0 7px 22px rgba(23, 104, 232, .3);
-  font-weight: 850;
-  text-decoration: none;
+  background: linear-gradient(145deg, #3689f5, #092f67);
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(23, 104, 232, .25);
+  font-size: 21px;
   place-items: center;
-  transition: transform .2s, box-shadow .2s;
 }
 
-.float a:hover {
+.float-ai-copy {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.float-ai-copy strong {
+  color: var(--navy);
+  font-size: .88rem;
+  font-weight: 850;
+}
+
+.float-ai-copy span {
+  color: var(--soft-muted);
+  font-size: .68rem;
+}
+
+.float-ai-form {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  gap: 7px;
+  margin: 0;
+}
+
+.float-ai-form input {
+  min-width: 0;
+  min-height: 42px;
+  padding: 9px 12px;
+  background: #f5f8fd;
+  border-color: #e0e9f4;
+  border-radius: 11px;
+  font-size: .82rem;
+}
+
+.float-ai-form button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 0 13px;
   color: #fff;
-  box-shadow: 0 10px 27px rgba(23, 104, 232, .4);
-  transform: translateY(-4px) scale(1.04);
+  background: linear-gradient(110deg, #1768e8, #3289f5);
+  border: 0;
+  border-radius: 11px;
+  font-size: .8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.float-ai-form button:hover {
+  box-shadow: 0 6px 16px rgba(23, 104, 232, .25);
+  transform: translateY(-1px);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ===================== FOOTER ===================== */
@@ -1165,14 +1236,45 @@ footer a:hover {
     max-width: 94%;
   }
 
-  .float {
-    right: 12px;
-    bottom: 14px;
+  .float-ai {
+    right: 10px;
+    bottom: 10px;
+    gap: 8px;
+    width: calc(100vw - 20px);
+    padding: 8px;
+    border-radius: 15px;
   }
 
-  .float a {
-    width: 46px;
-    height: 46px;
+  .float-ai-avatar {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    font-size: 18px;
+  }
+
+  .float-ai-copy strong {
+    font-size: .78rem;
+  }
+
+  .float-ai-copy span {
+    display: none;
+  }
+
+  .float-ai-form {
+    gap: 6px;
+  }
+
+  .float-ai-form input {
+    min-height: 39px;
+    padding: 8px 9px;
+    font-size: .78rem;
+  }
+
+  .float-ai-form button {
+    min-height: 39px;
+    padding: 0 10px;
+    font-size: .75rem;
   }
 
   footer {
