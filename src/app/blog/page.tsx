@@ -2,979 +2,1457 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { posts } from "@/lib/site";
+import { useMemo, useState } from "react";
+import { additionalPosts } from "@/lib/blog-posts";
+import { posts as originalPosts } from "@/lib/site";
 
-type SubmittedQuestion = {
-  id: number;
-  name: string;
-  question: string;
-  date: string;
-};
+const allPosts = [...additionalPosts, ...originalPosts];
 
-const STORAGE_KEY = "apa-blog-questions-v1";
+const categories = [
+  "Tất cả",
+  "Thủ tục cá nhân",
+  "Cư trú",
+  "Phương tiện",
+  "Bảo hiểm",
+  "Doanh nghiệp",
+  "Hỏi đáp",
+];
 
-export default function Page() {
+function getCategory(slug: string) {
+  if (
+    slug.includes("hoi-dap") ||
+    slug.includes("ho-so-truc-tuyen-bi") ||
+    slug.includes("ho-so-bi-tu-choi")
+  ) {
+    return "Hỏi đáp";
+  }
+
+  if (slug.includes("tam-tru") || slug.includes("cu-tru")) {
+    return "Cư trú";
+  }
+
+  if (slug.includes("xe-may") || slug.includes("sang-ten")) {
+    return "Phương tiện";
+  }
+
+  if (slug.includes("bhyt") || slug.includes("bao-hiem")) {
+    return "Bảo hiểm";
+  }
+
+  if (
+    slug.includes("doanh-nghiep") ||
+    slug.includes("ho-kinh-doanh")
+  ) {
+    return "Doanh nghiệp";
+  }
+
+  return "Thủ tục cá nhân";
+}
+
+function getReadTime(body?: string[]) {
+  const words = (body || []).join(" ").trim().split(/\s+/).length;
+  return Math.max(3, Math.ceil(words / 180));
+}
+
+export default function BlogPage() {
   const [search, setSearch] = useState("");
-
-  // Dữ liệu câu hỏi
-  const [questions, setQuestions] = useState<SubmittedQuestion[]>([]);
-  const [name, setName] = useState("");
+  const [activeCategory, setActiveCategory] = useState("Tất cả");
   const [question, setQuestion] = useState("");
-  const [message, setMessage] = useState("");
-  const [storageReady, setStorageReady] = useState(false);
-
-  // Đọc câu hỏi đã lưu trong trình duyệt
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          setQuestions(parsed);
-        }
-      }
-    } catch {
-      setQuestions([]);
-    } finally {
-      setStorageReady(true);
-    }
-  }, []);
-
-  // Lưu câu hỏi sau khi dữ liệu đã được tải
-  useEffect(() => {
-    if (!storageReady) return;
-
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(questions));
-    } catch {
-      setMessage("Không thể lưu câu hỏi trên trình duyệt này.");
-    }
-  }, [questions, storageReady]);
+  const [questions, setQuestions] = useState<string[]>([]);
+  const [notice, setNotice] = useState("");
 
   const filteredPosts = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return posts;
+    const keyword = search.trim().toLowerCase();
 
-    return posts.filter((p) =>
-      `${p.title} ${p.excerpt} ${p.date}`.toLowerCase().includes(q)
-    );
-  }, [search]);
+    return allPosts.filter((post) => {
+      const matchesCategory =
+        activeCategory === "Tất cả" ||
+        getCategory(post.slug) === activeCategory;
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+      const matchesSearch =
+        !keyword ||
+        post.title.toLowerCase().includes(keyword) ||
+        post.excerpt.toLowerCase().includes(keyword) ||
+        post.slug.toLowerCase().includes(keyword);
 
-    const cleanQuestion = question.trim();
-    const cleanName = name.trim() || "Người dùng APA";
+      return matchesCategory && matchesSearch;
+    });
+  }, [search, activeCategory]);
 
-    if (cleanQuestion.length < 5) {
-      setMessage("Vui lòng nhập câu hỏi cụ thể hơn.");
+  const featuredPost = allPosts[0];
+
+  function submitQuestion(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const value = question.trim();
+
+    if (!value) {
+      setNotice("Bạn hãy nhập nội dung câu hỏi trước khi gửi.");
       return;
     }
 
-    if (cleanQuestion.length > 2000) {
-      setMessage("Câu hỏi không được vượt quá 2.000 ký tự.");
-      return;
+    try {
+      const savedQuestions = JSON.parse(
+        window.localStorage.getItem("apa-blog-questions") || "[]"
+      ) as string[];
+
+      const updatedQuestions = [
+        value,
+        ...savedQuestions,
+      ].slice(0, 20);
+
+      window.localStorage.setItem(
+        "apa-blog-questions",
+        JSON.stringify(updatedQuestions)
+      );
+
+      setQuestions(updatedQuestions);
+      setQuestion("");
+      setNotice(
+        "Câu hỏi đã được lưu trên trình duyệt này. Nội dung chưa được gửi đến quản trị viên APA."
+      );
+    } catch {
+      setNotice(
+        "Không thể lưu câu hỏi trên trình duyệt. Bạn vui lòng thử lại."
+      );
     }
-
-    const newQuestion: SubmittedQuestion = {
-      id: Date.now(),
-      name: cleanName,
-      question: cleanQuestion,
-      date: new Date().toLocaleDateString("vi-VN"),
-    };
-
-    setQuestions((previous) => [newQuestion, ...previous]);
-    setQuestion("");
-    setName("");
-    setMessage("Câu hỏi đã được ghi nhận trên thiết bị của bạn.");
-  };
+  }
 
   return (
     <main className="apa-blog">
-      <section className="apa-blog-hero">
-        <div className="blog-glow blog-glow-one" />
-        <div className="blog-glow blog-glow-two" />
-
-        <div className="apa-blog-inner">
-          <div className="apa-blog-eyebrow">
-            APA · KIẾN THỨC HÀNH CHÍNH
+      <section className="blog-hero">
+        <div className="blog-container">
+          <div className="hero-label">
+            <span className="label-dot" />
+            APA · TRỢ LÝ HÀNH CHÍNH SỐ
           </div>
 
-          <h1>Góc chia sẻ & kiến thức hành chính</h1>
+          <div className="hero-content">
+            <div className="hero-copy">
+              <h1>
+                Góc thông tin hành chính số
+              </h1>
 
-          <p>
-            Kinh nghiệm thực tế, hướng dẫn thủ tục và những cập nhật hữu ích
-            giúp người dân, doanh nghiệp và tổ chức tiếp cận dịch vụ hành chính
-            thuận tiện hơn.
-          </p>
+              <p>
+                Kiến thức dễ hiểu, hướng dẫn thiết thực và những giải đáp giúp bạn chủ động hơn khi thực hiện thủ tục hành chính.
+              </p>
 
-          <div className="apa-blog-search">
-            <span>⌕</span>
-            <input
-              type="search"
-              placeholder="Tìm bài viết theo tiêu đề hoặc nội dung..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              aria-label="Tìm kiếm bài viết"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* KHU VỰC GỬI CÂU HỎI */}
-      <section className="apa-question-section">
-        <div className="apa-question-layout">
-          <div className="apa-question-intro">
-            <div className="question-eyebrow">ASK APA · HỎI ĐÁP</div>
-
-            <h2>
-              Bạn đang có <span>thắc mắc?</span>
-            </h2>
-
-            <p>
-              Hãy viết câu hỏi về thủ tục hành chính, giấy tờ, biểu mẫu hoặc
-              những vấn đề bạn đang gặp phải. APA mong muốn lắng nghe và
-              hỗ trợ bạn.
-            </p>
-
-            <div className="question-benefit">
-              <span>✦</span>
-              <div>
-                <strong>Đặt câu hỏi dễ dàng</strong>
-                <small>Viết bằng ngôn ngữ tự nhiên, không cần thuật ngữ phức tạp.</small>
-              </div>
+              <a href="#blog-list" className="hero-button">
+                Khám phá bài viết
+                <span>↗</span>
+              </a>
             </div>
 
-            <div className="question-benefit">
-              <span>✓</span>
-              <div>
-                <strong>Lưu lại câu hỏi</strong>
-                <small>Câu hỏi đã gửi được ghi nhớ trên trình duyệt hiện tại.</small>
-              </div>
-            </div>
-          </div>
-
-          <div className="apa-question-card">
-            <div className="question-card-heading">
-              <div className="question-card-icon">?</div>
-              <div>
-                <h3>Gửi câu hỏi cho APA</h3>
-                <p>Điền nội dung bên dưới để ghi nhận câu hỏi.</p>
-              </div>
-            </div>
-
-            <form className="apa-question-form" onSubmit={handleSubmit}>
-              <label htmlFor="apa-question-name">
-                Tên của bạn <span>(Không bắt buộc)</span>
-              </label>
-
-              <input
-                id="apa-question-name"
-                type="text"
-                placeholder="Ví dụ: Nguyễn Văn A"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                maxLength={80}
-              />
-
-              <label htmlFor="apa-question-content">
-                Nội dung câu hỏi <span className="required">*</span>
-              </label>
-
-              <textarea
-                id="apa-question-content"
-                placeholder="Hãy viết câu hỏi của bạn tại đây...
-
-Ví dụ: Tôi muốn đăng ký hộ kinh doanh thì cần chuẩn bị những giấy tờ gì?"
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-                required
-                minLength={5}
-                maxLength={2000}
-                rows={5}
-              />
-
-              <div className="question-form-bottom">
-                <span>{question.length}/2000 ký tự</span>
-                <button type="submit" className="question-submit">
-                  Gửi câu hỏi <span>↗</span>
-                </button>
-              </div>
-
-              {message && (
-                <div className="question-message" role="status">
-                  {message}
+            <div className="hero-visual" aria-hidden="true">
+              <div className="visual-orbit orbit-one" />
+              <div className="visual-orbit orbit-two" />
+              <div className="visual-card">
+                <div className="visual-card-top">
+                  <span className="visual-icon">A</span>
+                  <span>APA KNOWLEDGE</span>
                 </div>
-              )}
-            </form>
+                <div className="visual-lines">
+                  <i />
+                  <i />
+                  <i />
+                </div>
+                <div className="visual-document">
+                  <div className="document-symbol">✦</div>
+                  <div>
+                    <strong>Thông tin hữu ích</strong>
+                    <small>Đơn giản hóa thủ tục</small>
+                  </div>
+                </div>
+                <div className="visual-bottom">
+                  <span>HIỂU ĐÚNG</span>
+                  <span>·</span>
+                  <span>LÀM ĐÚNG</span>
+                </div>
+              </div>
+              <div className="floating-mark mark-one">✦</div>
+              <div className="floating-mark mark-two">+</div>
+            </div>
+          </div>
 
-            <div className="question-privacy">
-              <span>ⓘ</span>
-              Không nhập số căn cước, mật khẩu hoặc thông tin cá nhân nhạy cảm.
+          <div className="hero-stats">
+            <div>
+              <strong>{allPosts.length.toString().padStart(2, "0")}</strong>
+              <span>Bài viết kiến thức</span>
+            </div>
+            <div>
+              <strong>06</strong>
+              <span>Chủ đề nội dung</span>
+            </div>
+            <div>
+              <strong>APA</strong>
+              <span>Đồng hành cùng bạn</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* DANH SÁCH CÂU HỎI ĐÃ GHI NHẬN */}
-      {questions.length > 0 && (
-        <section className="apa-sent-questions">
-          <div className="apa-blog-container">
-            <div className="apa-blog-heading">
-              <div>
-                <div className="question-eyebrow">YOUR QUESTIONS</div>
-                <h2>Câu hỏi đã ghi nhận</h2>
-                <p>Các câu hỏi đã được lưu trên trình duyệt này.</p>
-              </div>
-              <span className="apa-blog-count">
-                {questions.length} câu hỏi
-              </span>
+      <section className="blog-main" id="blog-list">
+        <div className="blog-container">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">THƯ VIỆN KIẾN THỨC</span>
+              <h2>Bài viết mới nhất</h2>
+              <p>
+                Tìm hiểu thông tin và chuẩn bị tốt hơn cho các thủ tục hành chính thường gặp.
+              </p>
             </div>
+            <div className="heading-decoration">APA / INSIGHTS</div>
+          </div>
 
-            <div className="sent-question-list">
-              {questions.slice(0, 5).map((item) => (
-                <article className="sent-question" key={item.id}>
-                  <div className="sent-question-icon">?</div>
-                  <div className="sent-question-content">
-                    <div className="sent-question-meta">
-                      <strong>{item.name}</strong>
-                      <span>{item.date}</span>
-                    </div>
-                    <p>{item.question}</p>
-                    <span className="sent-question-status">
-                      <i /> Đã ghi nhận trên thiết bị
-                    </span>
-                  </div>
-                </article>
+          {featuredPost && (
+            <Link
+              href={`/blog/${featuredPost.slug}`}
+              className="featured-post"
+            >
+              <div className="featured-art">
+                <div className="featured-art-grid" />
+                <div className="featured-number">01</div>
+                <div className="featured-document">
+                  <span>APA GUIDE</span>
+                  <strong>HÀNH CHÍNH</strong>
+                  <strong>SỐ</strong>
+                  <i />
+                  <small>Thông tin · Hướng dẫn · Đồng hành</small>
+                </div>
+                <span className="featured-star">✦</span>
+              </div>
+
+              <div className="featured-content">
+                <span className="featured-tag">BÀI VIẾT NỔI BẬT</span>
+                <span className="post-category">
+                  {getCategory(featuredPost.slug)}
+                </span>
+                <h3>{featuredPost.title}</h3>
+                <p>{featuredPost.excerpt}</p>
+                <div className="post-meta">
+                  <span>{featuredPost.date}</span>
+                  <span>·</span>
+                  <span>
+                    {getReadTime(featuredPost.body)} phút đọc
+                  </span>
+                </div>
+                <span className="read-link">
+                  Đọc bài viết <b>↗</b>
+                </span>
+              </div>
+            </Link>
+          )}
+
+          <div className="blog-toolbar">
+            <div className="category-list">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setActiveCategory(category)}
+                  className={
+                    activeCategory === category
+                      ? "category-button active"
+                      : "category-button"
+                  }
+                >
+                  {category}
+                </button>
               ))}
             </div>
+
+            <label className="search-box">
+              <span aria-hidden="true">⌕</span>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Tìm kiếm bài viết..."
+                aria-label="Tìm kiếm bài viết"
+              />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch("")}
+                  aria-label="Xóa tìm kiếm"
+                >
+                  ×
+                </button>
+              )}
+            </label>
           </div>
-        </section>
-      )}
 
-      {/* DANH SÁCH BÀI VIẾT */}
-      <section className="apa-blog-container">
-        <div className="apa-blog-heading">
-          <div>
-            <div className="question-eyebrow">APA KNOWLEDGE</div>
-            <h2>Bài viết mới nhất</h2>
-            <p>Kiến thức và hướng dẫn từ APA</p>
+          <div className="result-line">
+            <span>
+              Hiển thị <strong>{filteredPosts.length}</strong> bài viết
+            </span>
+            <span className="result-note">
+              KIẾN THỨC HÀNH CHÍNH DÀNH CHO MỌI NGƯỜI
+            </span>
           </div>
 
-          <span className="apa-blog-count">
-            {filteredPosts.length} bài viết
-          </span>
-        </div>
+          {filteredPosts.length > 0 ? (
+            <div className="post-grid">
+              {filteredPosts.map((post, index) => (
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="post-card"
+                  key={post.slug}
+                >
+                  <div className={`post-art art-${index % 6}`}>
+                    <span className="art-index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="art-center">
+                      <span className="art-symbol">
+                        {getCategory(post.slug) === "Hỏi đáp"
+                          ? "?"
+                          : getCategory(post.slug) === "Doanh nghiệp"
+                            ? "⌂"
+                            : getCategory(post.slug) === "Bảo hiểm"
+                              ? "+"
+                              : "✦"}
+                      </span>
+                      <span>APA KNOWLEDGE</span>
+                    </div>
+                    <span className="art-corner">APA</span>
+                  </div>
 
-        {filteredPosts.length > 0 ? (
-          <div className="apa-blog-grid">
-            {filteredPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="apa-blog-card"
+                  <div className="post-card-content">
+                    <div className="post-card-top">
+                      <span className="post-category">
+                        {getCategory(post.slug)}
+                      </span>
+                      <span className="post-date">{post.date}</span>
+                    </div>
+
+                    <h3>{post.title}</h3>
+                    <p>{post.excerpt}</p>
+
+                    <div className="post-card-bottom">
+                      <span>{getReadTime(post.body)} phút đọc</span>
+                      <span className="card-arrow">↗</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <span>⌕</span>
+              <h3>Chưa tìm thấy bài viết phù hợp</h3>
+              <p>
+                Hãy thử từ khóa khác hoặc chọn một chủ đề khác.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch("");
+                  setActiveCategory("Tất cả");
+                }}
               >
-                <div className="apa-blog-card-top">
-                  <div className="apa-blog-icon">▤</div>
-                  <span className="apa-blog-date">{post.date}</span>
-                </div>
-
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
-                <span className="apa-blog-read">Đọc bài viết →</span>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="apa-blog-empty">
-            <div className="empty-icon">⌕</div>
-            <h3>Không tìm thấy bài viết</h3>
-            <p>Hãy thử từ khóa khác.</p>
-          </div>
-        )}
-
-        <div className="apa-blog-footer">
-          <strong>APA – Trợ lý hành chính số</strong>
-          <p>
-            Chia sẻ kiến thức để việc tìm hiểu và chuẩn bị thủ tục hành chính
-            trở nên dễ dàng, minh bạch và thuận tiện hơn.
-          </p>
+                Xem tất cả bài viết
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
-      <style>{`
+      <section className="question-section">
+        <div className="blog-container question-layout">
+          <div className="question-copy">
+            <span className="eyebrow">APA LUÔN LẮNG NGHE</span>
+            <h2>
+              Bạn đang gặp
+              <br />
+              vướng mắc gì?
+            </h2>
+            <p>
+              Hãy mô tả vấn đề hành chính bạn đang cần tìm hiểu.
+              Câu hỏi sẽ được lưu trên trình duyệt hiện tại để bạn
+              có thể xem lại.
+            </p>
+            <div className="question-note">
+              <span>i</span>
+              Không nhập mật khẩu, số tài khoản hoặc dữ liệu cá nhân
+              nhạy cảm.
+            </div>
+          </div>
+
+          <form className="question-form" onSubmit={submitQuestion}>
+            <label htmlFor="apa-question">Nội dung câu hỏi</label>
+            <textarea
+              id="apa-question"
+              value={question}
+              onChange={(event) => setQuestion(event.target.value)}
+              placeholder="Ví dụ: Tôi muốn đăng ký tạm trú thì cần chuẩn bị những gì?"
+              rows={5}
+              maxLength={1000}
+            />
+            <div className="form-footer">
+              <span>{question.length}/1000 ký tự</span>
+              <button type="submit">
+                Lưu câu hỏi <span>↗</span>
+              </button>
+            </div>
+
+            {notice && (
+              <p className="form-notice" role="status">
+                {notice}
+              </p>
+            )}
+
+            {questions.length > 0 && (
+              <div className="saved-questions">
+                <strong>
+                  Câu hỏi đã lưu trên thiết bị này ({questions.length})
+                </strong>
+                {questions.slice(0, 3).map((item, index) => (
+                  <p key={`${index}-${item}`}>{item}</p>
+                ))}
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
+
+      <section className="blog-bottom">
+        <div className="blog-container bottom-inner">
+          <div>
+            <span className="eyebrow">APA · TRỢ LÝ HÀNH CHÍNH SỐ</span>
+            <h2>Hiểu thủ tục. Chủ động hành động.</h2>
+          </div>
+          <Link href="/" className="bottom-button">
+            Khám phá APA <span>↗</span>
+          </Link>
+        </div>
+      </section>
+
+      <style jsx>{`
         .apa-blog {
-          min-height: 100vh;
-          padding-bottom: 65px;
-          color: #142b49;
-          background: #f5f8fd;
-          font-family: Inter, "Segoe UI", Arial, sans-serif;
+          --navy: #102b50;
+          --blue: #1765b5;
+          --muted: #64748b;
+          color: #172b45;
+          background: #fff;
+          overflow: hidden;
         }
 
-        .apa-blog,
-        .apa-blog * {
-          box-sizing: border-box;
+        .blog-container {
+          width: min(1160px, calc(100% - 48px));
+          margin: 0 auto;
         }
 
-        .apa-blog-hero {
+        .blog-hero {
           position: relative;
           overflow: hidden;
-          padding: 75px 22px 65px;
           color: #fff;
-          background: linear-gradient(120deg, #071b3b, #123d72 60%, #0876a9);
+          background:
+            radial-gradient(circle at 78% 45%, rgba(42, 124, 204, 0.3), transparent 32%),
+            linear-gradient(120deg, #0b1e38 0%, #123b69 62%, #15528b 100%);
         }
 
-        .blog-glow {
+        .blog-hero::after {
+          content: "";
           position: absolute;
-          border: 1px solid #ffffff20;
+          width: 520px;
+          height: 520px;
+          right: -220px;
+          top: -280px;
+          border: 1px solid rgba(255,255,255,.12);
           border-radius: 50%;
+          box-shadow: 0 0 0 55px rgba(255,255,255,.025), 0 0 0 110px rgba(255,255,255,.02);
           pointer-events: none;
         }
 
-        .blog-glow-one {
-          width: 350px;
-          height: 350px;
-          right: -80px;
-          top: -170px;
-          background: radial-gradient(circle, #4dbaff30, transparent 70%);
-          animation: blogAmbient 9s ease-in-out infinite alternate;
+        .hero-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding-top: 54px;
+          color: #b9d9f7;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 2px;
         }
 
-        .blog-glow-two {
-          width: 240px;
-          height: 240px;
-          left: 44%;
-          bottom: -180px;
-          background: radial-gradient(circle, #ffffff18, transparent 70%);
-          animation: blogAmbient 12s ease-in-out infinite alternate-reverse;
+        .label-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #65c5ff;
+          box-shadow: 0 0 14px #65c5ff;
         }
 
-        .apa-blog-inner,
-        .apa-blog-container,
-        .apa-question-layout {
-          width: min(1160px, calc(100% - 36px));
-          margin: auto;
+        .hero-content {
+          min-height: 385px;
+          display: grid;
+          grid-template-columns: 1.1fr .9fr;
+          align-items: center;
+          gap: 40px;
+          padding: 35px 0 30px;
         }
 
-        .apa-blog-inner {
+        .hero-copy h1 {
+          margin: 0;
+          font-size: clamp(42px, 5.5vw, 68px);
+          line-height: 1.08;
+          letter-spacing: -2.5px;
+          font-weight: 850;
+        }
+
+        .hero-copy h1 span {
+          color: #82c7ff;
+        }
+
+        .hero-copy p {
+          max-width: 530px;
+          margin: 22px 0 28px;
+          color: #d0e0f1;
+          font-size: 16px;
+          line-height: 1.85;
+        }
+
+        .hero-button,
+        .bottom-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 25px;
+          min-height: 48px;
+          padding: 0 20px;
+          border-radius: 7px;
+          background: #fff;
+          color: #123b69;
+          font-size: 14px;
+          font-weight: 800;
+          text-decoration: none;
+          transition: transform .2s, box-shadow .2s;
+        }
+
+        .hero-button:hover,
+        .bottom-button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 28px rgba(0,0,0,.18);
+        }
+
+        .hero-button span,
+        .bottom-button span {
+          font-size: 19px;
+        }
+
+        .hero-visual {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 330px;
+        }
+
+        .visual-orbit {
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          border: 1px solid rgba(160,210,255,.22);
+          border-radius: 50%;
+          animation: orbit 22s linear infinite;
+        }
+
+        .orbit-two {
+          width: 370px;
+          height: 370px;
+          border-style: dashed;
+          animation-direction: reverse;
+          animation-duration: 36s;
+        }
+
+        .visual-card {
           position: relative;
           z-index: 1;
+          width: min(320px, 80%);
+          padding: 24px;
+          border: 1px solid rgba(255,255,255,.35);
+          border-radius: 15px;
+          background: linear-gradient(145deg, rgba(255,255,255,.2), rgba(255,255,255,.07));
+          box-shadow: 0 24px 65px rgba(0,0,0,.22);
+          backdrop-filter: blur(12px);
+          transform: rotate(-4deg);
+          transition: transform .3s;
         }
 
-        .apa-blog-eyebrow,
-        .question-eyebrow {
-          color: #1681c7;
-          font-size: 11px;
+        .visual-card:hover {
+          transform: rotate(0deg) translateY(-5px);
+        }
+
+        .visual-card-top {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #d9ecff;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 1.6px;
+        }
+
+        .visual-icon {
+          display: grid;
+          place-items: center;
+          width: 32px;
+          height: 32px;
+          border-radius: 9px;
+          background: #fff;
+          color: #15528b;
+          font-size: 19px;
+          font-weight: 900;
+        }
+
+        .visual-lines {
+          display: grid;
+          gap: 8px;
+          margin: 26px 0;
+        }
+
+        .visual-lines i {
+          height: 6px;
+          border-radius: 10px;
+          background: rgba(255,255,255,.3);
+        }
+
+        .visual-lines i:nth-child(2) { width: 78%; }
+        .visual-lines i:nth-child(3) { width: 55%; }
+
+        .visual-document {
+          display: flex;
+          align-items: center;
+          gap: 13px;
+          padding: 15px;
+          border-radius: 10px;
+          background: rgba(255,255,255,.94);
+          color: #123b69;
+        }
+
+        .document-symbol {
+          display: grid;
+          place-items: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 9px;
+          background: #e6f3ff;
+          color: #1765b5;
+          font-size: 22px;
+        }
+
+        .visual-document strong,
+        .visual-document small {
+          display: block;
+        }
+
+        .visual-document strong { font-size: 13px; }
+        .visual-document small { margin-top: 4px; color: #64748b; font-size: 11px; }
+
+        .visual-bottom {
+          display: flex;
+          gap: 9px;
+          margin-top: 20px;
+          color: #d6eaff;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+        }
+
+        .floating-mark {
+          position: absolute;
+          z-index: 2;
+          color: #8fd3ff;
+          font-size: 32px;
+          animation: float 4s ease-in-out infinite;
+        }
+
+        .mark-one { top: 35px; right: 25px; }
+        .mark-two { bottom: 38px; left: 30px; animation-delay: -2s; }
+
+        .hero-stats {
+          display: flex;
+          gap: 65px;
+          padding: 23px 0 27px;
+          border-top: 1px solid rgba(255,255,255,.17);
+        }
+
+        .hero-stats div {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .hero-stats strong {
+          font-size: 22px;
+          color: #fff;
+        }
+
+        .hero-stats span {
+          color: #b8cce1;
+          font-size: 12px;
+        }
+
+        .blog-main {
+          padding: 86px 0 90px;
+          background: #fff;
+        }
+
+        .section-heading {
+          display: flex;
+          align-items: end;
+          justify-content: space-between;
+          gap: 20px;
+          margin-bottom: 30px;
+        }
+
+        .eyebrow {
+          color: #2472b9;
+          font-size: 10px;
           font-weight: 850;
           letter-spacing: 2px;
         }
 
-        .apa-blog-eyebrow {
-          color: #a9e3ff;
-          font-size: 12px;
-        }
-
-        .apa-blog-hero h1 {
-          max-width: 780px;
-          margin: 15px 0;
-          color: #fff;
-          font-size: clamp(32px, 5vw, 49px);
-          line-height: 1.16;
-          letter-spacing: -1.3px;
-          font-weight: 850;
-        }
-
-        .apa-blog-hero p {
-          max-width: 730px;
-          margin: 0;
-          color: #e0edfb;
-          font-size: 15px;
-          line-height: 1.85;
-        }
-
-        .apa-blog-search {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          max-width: 650px;
-          margin-top: 27px;
-          padding: 0 17px;
-          background: #fff;
-          border: 1px solid #ffffff80;
-          border-radius: 12px;
-          box-shadow: 0 9px 28px #06172e30;
-        }
-
-        .apa-blog-search span {
-          color: #1768d5;
-          font-size: 24px;
-        }
-
-        .apa-blog-search input {
-          width: 100%;
-          min-width: 0;
-          min-height: 52px;
-          padding: 10px 0;
-          color: #173252;
-          background: transparent;
-          border: 0;
-          outline: none;
-          font: inherit;
-          font-size: 14px;
-          box-shadow: none;
-        }
-
-        .apa-blog-search input:focus {
-          box-shadow: none;
-        }
-
-        /* QUESTION FORM */
-
-        .apa-question-section {
-          padding: 55px 0;
-          background: linear-gradient(135deg, #edf5ff, #f8fbff 55%, #edf4ff);
-          border-bottom: 1px solid #e0eaf5;
-        }
-
-        .apa-question-layout {
-          display: grid;
-          grid-template-columns: .9fr 1.1fr;
-          align-items: center;
-          gap: 55px;
-        }
-
-        .apa-question-intro h2 {
-          margin: 14px 0;
-          color: #112d50;
-          font-size: clamp(30px, 4vw, 42px);
+        .section-heading h2,
+        .question-copy h2,
+        .bottom-inner h2 {
+          margin: 10px 0;
+          color: #102b50;
+          font-size: clamp(29px, 3.4vw, 39px);
           line-height: 1.2;
-          letter-spacing: -1.3px;
+          letter-spacing: -1px;
         }
 
-        .apa-question-intro h2 span {
-          color: #1768d5;
-        }
-
-        .apa-question-intro > p {
-          color: #526a84;
-          font-size: 14px;
-          line-height: 1.9;
-        }
-
-        .question-benefit {
-          display: flex;
-          align-items: center;
-          gap: 13px;
-          margin-top: 22px;
-        }
-
-        .question-benefit > span {
-          display: grid;
-          width: 38px;
-          height: 38px;
-          flex: 0 0 38px;
-          place-items: center;
-          color: #1768d5;
-          background: #fff;
-          border: 1px solid #dce9f7;
-          border-radius: 11px;
-          font-size: 17px;
-          font-weight: 900;
-        }
-
-        .question-benefit strong,
-        .question-benefit small {
-          display: block;
-        }
-
-        .question-benefit strong {
-          color: #183555;
-          font-size: 13px;
-        }
-
-        .question-benefit small {
-          margin-top: 3px;
-          color: #62768e;
-          font-size: 11px;
-          line-height: 1.6;
-        }
-
-        .apa-question-card {
-          padding: 26px;
-          background: #fff;
-          border: 1px solid #dce7f3;
-          border-radius: 18px;
-          box-shadow: 0 15px 40px #153d6a12;
-        }
-
-        .question-card-heading {
-          display: flex;
-          align-items: center;
-          gap: 13px;
-          margin-bottom: 22px;
-        }
-
-        .question-card-icon {
-          display: grid;
-          width: 46px;
-          height: 46px;
-          flex: 0 0 46px;
-          place-items: center;
-          color: #fff;
-          background: linear-gradient(135deg, #1768e8, #36a5ef);
-          border-radius: 13px;
-          box-shadow: 0 7px 17px #1768e833;
-          font-size: 23px;
-          font-weight: 900;
-        }
-
-        .question-card-heading h3 {
+        .section-heading p {
           margin: 0;
-          color: #142d4c;
-          font-size: 17px;
-        }
-
-        .question-card-heading p {
-          margin: 4px 0 0;
-          color: #73849a;
-          font-size: 11px;
-        }
-
-        .apa-question-form {
-          display: grid;
-          gap: 9px;
-        }
-
-        .apa-question-form label {
-          margin-top: 7px;
-          color: #263f5d;
-          font-size: 12px;
-          font-weight: 800;
-        }
-
-        .apa-question-form label span {
-          color: #8594a7;
-          font-size: 10px;
-          font-weight: 500;
-        }
-
-        .apa-question-form label .required {
-          color: #d33d4b;
-        }
-
-        .apa-question-form input,
-        .apa-question-form textarea {
-          width: 100%;
-          padding: 12px 14px;
-          color: #142b49;
-          background: #f9fbfe;
-          border: 1px solid #dce6f1;
-          border-radius: 10px;
-          font: inherit;
-          font-size: 13px;
-          outline: none;
-          transition: border-color .2s, box-shadow .2s;
-        }
-
-        .apa-question-form input {
-          min-height: 45px;
-        }
-
-        .apa-question-form textarea {
-          min-height: 135px;
-          resize: vertical;
+          color: #64748b;
+          font-size: 14px;
           line-height: 1.7;
         }
 
-        .apa-question-form input:focus,
-        .apa-question-form textarea:focus {
-          background: #fff;
-          border-color: #3988e4;
-          box-shadow: 0 0 0 3px #1768e817;
-        }
-
-        .apa-question-form input::placeholder,
-        .apa-question-form textarea::placeholder {
-          color: #91a0b2;
-        }
-
-        .question-form-bottom {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 12px;
-          margin-top: 5px;
-        }
-
-        .question-form-bottom > span {
-          color: #7c8ca0;
+        .heading-decoration {
+          padding-bottom: 7px;
+          color: #a1afbf;
           font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 2px;
         }
 
-        .question-submit {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 15px;
-          min-height: 43px;
-          padding: 0 19px;
-          color: #fff;
-          background: linear-gradient(110deg, #1768e8, #3289f5);
-          border: 0;
-          border-radius: 9px;
-          font-size: 12px;
-          font-weight: 850;
-          cursor: pointer;
-          transition: transform .2s, box-shadow .2s;
-        }
-
-        .question-submit:hover {
-          box-shadow: 0 8px 20px #1768e833;
-          transform: translateY(-2px);
-        }
-
-        .question-submit span {
-          font-size: 17px;
-        }
-
-        .question-message {
-          padding: 10px 12px;
-          color: #146344;
-          background: #eaf8f1;
-          border: 1px solid #c8ebd9;
-          border-radius: 8px;
-          font-size: 12px;
-          line-height: 1.6;
-        }
-
-        .question-privacy {
-          display: flex;
-          align-items: flex-start;
-          gap: 7px;
-          margin-top: 15px;
-          color: #77879a;
-          font-size: 10px;
-          line-height: 1.6;
-        }
-
-        .question-privacy span {
-          color: #1768d5;
-          font-weight: 900;
-        }
-
-        /* SAVED QUESTIONS */
-
-        .apa-sent-questions {
-          padding: 40px 0 10px;
-          background: #fff;
-        }
-
-        .apa-blog-heading {
-          display: flex;
-          justify-content: space-between;
-          align-items: end;
-          gap: 15px;
-          margin-bottom: 20px;
-        }
-
-        .apa-blog-heading h2 {
-          margin: 7px 0 0;
-          color: #10294c;
-          font-size: 25px;
-        }
-
-        .apa-blog-heading p {
-          margin: 6px 0 0;
-          color: #637891;
-          font-size: 13px;
-        }
-
-        .apa-blog-count {
-          color: #536b84;
-          font-size: 12px;
-          white-space: nowrap;
-        }
-
-        .sent-question-list {
+        .featured-post {
           display: grid;
-          gap: 11px;
+          grid-template-columns: 1fr 1fr;
+          min-height: 310px;
+          margin-bottom: 55px;
+          overflow: hidden;
+          border: 1px solid #e3ebf3;
+          border-radius: 13px;
+          color: inherit;
+          text-decoration: none;
+          box-shadow: 0 12px 35px rgba(20,54,90,.055);
+          transition: box-shadow .25s, transform .25s;
         }
 
-        .sent-question {
-          display: flex;
-          align-items: flex-start;
-          gap: 13px;
-          padding: 17px;
-          background: #f8fbff;
-          border: 1px solid #e1eaf4;
-          border-radius: 12px;
+        .featured-post:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 20px 45px rgba(20,54,90,.12);
         }
 
-        .sent-question-icon {
+        .featured-art {
+          position: relative;
           display: grid;
-          width: 34px;
-          height: 34px;
-          flex: 0 0 34px;
           place-items: center;
-          color: #1768d5;
-          background: #e5f1ff;
-          border-radius: 9px;
+          min-height: 310px;
+          overflow: hidden;
+          background: linear-gradient(135deg, #0d294c, #1c65a7);
+        }
+
+        .featured-art-grid {
+          position: absolute;
+          inset: 0;
+          opacity: .2;
+          background-image: linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.2) 1px, transparent 1px);
+          background-size: 35px 35px;
+          mask-image: linear-gradient(135deg, black, transparent 85%);
+        }
+
+        .featured-number {
+          position: absolute;
+          top: 20px;
+          left: 25px;
+          color: rgba(255,255,255,.25);
+          font-size: 70px;
           font-weight: 900;
         }
 
-        .sent-question-content {
-          flex: 1;
-          min-width: 0;
+        .featured-document {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 245px;
+          padding: 26px;
+          border: 1px solid rgba(255,255,255,.4);
+          border-radius: 7px;
+          background: rgba(255,255,255,.12);
+          color: #fff;
+          transform: rotate(-3deg);
+          box-shadow: 0 15px 40px rgba(0,0,0,.2);
+          backdrop-filter: blur(8px);
         }
 
-        .sent-question-meta {
+        .featured-document span {
+          margin-bottom: 15px;
+          color: #b5dcff;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 2px;
+        }
+
+        .featured-document strong {
+          font-size: 29px;
+          line-height: 1.1;
+          letter-spacing: 1px;
+        }
+
+        .featured-document i {
+          width: 45px;
+          height: 3px;
+          margin: 18px 0 12px;
+          background: #8fd3ff;
+        }
+
+        .featured-document small {
+          color: #d5eaff;
+          font-size: 9px;
+        }
+
+        .featured-star {
+          position: absolute;
+          right: 35px;
+          bottom: 30px;
+          color: #8fd3ff;
+          font-size: 35px;
+        }
+
+        .featured-content {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          padding: 35px 42px;
+        }
+
+        .featured-tag {
+          margin-bottom: 16px;
+          color: #1765b5;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 1.5px;
+        }
+
+        .post-category {
+          display: inline-flex;
+          align-items: center;
+          width: fit-content;
+          padding: 6px 10px;
+          border-radius: 4px;
+          background: #edf5fc;
+          color: #276aa8;
+          font-size: 10px;
+          font-weight: 800;
+        }
+
+        .featured-content h3 {
+          margin: 15px 0 10px;
+          color: #102b50;
+          font-size: clamp(21px, 2.3vw, 28px);
+          line-height: 1.35;
+        }
+
+        .featured-content > p {
+          margin: 0;
+          color: #64748b;
+          font-size: 14px;
+          line-height: 1.8;
+        }
+
+        .post-meta {
+          display: flex;
+          gap: 9px;
+          margin-top: 18px;
+          color: #8795a6;
+          font-size: 11px;
+        }
+
+        .read-link {
+          display: inline-flex;
+          gap: 15px;
+          align-items: center;
+          margin-top: 22px;
+          color: #1765b5;
+          font-size: 13px;
+          font-weight: 850;
+        }
+
+        .read-link b { font-size: 18px; }
+
+        .blog-toolbar {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 10px;
+          gap: 18px;
+          padding: 17px 0;
+          border-top: 1px solid #e9eef4;
+          border-bottom: 1px solid #e9eef4;
         }
 
-        .sent-question-meta strong {
-          color: #193858;
+        .category-list {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          flex-wrap: wrap;
+        }
+
+        .category-button {
+          padding: 9px 12px;
+          border: 1px solid transparent;
+          border-radius: 5px;
+          background: transparent;
+          color: #64748b;
+          font: inherit;
+          font-size: 11px;
+          font-weight: 750;
+          cursor: pointer;
+          transition: all .2s;
+        }
+
+        .category-button:hover {
+          border-color: #d9e8f6;
+          color: #1765b5;
+        }
+
+        .category-button.active {
+          border-color: #1765b5;
+          background: #1765b5;
+          color: #fff;
+        }
+
+        .search-box {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          gap: 8px;
+          width: 230px;
+          height: 40px;
+          padding: 0 11px;
+          border: 1px solid #dce5ef;
+          border-radius: 6px;
+          color: #8292a5;
+        }
+
+        .search-box > span { font-size: 22px; }
+
+        .search-box input {
+          width: 100%;
+          min-width: 0;
+          border: 0;
+          outline: 0;
+          background: transparent;
+          color: #172b45;
+          font: inherit;
           font-size: 12px;
         }
 
-        .sent-question-meta span {
-          color: #8796a8;
-          font-size: 10px;
+        .search-box button {
+          border: 0;
+          background: none;
+          color: #64748b;
+          font-size: 19px;
+          cursor: pointer;
         }
 
-        .sent-question-content > p {
-          margin: 8px 0;
-          color: #3f5671;
-          font-size: 13px;
-          line-height: 1.8;
-          overflow-wrap: anywhere;
-        }
-
-        .sent-question-status {
-          display: inline-flex;
+        .result-line {
+          display: flex;
           align-items: center;
-          gap: 6px;
-          color: #16815e;
-          font-size: 10px;
-          font-weight: 700;
+          justify-content: space-between;
+          gap: 15px;
+          padding: 23px 0 17px;
+          color: #7a899b;
+          font-size: 11px;
         }
 
-        .sent-question-status i {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #15a578;
-        }
+        .result-line strong { color: #1765b5; }
+        .result-note { font-size: 9px; letter-spacing: 1.3px; }
 
-        /* BLOG POSTS */
-
-        .apa-blog-container {
-          padding-top: 50px;
-        }
-
-        .apa-blog-grid {
+        .post-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 19px;
+          gap: 24px;
         }
 
-        .apa-blog-card {
+        .post-card {
           display: flex;
           min-width: 0;
-          min-height: 240px;
           flex-direction: column;
-          padding: 23px;
-          color: inherit;
+          overflow: hidden;
+          border: 1px solid #e5ebf2;
+          border-radius: 9px;
           background: #fff;
-          border: 1px solid #e1e9f3;
-          border-radius: 16px;
-          box-shadow: 0 5px 20px #17365d08;
+          color: inherit;
           text-decoration: none;
           transition: transform .25s, box-shadow .25s, border-color .25s;
         }
 
-        .apa-blog-card:hover {
-          color: inherit;
-          border-color: #9fc7ee;
-          box-shadow: 0 15px 35px #17365d15;
+        .post-card:hover {
           transform: translateY(-5px);
+          border-color: #c9dced;
+          box-shadow: 0 15px 32px rgba(19,55,91,.1);
         }
 
-        .apa-blog-card-top {
+        .post-art {
+          position: relative;
+          display: grid;
+          place-items: center;
+          height: 165px;
+          overflow: hidden;
+          background: linear-gradient(135deg, #e5f1fb, #c8def2);
+        }
+
+        .post-art::before,
+        .post-art::after {
+          content: "";
+          position: absolute;
+          width: 180px;
+          height: 180px;
+          border: 1px solid rgba(23,101,181,.17);
+          border-radius: 50%;
+        }
+
+        .post-art::after {
+          width: 125px;
+          height: 125px;
+        }
+
+        .art-1 { background: linear-gradient(135deg, #e8eef9, #cbd8ed); }
+        .art-2 { background: linear-gradient(135deg, #e5f3f1, #c4e4df); }
+        .art-3 { background: linear-gradient(135deg, #f0ecfb, #d8d0f1); }
+        .art-4 { background: linear-gradient(135deg, #f7efe3, #ead9bd); }
+        .art-5 { background: linear-gradient(135deg, #e8eff5, #c9d8e7); }
+
+        .art-index {
+          position: absolute;
+          top: 13px;
+          left: 15px;
+          color: rgba(16,43,80,.3);
+          font-size: 28px;
+          font-weight: 900;
+        }
+
+        .art-center {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          gap: 8px;
+          color: #285a8b;
+        }
+
+        .art-symbol {
+          display: grid;
+          place-items: center;
+          width: 58px;
+          height: 58px;
+          border: 1px solid rgba(40,90,139,.3);
+          border-radius: 15px;
+          background: rgba(255,255,255,.55);
+          font-size: 30px;
+          font-weight: 800;
+        }
+
+        .art-center > span:last-child {
+          font-size: 8px;
+          font-weight: 900;
+          letter-spacing: 2px;
+        }
+
+        .art-corner {
+          position: absolute;
+          right: 14px;
+          bottom: 12px;
+          color: rgba(16,43,80,.35);
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 2px;
+        }
+
+        .post-card-content {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          padding: 19px 19px 15px;
+        }
+
+        .post-card-top {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 10px;
+          gap: 8px;
         }
 
-        .apa-blog-icon {
-          display: grid;
-          width: 43px;
-          height: 43px;
-          place-items: center;
-          color: #1268a8;
-          background: #eaf4ff;
-          border-radius: 12px;
-          font-size: 21px;
+        .post-date {
+          color: #91a0b0;
+          font-size: 10px;
+          white-space: nowrap;
         }
 
-        .apa-blog-date {
-          color: #74869d;
-          font-size: 11px;
-          font-weight: 650;
-        }
-
-        .apa-blog-card h3 {
-          margin: 19px 0 9px;
-          color: #173252;
+        .post-card h3 {
+          margin: 15px 0 9px;
+          color: #142f50;
           font-size: 17px;
           line-height: 1.5;
+          font-weight: 800;
+          transition: color .2s;
         }
 
-        .apa-blog-card p {
+        .post-card:hover h3 { color: #1765b5; }
+
+        .post-card-content > p {
+          display: -webkit-box;
+          overflow: hidden;
           margin: 0 0 20px;
-          color: #566c85;
-          font-size: 13px;
-          line-height: 1.8;
+          color: #718096;
+          font-size: 12px;
+          line-height: 1.75;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
         }
 
-        .apa-blog-read {
+        .post-card-bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           margin-top: auto;
-          color: #0871b5;
-          font-size: 12px;
-          font-weight: 850;
+          padding-top: 13px;
+          border-top: 1px solid #edf1f5;
+          color: #95a2b1;
+          font-size: 10px;
         }
 
-        .apa-blog-empty {
-          padding: 50px 20px;
-          color: #637891;
-          background: #fff;
-          border: 1px dashed #cbd9e8;
-          border-radius: 15px;
+        .card-arrow {
+          display: grid;
+          place-items: center;
+          width: 29px;
+          height: 29px;
+          border-radius: 50%;
+          background: #eff6fc;
+          color: #1765b5;
+          font-size: 17px;
+          transition: all .2s;
+        }
+
+        .post-card:hover .card-arrow {
+          background: #1765b5;
+          color: #fff;
+          transform: rotate(45deg);
+        }
+
+        .empty-state {
+          padding: 65px 20px;
           text-align: center;
+          border: 1px dashed #d7e2ed;
+          border-radius: 10px;
+          background: #f8fbfe;
         }
 
-        .empty-icon {
-          color: #1768d5;
-          font-size: 34px;
+        .empty-state > span {
+          color: #1765b5;
+          font-size: 35px;
         }
 
-        .apa-blog-empty h3 {
-          color: #173252;
+        .empty-state h3 { color: #102b50; }
+        .empty-state p { color: #718096; font-size: 13px; }
+
+        .empty-state button {
+          margin-top: 12px;
+          padding: 11px 17px;
+          border: 0;
+          border-radius: 5px;
+          background: #1765b5;
+          color: white;
+          font-weight: 750;
+          cursor: pointer;
         }
 
-        .apa-blog-footer {
-          margin-top: 35px;
-          padding: 22px;
-          color: #415c78;
-          background: #eaf2fa;
-          border: 1px solid #dce8f5;
-          border-radius: 14px;
+        .question-section {
+          padding: 75px 0;
+          background: #f2f7fc;
+        }
+
+        .question-layout {
+          display: grid;
+          grid-template-columns: .85fr 1.15fr;
+          align-items: start;
+          gap: 75px;
+        }
+
+        .question-copy h2 {
+          margin-top: 13px;
+          font-size: 39px;
+        }
+
+        .question-copy > p {
+          max-width: 400px;
+          color: #65768b;
+          font-size: 14px;
+          line-height: 1.85;
+        }
+
+        .question-note {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          margin-top: 25px;
+          color: #708197;
+          font-size: 11px;
+          line-height: 1.7;
+        }
+
+        .question-note span {
+          display: grid;
+          flex-shrink: 0;
+          place-items: center;
+          width: 19px;
+          height: 19px;
+          border-radius: 50%;
+          background: #dcecf9;
+          color: #1765b5;
+          font-weight: 900;
+        }
+
+        .question-form {
+          padding: 28px;
+          border: 1px solid #e1eaf3;
+          border-radius: 10px;
+          background: #fff;
+          box-shadow: 0 12px 35px rgba(22,58,94,.05);
+        }
+
+        .question-form label {
+          display: block;
+          margin-bottom: 11px;
+          color: #17395e;
+          font-size: 13px;
+          font-weight: 800;
+        }
+
+        .question-form textarea {
+          display: block;
+          width: 100%;
+          box-sizing: border-box;
+          resize: vertical;
+          padding: 14px;
+          border: 1px solid #dce6f0;
+          border-radius: 6px;
+          outline: none;
+          color: #17395e;
+          background: #fbfdff;
+          font: inherit;
+          font-size: 13px;
+          line-height: 1.7;
+          transition: border-color .2s, box-shadow .2s;
+        }
+
+        .question-form textarea:focus {
+          border-color: #3984c4;
+          box-shadow: 0 0 0 3px rgba(57,132,196,.1);
+        }
+
+        .question-form textarea::placeholder { color: #a0adbb; }
+
+        .form-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 15px;
+          margin-top: 15px;
+        }
+
+        .form-footer > span {
+          color: #98a5b4;
+          font-size: 10px;
+        }
+
+        .form-footer button {
+          display: inline-flex;
+          align-items: center;
+          gap: 20px;
+          padding: 12px 17px;
+          border: 0;
+          border-radius: 5px;
+          background: #155b9d;
+          color: #fff;
+          font: inherit;
           font-size: 12px;
-          line-height: 1.8;
+          font-weight: 800;
+          cursor: pointer;
+          transition: background .2s, transform .2s;
         }
 
-        .apa-blog-footer strong {
-          color: #14385f;
+        .form-footer button:hover {
+          transform: translateY(-2px);
+          background: #0e477e;
         }
 
-        .apa-blog-footer p {
-          margin: 5px 0 0;
+        .form-footer button span { font-size: 17px; }
+
+        .form-notice {
+          margin: 15px 0 0;
+          padding: 11px 13px;
+          border-radius: 5px;
+          background: #eef6fc;
+          color: #245d8d;
+          font-size: 11px;
+          line-height: 1.6;
         }
 
-        @keyframes blogAmbient {
-          from { transform: translate(0, 0) scale(1); }
-          to { transform: translate(-25px, 18px) scale(1.12); }
+        .saved-questions {
+          margin-top: 20px;
+          padding-top: 15px;
+          border-top: 1px solid #e8eef4;
         }
 
-        @media(max-width: 850px) {
-          .apa-blog-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-
-          .apa-question-layout {
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-          }
+        .saved-questions strong {
+          color: #17395e;
+          font-size: 11px;
         }
 
-        @media(max-width: 650px) {
-          .apa-blog-hero {
-            padding: 48px 0 43px;
-          }
-
-          .apa-blog-hero h1 {
-            font-size: 34px;
-          }
-
-          .apa-blog-hero p {
-            font-size: 13px;
-          }
-
-          .apa-blog-inner,
-          .apa-blog-container,
-          .apa-question-layout {
-            width: calc(100% - 30px);
-          }
-
-          .apa-question-section {
-            padding: 38px 0;
-          }
-
-          .apa-question-layout {
-            grid-template-columns: 1fr;
-            gap: 25px;
-          }
-
-          .apa-question-intro h2 {
-            font-size: 31px;
-          }
-
-          .apa-question-card {
-            padding: 19px 15px;
-          }
-
-          .question-form-bottom {
-            align-items: flex-end;
-          }
-
-          .apa-blog-container {
-            padding-top: 37px;
-          }
-
-          .apa-blog-grid {
-            grid-template-columns: 1fr;
-            gap: 13px;
-          }
-
-          .apa-blog-heading {
-            align-items: flex-start;
-          }
-
-          .apa-blog-card {
-            min-height: 210px;
-          }
-
-          .sent-question {
-            padding: 13px;
-          }
-
-          .sent-question-meta {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 3px;
-          }
+        .saved-questions p {
+          margin: 9px 0 0;
+          padding: 9px 11px;
+          border-radius: 5px;
+          background: #f6f9fc;
+          color: #66788d;
+          font-size: 11px;
+          line-height: 1.6;
         }
 
-        @media(prefers-reduced-motion: reduce) {
+        .blog-bottom {
+          padding: 42px 0;
+          background: #102b50;
+          color: #fff;
+        }
+
+        .bottom-inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 25px;
+        }
+
+        .bottom-inner .eyebrow { color: #91c8f3; }
+        .bottom-inner h2 {
+          margin: 9px 0 0;
+          color: #fff;
+          font-size: clamp(21px, 3vw, 29px);
+        }
+
+        .bottom-button {
+          flex-shrink: 0;
+          background: #fff;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+
+        @keyframes orbit {
+          to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 900px) {
+          .hero-content { grid-template-columns: 1fr .8fr; }
+          .hero-visual { transform: scale(.85); }
+          .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .blog-toolbar { align-items: flex-start; flex-direction: column; }
+          .search-box { width: min(100%, 350px); }
+          .question-layout { gap: 35px; }
+        }
+
+        @media (max-width: 600px) {
+          .blog-container { width: min(100% - 32px, 460px); }
+          .hero-label { padding-top: 34px; font-size: 9px; }
+          .hero-content {
+            display: block;
+            min-height: auto;
+            padding: 45px 0 20px;
+          }
+          .hero-copy h1 { font-size: 43px; letter-spacing: -1.8px; }
+          .hero-copy p { font-size: 13px; line-height: 1.8; }
+          .hero-visual { display: none; }
+          .hero-stats {
+            justify-content: space-between;
+            gap: 12px;
+            padding: 19px 0 22px;
+          }
+          .hero-stats strong { font-size: 18px; }
+          .hero-stats span { max-width: 95px; font-size: 10px; line-height: 1.5; }
+          .blog-main { padding: 55px 0 60px; }
+          .section-heading { align-items: flex-start; }
+          .section-heading h2 { font-size: 29px; }
+          .section-heading p { max-width: 320px; font-size: 12px; }
+          .heading-decoration { display: none; }
+          .featured-post { grid-template-columns: 1fr; }
+          .featured-art { min-height: 215px; }
+          .featured-document { transform: scale(.82) rotate(-3deg); }
+          .featured-content { padding: 24px 20px 27px; }
+          .featured-content h3 { font-size: 22px; }
+          .featured-content > p { font-size: 12px; }
+          .blog-toolbar { gap: 13px; }
+          .category-list {
+            width: 100%;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 7px;
+            scrollbar-width: thin;
+          }
+          .category-button { flex-shrink: 0; }
+          .search-box { width: 100%; box-sizing: border-box; }
+          .result-note { display: none; }
+          .post-grid { grid-template-columns: 1fr; gap: 15px; }
+          .post-card { display: grid; grid-template-columns: 112px minmax(0, 1fr); }
+          .post-art { height: 100%; min-height: 175px; }
+          .art-symbol { width: 43px; height: 43px; font-size: 23px; }
+          .art-center > span:last-child { font-size: 6px; letter-spacing: 1px; }
+          .art-index { top: 8px; left: 9px; font-size: 19px; }
+          .art-corner { right: 7px; bottom: 7px; font-size: 8px; }
+          .post-card-content { padding: 13px 12px 10px; }
+          .post-card-top { align-items: flex-start; flex-direction: column; gap: 6px; }
+          .post-category { padding: 5px 7px; font-size: 9px; }
+          .post-date { font-size: 9px; }
+          .post-card h3 { margin: 9px 0 6px; font-size: 13px; line-height: 1.45; }
+          .post-card-content > p { margin-bottom: 9px; font-size: 10px; line-height: 1.5; -webkit-line-clamp: 2; }
+          .post-card-bottom { padding-top: 8px; font-size: 9px; }
+          .card-arrow { width: 23px; height: 23px; font-size: 14px; }
+          .question-section { padding: 52px 0; }
+          .question-layout { grid-template-columns: 1fr; gap: 25px; }
+          .question-copy h2 { font-size: 32px; }
+          .question-copy > p { font-size: 12px; }
+          .question-form { padding: 19px 15px; }
+          .form-footer { align-items: flex-start; }
+          .form-footer button { gap: 10px; padding: 11px 13px; }
+          .bottom-inner { align-items: flex-start; flex-direction: column; }
+          .bottom-inner h2 { font-size: 22px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
           .apa-blog *,
           .apa-blog *::before,
           .apa-blog *::after {
-            animation: none !important;
-            transition: none !important;
+            animation-duration: .01ms !important;
+            transition-duration: .01ms !important;
           }
         }
       `}</style>
