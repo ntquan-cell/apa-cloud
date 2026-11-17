@@ -1,16 +1,9 @@
 
-export type BlogPost = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  date: string;
-  readTime: string;
-  featured?: boolean;
-  content: string[];
-};
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
-export const blogPosts: BlogPost[] = [
+const posts = [
   {
     slug: "huong-dan-tra-cuu-thu-tuc-hanh-chinh",
     title: "Hướng dẫn tra cứu thủ tục hành chính trực tuyến",
@@ -19,7 +12,6 @@ export const blogPosts: BlogPost[] = [
     category: "Hướng dẫn",
     date: "18/11/2026",
     readTime: "5 phút đọc",
-    featured: true,
     content: [
       "Tra cứu thông tin trước khi thực hiện thủ tục hành chính giúp người dân hiểu rõ yêu cầu, chuẩn bị giấy tờ phù hợp và hạn chế việc phải bổ sung hồ sơ nhiều lần.",
       "Trước tiên, hãy xác định chính xác tên thủ tục hoặc công việc cần thực hiện. Nếu chưa biết tên thủ tục, bạn có thể tìm theo nhu cầu thực tế như cấp lại giấy tờ, đăng ký hộ kinh doanh hoặc xác nhận thông tin cá nhân.",
@@ -104,6 +96,181 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
-export function getBlogPost(slug: string) {
-  return blogPosts.find((post) => post.slug === slug);
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export function generateStaticParams() {
+  return posts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = posts.find((item) => item.slug === slug);
+
+  if (!post) {
+    return { title: "Không tìm thấy bài viết | APA" };
+  }
+
+  return {
+    title: `${post.title} | APA`,
+    description: post.excerpt,
+  };
+}
+
+export default async function BlogDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = posts.find((item) => item.slug === slug);
+
+  if (!post) notFound();
+
+  const relatedPosts = posts.filter((item) => item.slug !== post.slug).slice(0, 3);
+
+  return (
+    <main className="article-page">
+      <header className="article-hero">
+        <div className="article-container">
+          <Link href="/blog" className="back-link">
+            ← Quay lại Blog APA
+          </Link>
+          <div className="article-category">{post.category}</div>
+          <h1>{post.title}</h1>
+          <p className="article-excerpt">{post.excerpt}</p>
+          <div className="article-meta">
+            <span>{post.date}</span>
+            <span>{post.readTime}</span>
+            <span>APA · Kiến thức hành chính</span>
+          </div>
+        </div>
+      </header>
+
+      <div className="article-container article-layout">
+        <article className="article-main">
+          <div className="article-cover">
+            <span className="cover-star">✦</span>
+            <strong>APA</strong>
+            <span>HÀNH CHÍNH SỐ</span>
+          </div>
+
+          <div className="article-body">
+            <div className="article-intro">
+              {post.excerpt}
+            </div>
+
+            {post.content.map((paragraph, index) => (
+              <section className="article-paragraph" key={index}>
+                {index === 0 && <h2>Tổng quan</h2>}
+                {index === 1 && <h2>Những nội dung cần lưu ý</h2>}
+                {index === 3 && <h2>Chủ động kiểm tra thông tin</h2>}
+                <p>{paragraph}</p>
+              </section>
+            ))}
+
+            <div className="article-disclaimer">
+              <strong>Lưu ý từ APA</strong>
+              <p>
+                Nội dung bài viết mang tính chất tham khảo và hướng dẫn chung,
+                không thay thế văn bản pháp luật hoặc hướng dẫn chính thức của
+                cơ quan có thẩm quyền. Người đọc nên kiểm tra quy định hiện
+                hành trước khi thực hiện thủ tục.
+              </p>
+            </div>
+
+            <div className="article-author">
+              <div className="author-logo">A</div>
+              <div>
+                <strong>Ban biên tập APA</strong>
+                <span>Chia sẻ kiến thức hành chính dễ hiểu và hữu ích</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <aside className="article-sidebar">
+          <div className="sidebar-card">
+            <span className="sidebar-kicker">KHÁM PHÁ APA</span>
+            <h3>Chủ động hơn với thủ tục hành chính</h3>
+            <p>
+              Tìm hiểu thông tin và chuẩn bị hồ sơ thuận tiện hơn cùng APA.
+            </p>
+            <Link href="/thu-tuc" className="sidebar-button">
+              Tra cứu thủ tục →
+            </Link>
+          </div>
+
+          <div className="sidebar-card related-card">
+            <span className="sidebar-kicker">ĐỌC TIẾP</span>
+            <h3>Bài viết liên quan</h3>
+            {relatedPosts.map((item) => (
+              <Link
+                href={`/blog/${item.slug}`}
+                className="related-link"
+                key={item.slug}
+              >
+                <span>{item.category}</span>
+                <strong>{item.title}</strong>
+                <small>{item.readTime} →</small>
+              </Link>
+            ))}
+            <Link href="/blog" className="all-posts">
+              Xem tất cả bài viết →
+            </Link>
+          </div>
+        </aside>
+      </div>
+
+      <style>{`
+        .article-page{min-height:100vh;background:#f5f8fd;color:#142b49;font-family:Inter,"Segoe UI",Arial,sans-serif}
+        .article-container{width:min(1080px,calc(100% - 48px));margin:0 auto}
+        .article-hero{position:relative;overflow:hidden;padding:65px 0 72px;color:#fff;background:linear-gradient(125deg,#071a35,#0c3568 65%,#1763a9)}
+        .article-hero:before{position:absolute;inset:0;content:"";opacity:.1;background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:40px 40px}
+        .article-hero .article-container{position:relative;z-index:1}
+        .back-link{display:inline-block;margin-bottom:32px;color:#b9dcff;font-size:13px;font-weight:700;text-decoration:none}
+        .back-link:hover{color:#fff}
+        .article-category{display:table;padding:7px 12px;color:#d9edff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:30px;font-size:12px;font-weight:750}
+        .article-hero h1{max-width:850px;margin:20px 0 15px;color:#fff;font-size:clamp(30px,4.5vw,48px);line-height:1.2;letter-spacing:-1.2px;font-weight:850}
+        .article-excerpt{max-width:760px;color:#d4e5f8;font-size:16px;line-height:1.8}
+        .article-meta{display:flex;flex-wrap:wrap;gap:20px;margin-top:24px;color:#b9d5f0;font-size:12px}
+        .article-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:30px;align-items:start;padding-top:48px;padding-bottom:80px}
+        .article-main{min-width:0;overflow:hidden;background:#fff;border:1px solid #e0e9f3;border-radius:18px;box-shadow:0 8px 28px rgba(12,43,83,.05)}
+        .article-cover{position:relative;display:flex;min-height:220px;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;color:#fff;background:radial-gradient(circle at 70% 30%,rgba(65,158,255,.45),transparent 35%),linear-gradient(135deg,#09244a,#1764ad)}
+        .article-cover:before{position:absolute;inset:0;content:"";opacity:.12;background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:30px 30px}
+        .cover-star{position:relative;color:#7ecaff;font-size:35px}
+        .article-cover strong{position:relative;font-size:65px;line-height:1;letter-spacing:-4px}
+        .article-cover>span:last-child{position:relative;margin-top:8px;color:#c9e3ff;font-size:10px;letter-spacing:3px}
+        .article-body{padding:38px 42px}
+        .article-intro{margin-bottom:30px;padding:20px 22px;color:#174d85;background:#eff6ff;border-left:4px solid #2781df;border-radius:0 10px 10px 0;font-size:16px;font-weight:650;line-height:1.85}
+        .article-paragraph h2{margin:30px 0 12px;color:#103866;font-size:21px;font-weight:850}
+        .article-paragraph p{margin:0 0 20px;color:#405772;font-size:15px;line-height:2}
+        .article-disclaimer{margin-top:35px;padding:20px 22px;background:#fff8e9;border:1px solid #f2e3bd;border-radius:12px}
+        .article-disclaimer strong{color:#79531a;font-size:14px}
+        .article-disclaimer p{margin:8px 0 0;color:#755f3d;font-size:13px;line-height:1.8}
+        .article-author{display:flex;align-items:center;gap:13px;margin-top:32px;padding-top:25px;border-top:1px solid #e8eef5}
+        .author-logo{display:grid;width:43px;height:43px;flex-shrink:0;place-items:center;color:#fff;background:linear-gradient(135deg,#0b3262,#2383d2);border-radius:50%;font-size:21px;font-weight:900}
+        .article-author strong,.article-author span{display:block}
+        .article-author strong{color:#183c65;font-size:13px}
+        .article-author span{margin-top:4px;color:#7b8da3;font-size:11px}
+        .article-sidebar{display:grid;gap:18px}
+        .sidebar-card{padding:23px;background:#fff;border:1px solid #e0e9f3;border-radius:15px;box-shadow:0 6px 20px rgba(12,43,83,.04)}
+        .sidebar-kicker{color:#2375c8;font-size:10px;font-weight:850;letter-spacing:1.4px}
+        .sidebar-card h3{margin:10px 0;color:#10345e;font-size:19px;line-height:1.45;font-weight:850}
+        .sidebar-card>p{color:#667b93;font-size:13px;line-height:1.8}
+        .sidebar-button{display:block;margin-top:17px;padding:12px;text-align:center;color:#fff;background:#1765c2;border-radius:9px;font-size:12px;font-weight:800;text-decoration:none}
+        .sidebar-button:hover{background:#0b3974}
+        .related-card h3{margin-bottom:16px}
+        .related-link{display:block;padding:15px 0;border-top:1px solid #edf1f6;text-decoration:none}
+        .related-link span,.related-link strong,.related-link small{display:block}
+        .related-link span{color:#2674be;font-size:10px;font-weight:750}
+        .related-link strong{margin:6px 0;color:#173c65;font-size:13px;line-height:1.5}
+        .related-link small{color:#8494a8;font-size:10px}
+        .related-link:hover strong{color:#1768e8}
+        .all-posts{display:block;margin-top:10px;color:#1768d4;font-size:12px;font-weight:800;text-decoration:none}
+        @media(max-width:850px){.article-layout{grid-template-columns:1fr}.article-sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+        @media(max-width:600px){.article-container{width:calc(100% - 32px)}.article-hero{padding:42px 0 48px}.back-link{margin-bottom:25px}.article-hero h1{font-size:30px}.article-excerpt{font-size:14px}.article-meta{gap:12px}.article-layout{padding-top:25px;padding-bottom:50px;gap:20px}.article-cover{min-height:170px}.article-body{padding:24px 20px}.article-intro{padding:16px;font-size:14px}.article-paragraph h2{font-size:19px}.article-paragraph p{font-size:14px;line-height:1.9}.article-sidebar{grid-template-columns:1fr}}
+        @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+      `}</style>
+    </main>
+  );
 }
